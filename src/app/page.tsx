@@ -5,30 +5,53 @@ export default function Home() {
       <section id="about" className="space-y-12">
         <div className="space-y-8">
           <p className="text-xl leading-relaxed">
-            {"I'm an AI Solutions Architect and Digital Transformation Expert with a robust 6-year track record in driving Industry 4.0 innovations. My expertise lies in designing and automating complex processes, with a focus on practical AI applications, machine learning models, and intuitive software development."}
-          </p>
-
-          <p className="text-xl leading-relaxed">
-            Currently, I&apos;m an{' '}
+            {"I'm an engineer and researcher in the field of AI and its applications in industry & manufacturing. I've had the privilege of living in "}
             <span className="text-orange-400 font-medium">
-              AI Production Planning Strategist
-            </span>{' '}
-            at Continental Tires IT in Hannover, where I conduct strategic analysis of AI applications in production planning, focusing on improving accuracy and operational efficiency aligned with the company&apos;s 2030 vision.
+              Iran, Spain, Germany, and Mexico
+            </span>
+            {" while working with global teams in "}
+            <span className="text-orange-400 font-medium">
+              Mining & Automotive
+            </span>
+            {" fields."}
           </p>
 
           <p className="text-xl leading-relaxed">
-            My journey spans from software implementation at{' '}
-            <span className="text-orange-400 font-medium">Auto IT</span> to AI research at{' '}
-            <span className="text-orange-400 font-medium">TechTalentLab</span>. I&apos;m AWS Cloud Practitioner certified and passionate about creating innovative, scalable intelligent systems that drive business transformation.
+            Beyond the work, I&apos;m usually trying to pick up some German or Spanish, exploring new technologies like building this website with NextJS. I also love spending time with my{' '}
+            <span className="text-orange-400 font-medium">
+              Raspberry Pi
+            </span>
+            , experimenting with little side projects like Home Assitant/Automation. When I need to chill, I read{' '} 
+            <span className="text-orange-400 font-medium">
+              books
+            </span>
+            , cooking up something new while listening to podcasts, or ofcourse playing video games.
+
           </p>
         </div>
 
         <div className="space-y-6">
-          <h3 className="font-mono text-orange-400 text-lg">Core Tech Stack:</h3>
+          <h3 className="font-mono text-orange-400 text-lg">Professional Highlights:</h3>
+          <ul className="space-y-4">
+            {[
+              <>Published & Presented research on chatbots in recruitment during my MSc in 2022 - <a href="https://aisel.aisnet.org/mcis2022/7/?utm_source=aisel.aisnet.org%2Fmcis2022%2F7&utm_medium=PDF&utm_campaign=PDFCoverPages" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300 transition-colors duration-300">Read Paper</a></>,
+              <>Developing a LLM based service leveraging AI for Online Marketing Data Analysis - <a href="https://github.com/BabakBar/Orixa" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:text-orange-300 transition-colors duration-300">View Project</a></>,
+              'Experience across ERP/SAP, Data Science, Software Development, and AI Engineering',
+            ].map((point, index) => (
+              <li key={index} className="flex items-start space-x-4 group/item">
+                <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                <span className="text-lg leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-6">
+          <h3 className="font-mono text-orange-400 text-lg">Tech Stack:</h3>
           <div className="grid grid-cols-3 gap-4 max-w-[600px]">
             {[
               'Python', 'AWS', 'LLMs', 'ASP.NET', 'Angular', 'C#',
-              'Docker', 'Terraform', 'Git', 'SQL', 'SAP', 'REST APIs'
+              'Docker', 'Terraform', 'Git', 'SQL', 'SAP', 'Linux'
             ].map((tech) => (
               <div key={tech} 
                    className="group relative px-4 py-2 bg-orange-400/5 rounded-full border border-orange-400/20 

@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-  title: 'Babak Barghi | AI Solutions Architect',
-  description: 'Digital Transformation Expert with expertise in AI, machine learning, and software development',
+  title: 'Babak Barghi | Software Solutions Architect',
+  description: 'AI | Data | Cloud',
 };
 
 export default function RootLayout({
@@ -23,9 +23,9 @@ export default function RootLayout({
                 {/* Logo/Name */}
                 <div className="mb-8 lg:mb-32">
                   <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-slate-200 mb-2 lg:mb-4">Babak Barghi</h1>
-                  <h2 className="text-xl lg:text-2xl text-orange-400 mb-3 lg:mb-6">AI Solutions Architect</h2>
+                  <h2 className="text-xl lg:text-2xl text-orange-400 mb-3 lg:mb-6">Software Solutions Architect</h2>
                   <p className="text-base lg:text-lg text-slate-400 leading-relaxed">
-                    Digital Transformation Expert
+                    AI | Data | Cloud
                   </p>
                 </div>
 
@@ -76,15 +76,6 @@ export default function RootLayout({
                       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                       <rect x="2" y="9" width="4" height="12"></rect>
                       <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                  </a>
-                  <a href="https://babakbar.github.io" target="_blank" rel="noopener noreferrer" 
-                     className="text-slate-400 hover:text-orange-400 transition-all duration-300 hover:-translate-y-1 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="2" y1="12" x2="22" y2="12"></line>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                     </svg>
                   </a>
                 </div>
