@@ -14,8 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="bg-[#0a192f] text-slate-400 antialiased">
-        <div className="min-h-screen max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-[2fr_3fr]">
+        <div className="min-h-screen max-w-[1200px] mx-auto px-8 lg:px-16">
+          <div className="grid grid-cols-[1fr_1.5fr]">
             {/* Sidebar */}
             <aside className="fixed h-screen py-20 pr-12">
               <div className="flex flex-col h-full">
@@ -77,7 +77,7 @@ export default function RootLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="col-start-2 py-20 pl-12">
+            <main className="col-start-2 py-20 pl-16">
               {children}
             </main>
           </div>
