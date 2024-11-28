@@ -27,8 +27,8 @@ export default function Home() {
           <h3 className="font-mono text-orange-400 text-lg">Core Tech Stack:</h3>
           <div className="grid grid-cols-3 gap-4 max-w-[600px]">
             {[
-              'Python', 'R', 'C#', 'ASP.NET', 'Angular', 'NLP-LLMs',
-              'Docker', 'AWS', 'Git', 'SQL', 'SAP ABAP', 'REST APIs'
+              'Python', 'AWS', 'LLMs', 'ASP.NET', 'Angular', 'C#',
+              'Docker', 'Terraform', 'Git', 'SQL', 'SAP', 'REST APIs'
             ].map((tech) => (
               <div key={tech} 
                    className="group relative px-4 py-2 bg-orange-400/5 rounded-full border border-orange-400/20 
