@@ -1,6 +1,6 @@
 # Personal Website
 
-A modern, responsive personal website showcasing my experience.
+A modern, responsive personal website showcasing my experience. Personal challenge to work with new stack below to learn some hyped stuff!
 
 ## Tech Stack
 
