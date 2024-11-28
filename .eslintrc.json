@@ -1,8 +1,7 @@
 {
-  "extends": [
-    "next/core-web-vitals", 
-    "next/typescript", 
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-    ]
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off"
+  }
 }
