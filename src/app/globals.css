@@ -46,11 +46,11 @@
 /* Mobile-first responsive design */
 @media (max-width: 768px) {
   body {
-    @apply text-base;
+    @apply text-sm;
   }
 
   h1 {
-    @apply text-3xl;
+    @apply text-2xl;
   }
 
   h2 {
@@ -60,6 +60,23 @@
   .experience-item:hover {
     @apply translate-x-0;
   }
+}
+
+/* Navigation active section animation */
+@keyframes navPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(251, 146, 60, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
+  }
+}
+
+.nav-active-bg {
+  animation: navPulse 3s infinite;
 }
 
 /* Animations */
@@ -158,15 +175,6 @@ button:focus-visible {
   @apply relative overflow-hidden;
 }
 
-.nav-link::after {
-  content: '';
-  @apply absolute -bottom-1 left-0 w-0 h-[2px] bg-orange-400/60 transition-all duration-300;
-}
-
-.nav-link:hover::after {
-  @apply w-full;
-}
-
 /* Social links hover animation */
 .social-link {
   @apply transition-all duration-300;
@@ -191,20 +199,6 @@ button:focus-visible {
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Enhanced link underline animation */
-.link-underline {
-  @apply relative;
-}
-
-.link-underline::after {
-  content: '';
-  @apply absolute -bottom-0.5 left-0 w-0 h-[2px] bg-orange-400 transition-all duration-300;
-}
-
-.link-underline:hover::after {
-  @apply w-full;
 }
 
 /* Active section indicator */

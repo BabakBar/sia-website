@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Navigation from './components/Navigation';
 
 export const metadata: Metadata = {
   title: 'Babak Barghi | Software Solutions Architect',
@@ -22,30 +23,15 @@ export default function RootLayout({
               <div className="flex flex-col h-full lg:max-w-none">
                 {/* Logo/Name */}
                 <div className="mb-8 lg:mb-32">
-                  <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-slate-200 mb-2 lg:mb-4">Babak Barghi</h1>
-                  <h2 className="text-xl lg:text-2xl text-orange-400 mb-3 lg:mb-6">Software Solutions Architect</h2>
-                  <p className="text-base lg:text-lg text-slate-400 leading-relaxed">
+                  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-slate-200 mb-2 lg:mb-4">Babak Barghi</h1>
+                  <h2 className="text-lg lg:text-xl text-orange-400 mb-3 lg:mb-6">Software Solutions Architect</h2>
+                  <p className="text-sm lg:text-base text-slate-400 leading-relaxed">
                     AI | Data | Cloud
                   </p>
                 </div>
 
                 {/* Navigation */}
-                <nav className="space-y-6 lg:space-y-10">
-                  <a href="#about" className="group flex items-start text-base lg:text-lg text-slate-400 hover:text-slate-200 transition-colors duration-300 min-h-[44px]">
-                    <span className="font-mono text-orange-400 opacity-60 mr-4 text-sm pt-1.5">01.</span>
-                    <span className="relative uppercase tracking-wider">
-                      ABOUT
-                      <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
-                    </span>
-                  </a>
-                  <a href="#experience" className="group flex items-start text-base lg:text-lg text-slate-400 hover:text-slate-200 transition-colors duration-300 min-h-[44px]">
-                    <span className="font-mono text-orange-400 opacity-60 mr-4 text-sm pt-1.5">02.</span>
-                    <span className="relative uppercase tracking-wider">
-                      EXPERIENCE
-                      <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
-                    </span>
-                  </a>
-                </nav>
+                <Navigation />
 
                 {/* Contact Info */}
                 <div className="mt-8 lg:mt-auto space-y-4">
