@@ -38,7 +38,7 @@ export default function Home() {
               'Experience across ERP/SAP, Data Science, Software Development, and AI Engineering',
             ].map((point, index) => (
               <li key={index} className="flex items-start space-x-4 group/item">
-                <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                <span className="text-orange-400 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
                 <span className="text-base leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
               </li>
             ))}
@@ -83,7 +83,7 @@ export default function Home() {
                 'Developed and implemented an advanced AI system to track and enhance model performance for existing predictors, enabling data-driven decision-making'
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-4 group/item">
-                  <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                  <span className="text-orange-400 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
                   <span className="text-base leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
                 </li>
               ))}
@@ -104,7 +104,7 @@ export default function Home() {
                 'Analysis of the current state of Artificial Intelligence uses in the e-recruitment process by focusing on Natural Language Understanding, Human-Robot Interaction, Deep Learning, and Reinforcement Learning',
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-4 group/item">
-                  <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                  <span className="text-orange-400 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
                   <span className="text-base leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
                 </li>
               ))}
@@ -126,7 +126,7 @@ export default function Home() {
                 'Streamlined processes and optimized data systems in Iran\'s largest IT project "MIDRP"'
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-4 group/item">
-                  <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                  <span className="text-orange-400 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
                   <span className="text-base leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
                 </li>
               ))}
@@ -146,7 +146,7 @@ export default function Home() {
                 'Family business that operates on Electronics and Panel Manufacturing divisions',
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-4 group/item">
-                  <span className="text-orange-400 mt-2 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
+                  <span className="text-orange-400 transform group-hover/item:translate-x-2 transition-transform duration-300">▹</span>
                   <span className="text-base leading-relaxed group-hover/item:text-slate-200 transition-colors duration-300">{point}</span>
                 </li>
               ))}
