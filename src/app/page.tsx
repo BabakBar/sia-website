@@ -78,8 +78,8 @@ export default function Home() {
             </div>
             <ul className="space-y-6 mt-6">
               {[
-                'Developing middleware and software solutions for talent acquisition & hiring IT systems, focusing on the AWS architecture',
-                'Create/Develop Windows and Web Applications for Automotive IT use cases with the collaboration of a global team using various tech stacks',
+                'Design and implement enterprise-scale solutions across diverse domains, specializing in Python-based applications and infrastructure automation with Terraform in AWS environments.',
+                'Created/Developed Windows and Web Applications for Automotive IT use cases with the collaboration of a global team using various tech stacks',
                 'Developed and implemented an advanced AI system to track and enhance model performance for existing predictors, enabling data-driven decision-making'
               ].map((point, index) => (
                 <li key={index} className="flex items-start space-x-4 group/item">
