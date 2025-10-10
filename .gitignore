@@ -9,6 +9,8 @@ sia.txt
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/.claude
+.mcp.json
 
 # testing
 /coverage
