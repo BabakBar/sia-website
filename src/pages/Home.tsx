@@ -17,7 +17,7 @@ export default function Home() {
           </p>
 
           <p className="text-lg leading-relaxed">
-            Beyond the work, I&apos;m usually trying to pick up some German or Spanish, exploring new technologies like building this website with NextJS. I also love spending time with my{' '}
+            Beyond the work, I&apos;m usually trying to pick up some German or Spanish, exploring new technologies like building this website with Vite + React. I also love spending time with my{' '}
             <span className="text-orange-400 font-medium">
               Raspberry Pi
             </span>
