@@ -133,18 +133,18 @@ src/app/                    src/
 ## Testing Results
 
 ### Development
-- ✅ `npm run dev` - Starts in ~200ms
+- ✅ `bun run dev` - Starts in ~200ms
 - ✅ Hot Module Replacement (HMR) works
 - ✅ TypeScript compilation on save
 
 ### Production
-- ✅ `npm run build` - Completes successfully
-- ✅ `npm run preview` - Serves production build
+- ✅ `bun run build` - Completes successfully
+- ✅ `bun run preview` - Serves production build
 - ✅ All routes work correctly
 - ✅ PWA installable
 
 ### Quality Checks
-- ✅ `npm run lint` - 0 errors
+- ✅ `bun run lint` - 0 errors
 - ✅ TypeScript: 0 errors
 - ✅ Navigation: Works perfectly
 - ✅ Animations: All preserved
@@ -209,15 +209,15 @@ src/app/                    src/
 
 ```bash
 # Development
-npm run dev          # Start dev server (port 3000)
+bun run dev          # Start dev server (port 3000)
 
 # Production
-npm run build        # Build for production
-npm run preview      # Preview production build
+bun run build        # Build for production
+bun run preview      # Preview production build
 
 # Quality
-npm run lint         # Run ESLint
-npm run lint:fix     # Auto-fix ESLint issues
+bun run lint         # Run ESLint
+bun run lint:fix     # Auto-fix ESLint issues
 ```
 
 ---
