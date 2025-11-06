@@ -64,20 +64,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ['react', 'react-dom', 'react-router-dom'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-          ui: ['framer-motion', 'lucide-react'],
-          forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
-          query: ['@tanstack/react-query'],
-        },
-      },
-    },
-    chunkSizeWarningLimit: 1000,
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
   },
 });
