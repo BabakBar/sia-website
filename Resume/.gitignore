@@ -1,0 +1,21 @@
+# Build outputs
+output/
+*.pdf
+
+# System files
+.DS_Store
+._.DS_Store
+**/.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Typst cache
+.typst/
+
+# Temporary files
+*.tmp

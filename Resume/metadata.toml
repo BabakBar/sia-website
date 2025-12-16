@@ -1,0 +1,90 @@
+#:schema https://raw.githubusercontent.com/yunanwg/brilliant-CV/main/metadata.toml.schema.json
+
+# Set the output language
+language = "en"
+
+[layout]
+    # Sexy dark blue
+    awesome_color = "#1a365d"
+
+    # Compact spacing for one-page fit
+    before_section_skip = "2pt"
+    before_entry_skip = "2pt"
+    before_entry_description_skip = "1pt"
+
+    paper_size = "a4"
+
+    [layout.fonts]
+        regular_fonts = ["Source Sans 3", "Source Sans Pro"]
+        header_font = "Roboto"
+
+    [layout.header]
+        header_align = "left"
+        # No photo for ATS optimization
+        display_profile_photo = false
+        profile_photo_radius = "50%"
+        info_font_size = "8.5pt"
+
+    [layout.entry]
+        # Show title first (Cloud Engineer at Continental)
+        display_entry_society_first = false
+        # No logos for cleaner ATS-friendly look
+        display_logo = false
+
+    [layout.footer]
+        display_page_counter = false
+        display_footer = false
+
+[inject]
+    # ATS keyword injection (invisible to humans)
+    inject_ai_prompt = false
+    inject_keywords = true
+    injected_keywords_list = [
+        "Cloud Engineer",
+        "Azure",
+        "AWS",
+        "Terraform",
+        "Infrastructure as Code",
+        "IaC",
+        "Databricks",
+        "Kubernetes",
+        "Docker",
+        "CI/CD",
+        "DevOps",
+        "FinOps",
+        "Python",
+        "Cloud Architecture",
+        "Multi-cloud",
+        "Private Link",
+        "VNet",
+        "Networking",
+        "Hub-Spoke",
+        "ExpressRoute",
+        "Data Platform",
+        "Azure Functions",
+        "Key Vault",
+        "Python",
+        "Bash",
+        "PowerShell",
+        "Git",
+        "Agile",
+        "Scrum",
+        "Data Engineering"
+    ]
+
+[personal]
+    first_name = "Babak"
+    last_name = "Barghi"
+
+    [personal.info]
+        email = "babak.barghi@gmail.com"
+        phone = "+49 157 5827 1210"
+        linkedin = "babakbarghi"
+        github = "BabakBar"
+        homepage = "babakbarghi.com"
+        location = "Hannover, Germany"
+
+[lang.en]
+    header_quote = "Cloud Engineer | Azure & AWS | Infrastructure as Code | Data Platforms"
+    cv_footer = "Curriculum vitae"
+    letter_footer = "Cover letter"
