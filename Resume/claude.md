@@ -31,7 +31,19 @@ make job NAME=x # Create job-specific variant
 ## Technical Notes
 - Font warnings (Source Sans, Roboto) are cosmetic - PDF compiles fine with fallbacks
 - Font Awesome 7 installed via homebrew (`brew install --cask font-fontawesome`)
-- **Modified brilliant-cv template**: Contact icons are clickable (modified `/Users/Sia/Library/Caches/typst/packages/preview/brilliant-cv/3.1.1/src/cv.typ` to wrap icons+text in links)
 - English-only (German support removed)
 - Current role: Cloud Engineer at Continental (Azure/AWS, IaC, Data platforms)
 - AWS Certified Solutions Architect (Oct 2024), studying for AZ-104
+
+### Template Modifications
+Modified `/Users/Sia/Library/Caches/typst/packages/preview/brilliant-cv/3.1.1/src/cv.typ`:
+
+**Header layout (lines 116-127):**
+- Swapped positions line with contact info
+- Order: Name → Positions (header_quote) → Contact details
+- Reason: Better hierarchy, positions more prominent
+
+**Font sizes:**
+- Name: 32pt → 26pt (lines 18, 23)
+- Section headers: 16pt → 14pt (line 300)
+- Reason: Better mobile scalability, improved content density

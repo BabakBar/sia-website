@@ -16,16 +16,18 @@
 )
 
 // Section order optimized for senior cloud engineer roles:
-// 1. Skills (keywords first for ATS)
-// 2. Certifications (gate-opener for senior roles)
-// 3. Experience (most important)
-// 4. Education
-// 5. Publications (differentiator)
+// 1. Summary (context + scope for ATS/NLP)
+// 2. Skills (keywords first for ATS)
+// 3. Certifications (gate-opener for senior roles)
+// 4. Experience (most important)
+// 5. Education
+// 6. Publications (differentiator)
 
 #import-modules((
-  "skills",
-  "certificates",
+  "summary",
   "professional",
+  "skills",
   "education",
+  "certificates",
   "publications",
 ))

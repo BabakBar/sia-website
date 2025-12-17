@@ -41,12 +41,20 @@ language = "en"
     inject_keywords = true
     injected_keywords_list = [
         "Cloud Engineer",
+        "Platform Engineer",
+        "Cloud Architect",
+        "Solutions Architecture",
         "Azure",
         "AWS",
         "Terraform",
         "Infrastructure as Code",
         "IaC",
+        "Bicep",
+        "ARM Templates",
+        "CloudFormation",
         "Databricks",
+        "Azure Databricks",
+        "Unity Catalog",
         "Kubernetes",
         "Docker",
         "CI/CD",
@@ -55,26 +63,37 @@ language = "en"
         "Python",
         "Cloud Architecture",
         "Multi-cloud",
+        "Cloud Security",
+        "Identity and Access Management",
+        "IAM",
         "Private Link",
+        "Private Endpoints",
         "VNet",
         "Networking",
         "Hub-Spoke",
         "ExpressRoute",
+        "Transit Gateway",
         "Data Platform",
         "Azure Functions",
-        "Key Vault",
-        "Python",
         "Bash",
         "PowerShell",
         "Git",
+        "GitHub Actions",
+        "Azure DevOps",
+        "Observability",
+        "Prometheus",
+        "Grafana",
+        "Stakeholder Management",
+        "Cross-functional Collaboration",
+        "Technical Leadership",
         "Agile",
         "Scrum",
         "Data Engineering"
     ]
 
 [personal]
-    first_name = "Babak"
-    last_name = "Barghi"
+    first_name = "Babak Barghi"
+    last_name = ""
 
     [personal.info]
         email = "babak.barghi@gmail.com"
@@ -85,6 +104,6 @@ language = "en"
         location = "Hannover, Germany"
 
 [lang.en]
-    header_quote = "Cloud Engineer | Azure & AWS | Infrastructure as Code | Data Platforms"
+    header_quote = "Cloud Engineer | Solution Architect | Platform & Data"
     cv_footer = "Curriculum vitae"
     letter_footer = "Cover letter"
