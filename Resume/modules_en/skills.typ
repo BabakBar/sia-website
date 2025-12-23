@@ -14,7 +14,7 @@
 )
 
 #cv-skill(
-  type: [Code & Data],
+  type: [Code],
   info: [Python · GO · Bash · PowerShell · SQL · C\#/.NET · Angular],
 )
 
