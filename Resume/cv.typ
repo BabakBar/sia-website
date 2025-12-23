@@ -18,20 +18,18 @@
 // Section order optimized for senior cloud engineer roles:
 // 1. Summary (context + scope for ATS/NLP)
 // 2. Professional Experience (progression: data scientist → solutions → platform architect)
-// 3. Advisory & Leadership (business acumen, differentiators)
-// 4. Skills (technical keywords for ATS)
-// 5. Projects (hands-on technical credibility)
-// 6. Education
-// 7. Certifications (gate-opener for senior roles)
-// 8. Publications (research credibility)
+// 3. Skills (technical keywords for ATS)
+// 4. Projects (hands-on technical credibility)
+// 5. Education
+// 6. Publications (research credibility)
+// Optional: Advisory & Leadership (uncomment for roles valuing business acumen)
 
 #import-modules((
 	  "summary",
 	  "professional",
-	  "advisory",
+	  // "advisory",  // uncomment for leadership-focused roles
 	  "projects",
 	  "skills",
 	  "education",
-	  "certificates",
 	  "publications",
 	))
