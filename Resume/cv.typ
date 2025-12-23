@@ -19,8 +19,8 @@
 // 1. Summary (context + scope for ATS/NLP)
 // 2. Professional Experience (progression: data scientist → solutions → platform architect)
 // 3. Skills (technical keywords for ATS)
-// 4. Projects (hands-on technical credibility)
-// 5. Education
+// 4. Education
+// 5. Projects (hands-on technical credibility)
 // 6. Publications (research credibility)
 // Optional: Advisory & Leadership (uncomment for roles valuing business acumen)
 
@@ -28,8 +28,8 @@
 	  "summary",
 	  "professional",
 	  // "advisory",  // uncomment for leadership-focused roles
-	  "projects",
 	  "skills",
 	  "education",
+	  "projects",
 	  "publications",
 	))

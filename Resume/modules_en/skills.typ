@@ -5,7 +5,7 @@
 
 #cv-skill(
   type: [Cloud & IaC],
-  info: [Azure · AWS (Certified) · Terraform · ARM],
+  info: [Azure · #link("https://www.credly.com/badges/496dbf4c-06e1-4879-b156-3e8ea1866637/public_url")[AWS (Certified)] · Terraform · ARM],
 )
 
 #cv-skill(
@@ -15,7 +15,7 @@
 
 #cv-skill(
   type: [Code & Data],
-  info: [Python · GO · Bash · PowerShell · SQL · Databricks],
+  info: [Python · GO · Bash · PowerShell · SQL · C\#/.NET · Angular],
 )
 
 #cv-skill(

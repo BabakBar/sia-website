@@ -4,7 +4,6 @@
 #cv-section("Publications")
 
 #block[
-  #set text(size: 9pt)
-  *An Overview of Chatbots Usage in Recruitment and Selection Practices* \
-  MCIS 2022 Conference, Italy — #link("https://aisel.aisnet.org/mcis2022/7")[View Paper]
+  #text(size: 10pt, weight: "bold")[An Overview of Chatbots Usage in Recruitment and Selection Practices] \
+  #text(size: 9pt)[MCIS 2022 Conference, Italy — #link("https://aisel.aisnet.org/mcis2022/7")[View Paper]]
 ]

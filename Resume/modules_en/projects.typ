@@ -1,29 +1,16 @@
 // Selected Projects
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-entry
+#import "@preview/brilliant-cv:3.1.1": cv-section
 
 #cv-section("Selected Projects")
 
-#cv-entry(
-  title: [AutoSpendTracker],
-  society: [Open Source],
-  date: [2025],
-  location: [],
-  description: list(
-    [Built an AI-powered personal finance tracker that parses Gmail notifications and writes categorized, multi-currency spend to Google Sheets (Gemini via Google Gen AI, Gmail/Sheets APIs) · #link("https://github.com/BabakBar/AutoSpendTracker")[github.com/BabakBar/AutoSpendTracker]],
-  ),
-)
+#block[
+  #text(size: 10pt, weight: "bold")[BoringHannover] #link("https://boringhannover.de")[🔗] #link("https://github.com/BabakBar/BoringHannover")[↗]\
+  #text(size: 9pt)[Stateless weekly events aggregator for Hannover (cinema, concerts, culture) with pluggable source framework]
+]
 
-#cv-entry(
-  title: [BoringHannover],
-  society: [Open Source],
-  date: [2025],
-  location: [],
-  description: list(
-    [Built a stateless weekly events aggregator for Hannover (cinema, concerts, culture) with a pluggable source framework; published at #link("https://boringhannover.de")[boringhannover.de] · #link("https://github.com/BabakBar/BoringHannover")[github.com/BabakBar/BoringHannover]],
-  ),
-)
+#v(2pt)
 
 #block[
-  #set text(size: 9pt)
-  For a detailed view, please visit my GitHub: #link("https://github.com/BabakBar")[github.com/BabakBar]
+  #text(size: 10pt, weight: "bold")[AutoSpendTracker] #link("https://github.com/BabakBar/AutoSpendTracker")[🔗]\
+  #text(size: 9pt)[AI-powered finance tracker: parses Gmail notifications, writes categorized multi-currency spend to Sheets]
 ]
