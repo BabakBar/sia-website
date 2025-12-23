@@ -4,31 +4,21 @@
 #cv-section("Technical Skills")
 
 #cv-skill(
-  type: [Cloud Platforms],
-  info: [Azure (Databricks, Functions, Key Vault, Storage) · AWS (EC2, S3, Lambda, IAM, Transit Gateway)],
+  type: [Cloud & IaC],
+  info: [Azure · AWS (Certified) · Terraform · ARM],
 )
 
 #cv-skill(
-  type: [Infrastructure as Code],
-  info: [Terraform · ARM Templates · CloudFormation · Bicep],
+  type: [Platform & Ops],
+  info: [Docker · Kubernetes · GitHub Actions · Azure DevOps · Prometheus · Grafana],
 )
 
 #cv-skill(
-  type: [Containers & CI/CD],
-  info: [Docker · Kubernetes · GitHub Actions · Azure DevOps · GitLab CI],
+  type: [Code & Data],
+  info: [Python · GO · Bash · PowerShell · SQL · Databricks],
 )
 
 #cv-skill(
-  type: [Networking],
-  info: [Hub-Spoke Architecture · Private Link/Endpoints · DNS Private Resolver · ExpressRoute · VPN],
-)
-
-#cv-skill(
-  type: [Languages & Scripting],
-  info: [Python · Bash · PowerShell · Go · SQL],
-)
-
-#cv-skill(
-  type: [Data & Monitoring],
-  info: [Databricks · PostgreSQL · Azure Monitor · Prometheus · Grafana],
+  type: [Languages],
+  info: [English (C1) · German (A2) · Spanish (B1) · Persian (Native)],
 )
