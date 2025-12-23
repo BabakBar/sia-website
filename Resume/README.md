@@ -19,7 +19,7 @@ make watch
 
 ## Structure
 
-```
+```text
 resume/
 ├── cv.typ              # Main resume file
 ├── metadata.toml       # Personal info, colors, ATS keywords
@@ -39,6 +39,7 @@ resume/
 ### Per-Job Applications
 
 1. Create a copy:
+
    ```bash
    make job NAME=acme-senior-cloud
    ```
@@ -49,6 +50,7 @@ resume/
    - Emphasize relevant skills
 
 3. Build:
+
    ```bash
    typst compile jobs/acme-senior-cloud.typ output/jobs/acme-senior-cloud.pdf
    ```
@@ -56,6 +58,7 @@ resume/
 ### Content Updates
 
 Edit files in `modules_en/`:
+
 - `professional.typ` - Work experience
 - `skills.typ` - Technical skills
 - `certificates.typ` - Certifications
@@ -65,6 +68,7 @@ Edit files in `modules_en/`:
 ### Styling
 
 Edit `metadata.toml`:
+
 - `awesome_color` - Accent color (hex or preset)
 - `inject_keywords` - ATS keyword injection
 - `layout.*` - Spacing, fonts, alignment
@@ -82,12 +86,13 @@ This resume is optimized for Applicant Tracking Systems:
 
 ## Fonts
 
-For best results, install these fonts:
-- [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+3)
-- [Roboto](https://fonts.google.com/specimen/Roboto)
-- [Font Awesome 7](https://fontawesome.com/download)
+By default, this repo uses a Typst-available font (configured in `metadata.toml`) so the PDF builds **without** "unknown font family" warnings.
 
-The resume will compile without them (using fallbacks), but looks better with them.
+If you want the upstream `brilliant-cv` look, install these fonts and then switch the settings in `metadata.toml` under `[layout.fonts]`:
+
+- Source Sans 3 (or Source Sans Pro)
+- Roboto
+- Font Awesome 7 (optional, only needed if your content uses it)
 
 ## Template
 

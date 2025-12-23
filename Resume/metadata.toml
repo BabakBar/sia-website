@@ -15,8 +15,14 @@ language = "en"
     paper_size = "a4"
 
     [layout.fonts]
-        regular_fonts = ["Source Sans 3", "Source Sans Pro"]
-        header_font = "Roboto"
+        # Use a font that is available in Typst by default to avoid
+        # "unknown font family" warnings on fresh machines/CI.
+        #
+        # If you prefer the upstream look, install Roboto + Source Sans 3 and set:
+        #   regular_fonts = ["Source Sans 3", "Source Sans Pro"]
+        #   header_font   = "Roboto"
+        regular_fonts = ["Libertinus Serif"]
+        header_font = "Libertinus Serif"
 
     [layout.header]
         header_align = "left"
