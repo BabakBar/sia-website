@@ -1,6 +1,6 @@
 # Resume System Context
 
-Typst-based resume using [brilliant-cv](https://typst.app/universe/package/brilliant-cv) template.
+Typst-based resume using [brilliant-cv](https://typst.app/universe/package/brilliant-cv) template. read the readme for details: Resume/README.md
 
 ## Structure
 

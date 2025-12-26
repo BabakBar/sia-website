@@ -51,10 +51,13 @@ language = "en"
         "Cloud Architect",
         "Solutions Architecture",
         "Azure",
+        "Azure Landing Zones",
+        "Azure Policy",
         "AWS",
         "Terraform",
         "Infrastructure as Code",
         "IaC",
+        "Policy-as-Code",
         "Bicep",
         "ARM Templates",
         "CloudFormation",
@@ -65,13 +68,20 @@ language = "en"
         "Docker",
         "CI/CD",
         "DevOps",
+        "Service Principal",
+        "Managed Identity",
         "FinOps",
+        "Cost Optimization",
+        "Disaster Recovery",
+        "BCDR",
         "Python",
         "Cloud Architecture",
         "Multi-cloud",
         "Cloud Security",
         "Identity and Access Management",
         "IAM",
+        "Network Security Groups",
+        "NSG",
         "Private Link",
         "Private Endpoints",
         "VNet",
@@ -94,7 +104,13 @@ language = "en"
         "Technical Leadership",
         "Agile",
         "Scrum",
-        "Data Engineering"
+        "Data Engineering",
+        "Large Language Models",
+        "LLM",
+        "Generative AI",
+        "AI Integration",
+        "RAG",
+        "Retrieval-Augmented Generation"
     ]
 
 [personal]
@@ -102,12 +118,35 @@ language = "en"
     last_name = ""
 
     [personal.info]
-        email = "babak.barghi@gmail.com"
-        phone = "+49 157 5827 1210"
-        linkedin = "babakbarghi"
-        github = "BabakBar"
-        homepage = "babakbarghi.com"
-        location = "Hannover, Germany"
+        # Contact links: keep icons non-clickable; link only the text.
+        # Use short display values (handles/domain) to avoid printing full URLs.
+        [personal.info.custom-1]
+            awesomeIcon = "envelope"
+            text = "babak.barghi@gmail.com"
+            link = "mailto:babak.barghi@gmail.com"
+
+        [personal.info.custom-2]
+            awesomeIcon = "phone"
+            text = "+49 157 5827 1210"
+
+        [personal.info.custom-3]
+            awesomeIcon = "linkedin"
+            text = "babakbarghi"
+            link = "https://www.linkedin.com/in/babakbarghi"
+
+        [personal.info.custom-4]
+            awesomeIcon = "square-github"
+            text = "BabakBar"
+            link = "https://github.com/BabakBar"
+
+        [personal.info.custom-5]
+            awesomeIcon = "globe"
+            text = "babakbarghi.com"
+            link = "https://babakbarghi.com"
+
+        [personal.info.custom-6]
+            awesomeIcon = "location-dot"
+            text = "Hannover, Germany"
 
 [lang.en]
     header_quote = "Cloud Engineer | Solution Architect | Platform & Data"

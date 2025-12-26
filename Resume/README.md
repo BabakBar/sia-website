@@ -11,7 +11,7 @@ brew install typst  # macOS
 
 # Build resume
 make cv
-# or: typst compile cv.typ output/Babak_Barghi_Cloud_Engineer.pdf
+# or: typst compile cv.typ output/Babak_Barghi_Resume.pdf
 
 # Watch mode (auto-rebuild on save)
 make watch
@@ -38,22 +38,40 @@ resume/
 
 ### Per-Job Applications
 
-1. Create a copy:
+**Workflow:**
 
+1. **Create variant:**
    ```bash
-   make job NAME=acme-senior-cloud
+   make job NAME=aws-cloud-architect
    ```
 
-2. Edit `jobs/acme-senior-cloud.typ` to adjust:
+2. **Edit** `jobs/aws-cloud-architect.typ`:
    - Reorder bullets to match job requirements
-   - Adjust keywords in metadata.toml
+   - Adjust keywords in metadata if needed
    - Emphasize relevant skills
 
-3. Build:
-
+3. **Compile:**
    ```bash
-   typst compile jobs/acme-senior-cloud.typ output/jobs/acme-senior-cloud.pdf
+   make compile-job NAME=aws-cloud-architect
    ```
+
+**Additional commands:**
+
+```bash
+make list-jobs    # List all job variants
+make all-jobs     # Compile all variants at once
+make clean        # Remove all generated PDFs
+```
+
+**File structure:**
+```
+output/
+├── Babak_Barghi_Resume.pdf  # Main CV
+└── jobs/
+    ├── aws-cloud-architect.pdf
+    ├── azure-devops-engineer.pdf
+    └── data-platform-engineer.pdf
+```
 
 ### Content Updates
 

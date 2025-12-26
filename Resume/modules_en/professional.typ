@@ -10,19 +10,20 @@
   date: [07/2025 – Present],
   location: [Hannover, Germany],
   description: list(
-    [Owned the Azure Databricks platform for the Data/Analytics team, architecting a secure baseline (VNet injection, private endpoints, Unity Catalog) to enable enterprise AI/ML workloads at scale],
-    [Built serverless automation for security operations and microservices for asset governance, compliance, and self-service enablement]
+    [Owned Azure Databricks platform for Data/Analytics team; built secure baseline via Terraform (VNet injection, private endpoints, Unity Catalog) enabling enterprise AI/ML workloads with repeatable, auditable deployments],
+    [Engineered credential rotation system for SFTP users using Azure Automation, Key Vault, and notification workflows; eliminated manual password management and reduced security exposure windows],
+    [Delivered internal CMDB microservice solution (5 Azure Functions, Web App) for asset governance and compliance tracking]
   ),
 )
 
 // Continental AG - IT Solutions Engineer
 #cv-entry(
-  title: [IT Solutions Engineer],
+  title: [IT Systems Engineer],
   society: [Continental AG],
   date: [09/2022 – 06/2025],
   location: [Germany & Mexico],
   description: list(
-    [Automated AWS data pipelines for global Talent Matching platform, consolidating SuccessFactors exports and overcoming ingestion bottlenecks across 56 countries],
+    [Automated daily data pipeline for global Talent Matching platform (56 countries, 70k+ employee records): Python on AWS Lambda extracting and transforming SuccessFactors data],
     [Built ML models across Tires R&D and production: Virtual Lab for tire compound prediction (150+ models, 10k+ lab tests) and RAG systems for manufacturing planning],
     [Owned key delivery tasks across enterprise programs: Drove data validation/UAT readiness for SAP PP/IBP/APO rollouts (Belgium, Romania) and shipped internal Automotive Windows/Web applications],
   ),
@@ -30,12 +31,12 @@
 
 // TechTalent-Lab - AI Researcher
 #cv-entry(
-  title: [AI Researcher],
+  title: [AI Researcher (Part-time)],
   society: [TechTalent-Lab – UPC],
   date: [12/2020 – 02/2022],
   location: [Barcelona, Spain],
   description: list(
-    [Built and deployed conversational AI for PhD recruitment across 4 Spanish universities (DialogFlow on GCP: Cloud Functions)],
+    [Developed and deployed conversational AI for PhD program inquiries across 4 Spanish universities (DialogFlow on GCP: Cloud Functions)],
   ),
 )
 
@@ -46,6 +47,6 @@
   date: [07/2018 – 09/2020],
   location: [Tehran, Iran],
   description: list(
-    [Delivered end-to-end ERP Supply Chain module implementation for MIDHCO mining operations (7,000+ employees), managing system integration and large-scale data migration],
+    [Implemented end-to-end ERP Supply Chain module for MIDHCO mining operations (7,000+ employees), managing system integration and large-scale data migration],
   ),
 )

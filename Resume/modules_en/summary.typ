@@ -5,5 +5,5 @@
 
 #block[
   #set text(size: 9pt)
-  Engineer and researcher combining technical depth with collaborative problem-solving across global teams. 8+ years' experience architecting elegant, scalable solutions that turn complex challenges into business value.
+  Engineer and researcher who builds cloud solutions that data/AI teams actually want to use. 8+ years shipping applications, infrastructure, automation, and ML systems at enterprise scale.
 ]

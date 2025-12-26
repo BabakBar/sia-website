@@ -4,13 +4,13 @@
 #cv-section("Selected Projects")
 
 #block[
-  #text(size: 10pt, weight: "bold")[BoringHannover] #link("https://boringhannover.de")[🔗] #link("https://github.com/BabakBar/BoringHannover")[↗]\
-  #text(size: 9pt)[Stateless weekly events aggregator for Hannover (cinema, concerts, culture) with pluggable source framework]
+  *BoringHannover* #h(4pt) #link("https://boringhannover.de")[boringhannover.de] #h(2pt)•#h(2pt) #link("https://github.com/BabakBar/BoringHannover")[GitHub Repo]\
+  #text(size: 9pt)[Weekly events aggregator for Hannover with pluggable scraper framework (Python, BeautifulSoup, Astro, Tailwind, GitHub Actions → Docker → Coolify → Hetzner hosted)]
 ]
 
 #v(2pt)
 
 #block[
-  #text(size: 10pt, weight: "bold")[AutoSpendTracker] #link("https://github.com/BabakBar/AutoSpendTracker")[🔗]\
-  #text(size: 9pt)[AI-powered finance tracker: parses Gmail notifications, writes categorized multi-currency spend to Sheets]
+  *AutoSpendTracker* #h(4pt) #link("https://github.com/BabakBar/AutoSpendTracker")[GitHub Repo]\
+  #text(size: 9pt)[AI-powered tool for real-time expense transaction tracking across accounts with Google Vertex AI, featuring multi-currency and language support (Python, Google Gemini API, Gmail API, Sheets API, GCP)]
 ]
