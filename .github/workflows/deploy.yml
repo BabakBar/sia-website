@@ -22,7 +22,9 @@ jobs:
 
       - name: Trigger Coolify Deploy
         run: |
-          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET "${{ secrets.COOLIFY_WEBHOOK_URL }}")
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            "${{ secrets.COOLIFY_WEBHOOK_URL }}")
           echo "$response"
           http_code=$(echo "$response" | grep "HTTP_CODE:" | cut -d: -f2)
           if [ "$http_code" != "200" ]; then
