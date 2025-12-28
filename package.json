@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "react-helmet-async": "^2.0.4",
     "react-router": "^7.11.0"
   },
@@ -29,23 +29,23 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^20.11.17",
+    "@types/node": "^25.0.3",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.0",
-    "@vitest/ui": "^2.1.8",
+    "@vitest/ui": "^4.0.16",
     "autoprefixer": "^10.4.17",
-    "jsdom": "^26.1.0",
+    "jsdom": "^27.4.0",
     "png-to-ico": "^3.0.1",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "rehype-pretty-code": "^0.14.1",
     "sharp": "^0.34.5",
-    "shiki": "^1.27.0",
-    "tailwindcss": "4.1.17",
+    "shiki": "^3.20.0",
+    "tailwindcss": "^4.1.18",
     "typescript": "5.9.3",
-    "vite": "7.2.1",
+    "vite": "^7.3.0",
     "vite-plugin-pwa": "^1.1.0",
-    "vitest": "^2.1.8"
+    "vitest": "^4.0.16"
   }
 }
