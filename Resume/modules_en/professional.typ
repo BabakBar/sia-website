@@ -36,7 +36,7 @@
   date: [12/2020 – 02/2022],
   location: [Barcelona, Spain],
   description: list(
-    [Developed and deployed conversational AI for PhD program inquiries across 4 Spanish universities (DialogFlow on GCP: Cloud Functions)],
+    [Deployed conversational AI for PhD program inquiries across 4 Spanish universities (DialogFlow on GCP: Cloud Functions)],
   ),
 )
 

@@ -1,19 +1,37 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import mdx from '@mdx-js/rollup';
+import rehypePrettyCode from 'rehype-pretty-code';
 import path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    // MDX must run BEFORE React plugin
+    {
+      enforce: 'pre',
+      ...mdx({
+        providerImportSource: '@mdx-js/react',
+        rehypePlugins: [
+          [
+            rehypePrettyCode,
+            {
+              theme: 'github-dark',
+              keepBackground: true,
+            },
+          ],
+        ],
+      }),
+    },
+    react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'Babak Barghi | Software Solutions Architect',
         short_name: 'Babak Barghi',
-        description: 'AI | Data | Cloud',
+        description: 'Architecting intelligent systems',
         theme_color: '#0a192f',
         background_color: '#0a192f',
         display: 'standalone',
@@ -27,6 +45,7 @@ export default defineConfig({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable',
           },
         ],
       },

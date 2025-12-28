@@ -1,222 +1,130 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 2rem;
   }
 
   body {
-    @apply bg-[#0a192f] text-slate-400 antialiased min-h-screen;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
-    background-position: center;
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    font-feature-settings: "kern" 1, "ss01" 1, "ss02" 1, "ss03" 1;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "ss01" 1;
   }
 
-  /* Typography refinements */
+  /* Typography */
   h1, h2, h3, h4 {
-    @apply text-slate-200 font-semibold tracking-tight break-words;
+    @apply text-foreground font-bold tracking-tight;
   }
 
   p {
-    @apply leading-relaxed tracking-wide break-words;
+    @apply leading-relaxed;
   }
 
-  /* Custom scrollbar */
+  /* Minimal scrollbar */
   ::-webkit-scrollbar {
-    @apply w-1.5;
+    @apply w-1;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-[#0a192f];
-    border-radius: 9999px;
+    @apply bg-background;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full;
-    background: linear-gradient(90deg, hsl(36, 100%, 38%), hsl(36, 100%, 23%));
-    transition: background 0.3s ease, transform 0.2s ease;
+    @apply bg-muted rounded-full;
   }
 }
 
-/* Mobile-first responsive design */
-@media (max-width: 768px) {
-  body {
-    @apply text-sm;
-  }
-
-  h1 {
-    @apply text-2xl;
-  }
-
-  h2 {
-    @apply text-xl;
-  }
-
-  .experience-item:hover {
-    @apply translate-x-0;
-  }
-}
-
-/* Navigation active section animation */
-@keyframes navPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.2);
-  }
-  70% {
-    box-shadow: 0 0 0 8px rgba(251, 146, 60, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
-  }
-}
-
-.nav-active-bg {
-  animation: navPulse 3s infinite;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px rgba(251, 146, 60, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(251, 146, 60, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(251, 146, 60, 0.2);
-  }
-}
-
-/* Apply animations */
-section {
-  animation: fadeIn 0.8s ease-out forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
-}
-
-aside {
-  animation: slideIn 0.8s ease-out forwards;
-}
-
-/* Link hover effects */
-a {
-  @apply transition-all duration-300;
-}
-
-a:hover {
-  @apply text-orange-400;
-}
-
-/* Selection color */
+/* Selection */
 ::selection {
-  @apply bg-orange-400/20 text-orange-200;
+  @apply bg-accent text-foreground;
 }
 
-/* Focus styles */
-a:focus-visible, 
+/* Links */
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Focus states */
+a:focus-visible,
 button:focus-visible {
-  @apply outline-hidden ring-2 ring-orange-400/50 ring-offset-2 ring-offset-[#0a192f] rounded;
+  @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background rounded-sm;
 }
 
-/* Technology pills hover effect */
-.tech-pill {
-  @apply relative overflow-hidden transition-all duration-300;
-}
-
-.tech-pill::before {
-  content: '';
-  @apply absolute inset-0 bg-orange-400/5 transform scale-x-0 transition-transform duration-300 origin-left;
-}
-
-.tech-pill:hover::before {
-  @apply scale-x-100;
-}
-
-/* Experience item hover effect */
-.experience-item {
-  @apply transition-all duration-500 ease-in-out;
-}
-
-@media (min-width: 768px) {
-  .experience-item:hover {
-    @apply -translate-x-2;
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
-/* Navigation link effects */
-.nav-link {
-  @apply relative overflow-hidden;
+/* Prose styles for MDX content */
+.prose {
+  @apply text-foreground leading-relaxed;
 }
 
-/* Social links hover animation */
-.social-link {
-  @apply transition-all duration-300;
+.prose h2 {
+  @apply text-xl font-bold mt-8 mb-4;
 }
 
-.social-link:hover {
-  @apply -translate-y-1 text-orange-400;
+.prose h3 {
+  @apply text-lg font-semibold mt-6 mb-3;
 }
 
-/* Text gradient effect */
-.gradient-text {
-  @apply bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent;
+.prose p {
+  @apply my-4;
 }
 
-/* Smooth fade for sections */
-.fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.prose ul,
+.prose ol {
+  @apply my-4 pl-6;
 }
 
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
+.prose ul {
+  @apply list-disc;
 }
 
-/* Active section indicator */
-.section-active {
-  @apply text-orange-400;
+.prose ol {
+  @apply list-decimal;
 }
 
-/* Pill glow effect */
-.pill-glow:hover {
-  animation: glow 2s infinite;
+.prose li {
+  @apply my-1;
 }
 
-/* Ensure text wrapping on mobile */
-* {
-  @apply break-words;
+.prose a {
+  @apply text-blue-400 hover:text-blue-300 underline underline-offset-2;
 }
 
-/* Improve touch targets on mobile */
-@media (max-width: 768px) {
-  a, button {
-    @apply min-h-[44px] min-w-[44px] flex items-center;
-  }
+.prose strong {
+  @apply font-semibold text-foreground;
+}
+
+.prose code {
+  @apply bg-foreground/10 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply my-6 rounded-lg overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+}
+
+/* Shiki code block styling */
+.prose pre [data-rehype-pretty-code-figure] {
+  @apply my-6;
+}
+
+.prose pre {
+  @apply bg-[#0d1117] p-4 text-sm;
+}
+
+.prose pre code {
+  @apply text-sm leading-relaxed;
+}
+
+.prose blockquote {
+  @apply border-l-2 border-muted pl-4 my-4 italic text-muted;
 }

@@ -1,10 +1,6 @@
-import type { Config } from "tailwindcss"
-
-const config = {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -16,18 +12,8 @@ const config = {
         'accent-light': '#2D5A45',
       },
       fontFamily: {
-        sans: [
-          'Inter',
-          'system-ui',
-          '-apple-system',
-          'sans-serif'
-        ],
-        mono: [
-          'JetBrains Mono',
-          'SF Mono',
-          'Fira Code',
-          'monospace'
-        ],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'SF Mono', 'Fira Code', 'monospace'],
       },
       fontSize: {
         xs: ['0.875rem', { lineHeight: '1.25rem' }],
@@ -42,8 +28,8 @@ const config = {
         '6xl': ['5rem', { lineHeight: '1' }],
         '7xl': ['6rem', { lineHeight: '1' }],
         '8xl': ['8rem', { lineHeight: '0.95' }],
-        'hero': ['clamp(3rem, 12vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
-        'section': ['clamp(2rem, 6vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        hero: ['clamp(3rem, 12vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
+        section: ['clamp(2rem, 6vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
       },
       letterSpacing: {
         tightest: '-0.04em',
@@ -63,6 +49,4 @@ const config = {
     },
   },
   plugins: [],
-} satisfies Config
-
-export default config
+}
