@@ -12,6 +12,7 @@ const config = {
         background: '#0A0A0A',
         foreground: '#FAFAFA',
         muted: '#525252',
+        'muted-light': '#737373',
         accent: '#1B4332',
         'accent-light': '#2D5A45',
       },
