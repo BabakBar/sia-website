@@ -10,7 +10,7 @@ export default function Header() {
           className={({ isActive }) =>
             isActive
               ? 'text-foreground underline underline-offset-4'
-              : 'text-muted hover:text-foreground transition-colors'
+              : 'text-muted hover:text-accent-light transition-colors'
           }
         >
           home
@@ -20,7 +20,7 @@ export default function Header() {
           className={({ isActive }) =>
             isActive
               ? 'text-foreground underline underline-offset-4'
-              : 'text-muted hover:text-foreground transition-colors'
+              : 'text-muted hover:text-accent-light transition-colors'
           }
         >
           blog

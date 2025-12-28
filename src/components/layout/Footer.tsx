@@ -7,7 +7,7 @@ export default function Footer() {
             href="https://github.com/BabakBar"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
+            className="hover:text-accent-light transition-colors"
           >
             ↗ github
           </a>

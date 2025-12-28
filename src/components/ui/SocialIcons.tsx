@@ -32,7 +32,7 @@ export default function SocialIcons() {
           href={href}
           target={href.startsWith('mailto') ? undefined : '_blank'}
           rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-          className="text-muted hover:text-foreground transition-colors"
+          className="text-muted hover:text-accent-light transition-colors"
           aria-label={label}
         >
           {icon}

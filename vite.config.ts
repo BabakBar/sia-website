@@ -27,13 +27,20 @@ export default defineConfig({
     react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: [
+        'favicon.ico',
+        'favicon-16x16.png',
+        'favicon-32x32.png',
+        'robots.txt',
+        'apple-touch-icon.png',
+        'og-image.png',
+      ],
       manifest: {
         name: 'Babak Barghi | Software Solutions Architect',
         short_name: 'Babak Barghi',
         description: 'Architecting intelligent systems',
-        theme_color: '#0a192f',
-        background_color: '#0a192f',
+        theme_color: '#0A0A0A',
+        background_color: '#0A0A0A',
         display: 'standalone',
         icons: [
           {
@@ -78,7 +85,6 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    host: true,
   },
   build: {
     outDir: 'dist',

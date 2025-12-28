@@ -15,7 +15,7 @@ export default function PostItem({ post }: PostItemProps) {
         {post.date}
       </time>
       <div className="flex-1 min-w-0">
-        <h3 className="font-medium text-foreground group-hover:text-blue-400 transition-colors">
+        <h3 className="font-medium text-foreground group-hover:text-accent-light transition-colors">
           {post.title}
         </h3>
         <p className="text-sm text-muted mt-1 line-clamp-2">{post.description}</p>

@@ -10,7 +10,7 @@ export default function Hero() {
           href="https://www.continental.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-foreground hover:text-blue-400 transition-colors"
+          className="text-foreground hover:text-accent-light transition-colors"
         >
           Continental
         </a>{' '}

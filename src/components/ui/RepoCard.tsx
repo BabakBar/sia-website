@@ -12,7 +12,7 @@ export default function RepoCard({ repo }: RepoCardProps) {
       rel="noopener noreferrer"
       className="group block p-4 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
     >
-      <h3 className="font-medium text-foreground group-hover:text-blue-400 transition-colors truncate">
+      <h3 className="font-medium text-foreground group-hover:text-accent-light transition-colors truncate">
         {repo.name}
       </h3>
       {repo.description && (
