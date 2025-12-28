@@ -5,12 +5,12 @@
 
 #block[
   *BoringHannover* #h(4pt) #link("https://boringhannover.de")[boringhannover.de] #h(2pt)•#h(2pt) #link("https://github.com/BabakBar/BoringHannover")[GitHub Repo]\
-  #text(size: 9pt)[Weekly events aggregator for Hannover with pluggable scraper framework (Python, BeautifulSoup, Astro, Tailwind, GitHub Actions → Docker → Coolify → Hetzner hosted)]
+  #text(size: 9pt)[Events aggregator for Hannover with pluggable scraper architecture — pulls from 8+ local sources (Python, BeautifulSoup, Astro; GitHub Actions → Docker → Coolify → Hetzner VPS)]
 ]
 
 #v(2pt)
 
 #block[
   *AutoSpendTracker* #h(4pt) #link("https://github.com/BabakBar/AutoSpendTracker")[GitHub Repo]\
-  #text(size: 9pt)[AI-powered tool for real-time expense transaction tracking across accounts with Google Vertex AI, featuring multi-currency and language support (Python, Google Gemini API, Gmail API, Sheets API, GCP)]
+  #text(size: 9pt)[AI powered expense tracker that processes real time transaction notifications, automatically extracts and categorizes spending, and supports multiple currencies and languages (Tech: Python, Pydantic v2, Gemini API, Gmail API, Sheets API, GCP)]
 ]
