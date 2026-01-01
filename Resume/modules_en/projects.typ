@@ -5,7 +5,7 @@
 
 #block[
   *BoringHannover* #h(4pt) #link("https://boringhannover.de")[boringhannover.de] #h(2pt)•#h(2pt) #link("https://github.com/BabakBar/BoringHannover")[GitHub Repo]\
-  #text(size: 9pt)[Events aggregator for Hannover with pluggable scraper architecture — pulls from 8+ local sources (Python, BeautifulSoup, Astro; GitHub Actions → Docker → Coolify → Hetzner VPS)]
+  #text(size: 9pt)[Events aggregator for Hannover with pluggable scraper architecture — pulls from 8+ local sources; +300 views/week (Python, BeautifulSoup, Astro; GitHub Actions → Docker → Coolify → Hetzner VPS)]
 ]
 
 #v(2pt)
