@@ -10,7 +10,7 @@
   date: [07/2025 – Present],
   location: [Hannover, Germany],
   description: list(
-    [Owned Azure Databricks platform (dev+prod) for 13 person Data/Analytics team; built secure baseline via Terraform (Secure Cluster Connectivity, VNet injection, private endpoints, Unity Catalog) enabling enterprise AI/ML workloads with repeatable, auditable deployments],
+    [Architected Azure Databricks platform (dev+prod) for 13 person Data/Analytics team; established secure baseline via Terraform (VNet injection, private endpoints, NSGs, Unity Catalog) enabling enterprise AI/ML workloads with repeatable, auditable deployments],
     [Designed automated SFTP credential rotation across 3 manufacturing plants using Azure Automation and Key Vault; yearly rotation with email notifications to replaced manual process],
     [Deployed internal CMDB microservice solution (5 Azure Functions, Web App) for asset governance and compliance tracking]
   ),

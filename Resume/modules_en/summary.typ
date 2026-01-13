@@ -5,5 +5,5 @@
 
 #block[
   #set text(size: 9pt)
-  Engineer and researcher who builds cloud solutions that data/AI teams actually want to use. 8+ years shipping applications, infrastructure, automation, and ML systems at enterprise scale.
+  Cloud Engineer and researcher who builds scalable cloud solutions that data/AI teams actually want to use. 8+ years shipping applications, infrastructure, automation, and ML systems at enterprise grade.
 ]
