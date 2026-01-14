@@ -20,6 +20,11 @@
     @apply leading-relaxed;
   }
 
+  /* Subtle glow for muted text */
+  .text-muted-light {
+    text-shadow: 0 0 2px rgba(238, 232, 213, 0.08);
+  }
+
   /* Minimal scrollbar */
   ::-webkit-scrollbar {
     @apply w-1;

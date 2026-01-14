@@ -12,7 +12,7 @@ export default function Hero() {
           <p className="mt-4 text-muted-light leading-relaxed">
             <span className="text-foreground">Cloud engineer</span> who builds
             platforms that data and AI teams actually want to use. Currently at
-            Continental, where I architect Azure Databricks environments and
+            Continental, where I architect Azure/AWS solutions and
             automate the boring stuff so engineers can focus on the interesting
             problems.
           </p>
