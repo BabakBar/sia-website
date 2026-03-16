@@ -1,13 +1,12 @@
-// Babak Barghi - Cloud Engineer Resume
+// Babak Barghi - Cloud Engineer Resume (Continental color variant)
 // Template: brilliant-cv v3.1.1 (modified - compact variant)
-// Modifications: smaller fonts (26pt name, 14pt headers), reordered header layout
 
-#import "./template/src/lib.typ": cv
-#let metadata = toml("./metadata.toml")
+#import "../template/src/lib.typ": cv
+#let metadata = toml("./conti-azure-architect.toml")
 
 #let import-modules(modules) = {
   for module in modules {
-    include "modules_en/" + module + ".typ"
+    include "../modules_en/" + module + ".typ"
   }
 }
 
@@ -18,7 +17,7 @@
 
 // Section order optimized for senior cloud engineer roles:
 // 1. Summary (context + scope for ATS/NLP)
-// 2. Professional Experience (progression: data scientist → solutions → platform architect)
+// 2. Professional Experience (progression: data scientist -> solutions -> platform architect)
 // 3. Skills (technical keywords for ATS)
 // 4. Education
 // 5. Projects (hands-on technical credibility)
@@ -26,11 +25,11 @@
 // Optional: Advisory & Leadership (uncomment for roles valuing business acumen)
 
 #import-modules((
-	  "summary",
-	  "professional",
-	  // "advisory",  // uncomment for leadership-focused roles
-	  "skills",
-	  "education",
-	  "projects",
-	  "publications",
-	))
+  "summary",
+  "professional",
+  // "advisory",  // uncomment for leadership-focused roles
+  "skills",
+  "education",
+  "projects",
+  "publications",
+))

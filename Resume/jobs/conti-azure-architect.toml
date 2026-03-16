@@ -1,0 +1,163 @@
+#:schema https://raw.githubusercontent.com/yunanwg/brilliant-CV/main/metadata.toml.schema.json
+
+# Set the output language
+language = "en"
+
+[layout]
+    # Sexy dark blue
+    awesome_color = "#ffa500"
+
+    # Compact spacing for one-page fit
+    before_section_skip = "2pt"
+    before_entry_skip = "2pt"
+    before_entry_description_skip = "1pt"
+
+    paper_size = "a4"
+
+    [layout.fonts]
+        # Use a font that is available in Typst by default to avoid
+        # "unknown font family" warnings on fresh machines/CI.
+        #
+        # If you prefer the upstream look, install Roboto + Source Sans 3 and set:
+        #   regular_fonts = ["Source Sans 3", "Source Sans Pro"]
+        #   header_font   = "Roboto"
+        regular_fonts = ["Libertinus Serif"]
+        header_font = "Libertinus Serif"
+
+    [layout.header]
+        header_align = "left"
+        # No photo for ATS optimization
+        display_profile_photo = false
+        profile_photo_radius = "50%"
+        info_font_size = "8.5pt"
+
+    [layout.entry]
+        # Show title first (Cloud Engineer at Continental)
+        display_entry_society_first = false
+        # No logos for cleaner ATS-friendly look
+        display_logo = false
+
+    [layout.footer]
+        display_page_counter = false
+        display_footer = false
+
+[inject]
+    # ATS keyword injection (invisible to humans)
+    inject_ai_prompt = false
+    inject_keywords = true
+    injected_keywords_list = [
+        "Cloud Engineer",
+        "Platform Engineer",
+        "Cloud Architect",
+        "Solutions Architecture",
+        "Architectural Design",
+        "Architectural Approach",
+        "Scoping Business Requirements",
+        "Scalable Solutions",
+        "Architecture Reviews",
+        "IaC Reviews",
+        "Security Reviews",
+        "Engineering Standards",
+        "Cloud Best Practices",
+        "Azure",
+        "Azure Landing Zones",
+        "Azure Policy",
+        "AWS",
+        "Terraform",
+        "Infrastructure as Code",
+        "IaC",
+        "Policy-as-Code",
+        "Bicep",
+        "ARM Templates",
+        "CloudFormation",
+        "Databricks",
+        "Azure Databricks",
+        "Unity Catalog",
+        "Kubernetes",
+        "Docker",
+        "CI/CD",
+        "DevOps",
+        "Service Principal",
+        "Managed Identity",
+        "FinOps",
+        "Cost Optimization",
+        "Disaster Recovery",
+        "BCDR",
+        "Python",
+        "Cloud Architecture",
+        "Multi-cloud",
+        "Cloud Security",
+        "Identity and Access Management",
+        "IAM",
+        "Network Security Groups",
+        "NSG",
+        "Private Link",
+        "Private Endpoints",
+        "VNet",
+        "Networking",
+        "Hub-Spoke",
+        "ExpressRoute",
+        "Transit Gateway",
+        "Data Platform",
+        "Azure Functions",
+        "Bash",
+        "PowerShell",
+        "Git",
+        "GitHub Actions",
+        "Azure DevOps",
+        "Observability",
+        "Prometheus",
+        "Grafana",
+        "Stakeholder Management",
+        "Cross-functional Collaboration",
+        "Technical Leadership",
+        "Agile",
+        "Scrum",
+        "Data Engineering",
+        "Large Language Models",
+        "LLM",
+        "Generative AI",
+        "AI Integration",
+        "RAG",
+        "Retrieval-Augmented Generation"
+    ]
+
+[personal]
+    first_name = "Babak Barghi"
+    last_name = ""
+
+    [personal.info]
+        # Contact links: keep icons non-clickable; link only the text.
+        # Use short display values (handles/domain) to avoid printing full URLs.
+        [personal.info.custom-1]
+            awesomeIcon = "envelope"
+            text = "babak.barghi@gmail.com"
+            link = "mailto:babak.barghi@gmail.com"
+
+        [personal.info.custom-2]
+            awesomeIcon = "phone"
+            text = "+49 157 5827 1210"
+
+        [personal.info.custom-3]
+            awesomeIcon = "linkedin"
+            text = "babakbarghi"
+            link = "https://www.linkedin.com/in/babakbarghi"
+
+        [personal.info.custom-4]
+            awesomeIcon = "square-github"
+            text = "BabakBar"
+            link = "https://github.com/BabakBar"
+
+        [personal.info.custom-5]
+            awesomeIcon = "globe"
+            text = "babakbarghi.com"
+            link = "https://babakbarghi.com"
+
+        [personal.info.custom-6]
+            awesomeIcon = "location-dot"
+            text = "Hannover, Germany"
+
+[lang.en]
+    header_quote = "Cloud Engineer | Solution Architect | Platform & Data"
+    cv_footer = "Curriculum vitae"
+    letter_footer = "Cover letter"

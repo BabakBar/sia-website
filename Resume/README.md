@@ -23,6 +23,11 @@ make watch
 resume/
 ├── cv.typ              # Main resume file
 ├── metadata.toml       # Personal info, colors, ATS keywords
+├── template/           # Standalone template (modified brilliant-cv)
+│   └── src/
+│       ├── lib.typ     # Template entry point
+│       ├── cv.typ      # CV functions (modified fonts)
+│       └── utils/      # Helper utilities
 ├── modules_en/         # Content sections
 │   ├── skills.typ
 │   ├── certificates.typ
@@ -114,4 +119,30 @@ If you want the upstream `brilliant-cv` look, install these fonts and then switc
 
 ## Template
 
-Using [brilliant-cv v3.1.1](https://typst.app/universe/package/brilliant-cv)
+This resume uses a standalone, modified version of [brilliant-cv v3.1.1](https://typst.app/universe/package/brilliant-cv) with the following improvements:
+
+**Modifications:**
+- **Smaller fonts:** Name 26pt (from 32pt), section headers 14pt (from 16pt)
+- **Reordered header:** Name → Positions → Contact (better hierarchy)
+- **Better mobile scaling:** Improved readability on smaller screens
+- **Compact layout:** More content density for one-page resumes
+
+The template is self-contained in `template/src/` - no external package dependencies beyond fontawesome.
+
+## Using with typst.app
+
+To edit this resume in the Typst web app:
+
+1. **Upload to typst.app:**
+   - Go to https://typst.app
+   - Click "New Project" → "Upload files"
+   - Select all files from the Resume folder (maintains structure)
+   - Set `cv.typ` as main file
+
+2. **Or use GitHub integration:**
+   - In typst.app: "New Project" → "Import from GitHub"
+   - Connect your account and select this repo
+   - Navigate to the Resume folder
+   - Auto-syncs changes both ways
+
+The standalone template ensures your modifications work everywhere - locally and in typst.app.

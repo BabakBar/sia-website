@@ -44,7 +44,7 @@ endif
 		exit 1; \
 	fi
 	@mkdir -p $(OUTPUT)/jobs
-	$(TYPST) compile jobs/$(NAME).typ $(OUTPUT)/jobs/$(NAME).pdf
+	$(TYPST) compile --root . jobs/$(NAME).typ $(OUTPUT)/jobs/$(NAME).pdf
 	@echo "✓ Built: $(OUTPUT)/jobs/$(NAME).pdf"
 
 # List all job variants
@@ -62,7 +62,7 @@ all-jobs:
 	@if [ -d jobs ] && [ -n "$$(ls -A jobs/*.typ 2>/dev/null)" ]; then \
 		for job in jobs/*.typ; do \
 			name=$$(basename $$job .typ); \
-			$(TYPST) compile $$job $(OUTPUT)/jobs/$$name.pdf; \
+			$(TYPST) compile --root . $$job $(OUTPUT)/jobs/$$name.pdf; \
 			echo "✓ Built: $(OUTPUT)/jobs/$$name.pdf"; \
 		done \
 	else \

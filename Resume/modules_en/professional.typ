@@ -6,7 +6,7 @@
 // Continental AG - Cloud Engineer (Current Role)
 #cv-entry(
   title: [Cloud Engineer],
-  society: [Continental AG],
+  society: [Continental AG - OESL],
   date: [07/2025 – Present],
   location: [Hannover, Germany],
   description: list(
