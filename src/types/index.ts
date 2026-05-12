@@ -23,3 +23,20 @@ export interface GitHubRepo {
   language: string | null;
   fork: boolean;
 }
+
+export interface FavoriteBookSeed {
+  title: string;
+  searchTitle: string;
+  authorHint?: string;
+  note: string;
+}
+
+export interface FavoriteBook {
+  title: string;
+  subtitle?: string;
+  authors: string[];
+  firstPublishYear?: number;
+  coverUrl?: string;
+  openLibraryUrl?: string;
+  note: string;
+}
