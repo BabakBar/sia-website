@@ -3,16 +3,19 @@ import { render, screen } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import App from '../App';
 
+const mockFavoriteBooks = vi.hoisted(() => [
+  {
+    title: 'Algorithms to Live By',
+    authors: ['Brian Christian', 'Tom Griffiths'],
+    note: 'Turns computer science into daily decision-making.',
+    coverUrl: 'https://covers.openlibrary.org/b/id/8042539-L.jpg',
+    openLibraryUrl: 'https://openlibrary.org/works/OL17357767W',
+  },
+]);
+
 vi.mock('@/lib/books', () => ({
-  fetchFavoriteBooks: vi.fn().mockResolvedValue([
-    {
-      title: 'Algorithms to Live By',
-      authors: ['Brian Christian', 'Tom Griffiths'],
-      note: 'Turns computer science into daily decision-making.',
-      coverUrl: 'https://covers.openlibrary.org/b/id/8042539-L.jpg',
-      openLibraryUrl: 'https://openlibrary.org/works/OL17357767W',
-    },
-  ]),
+  fetchFavoriteBooks: vi.fn().mockResolvedValue(mockFavoriteBooks),
+  getFallbackFavoriteBooks: vi.fn(() => mockFavoriteBooks),
 }));
 
 beforeEach(() => {
