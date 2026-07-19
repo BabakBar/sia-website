@@ -1073,6 +1073,22 @@ Append results below, commit, push.
 - Deleting `public/sw.js` — keep the kill switch deployed for several months
   (earliest: 2026-10), then remove it in its own commit.
 
+## Post-plan finding: stranded service workers on the apex domain (2026-07-20)
+
+Cloudflare 301-redirects all of `babakbarghi.com` (apex) → `www.babakbarghi.com`.
+Browsers that installed the PWA worker on the *apex* origin (before that
+redirect existed) are permanently stuck on the cached December site: the old
+worker serves every navigation from precache (so the redirect is never seen),
+and its update check for `https://babakbarghi.com/sw.js` gets a 301, which
+browsers reject for service-worker scripts — so the kill switch can never
+reach them. The `www` origin is unaffected and heals via the kill switch.
+
+Fix per affected browser (manual): on `babakbarghi.com`, DevTools →
+Application → Storage → **Clear site data** (or Service Workers → Unregister),
+then reload. Optional broader fix for unknown stragglers: exempt the exact
+path `/sw.js` from the Cloudflare apex→www redirect rule so apex serves the
+kill switch with 200; revisit only if stale-visitor reports appear.
+
 ## Verification log
 
 - **2026-07-19 (Task 2, Coolify SPA fallback):** applied by Sia (SPA checkbox +
