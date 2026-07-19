@@ -1,4 +1,5 @@
 import type { FavoriteBook, FavoriteBookSeed } from '@/types';
+import { readCachedList } from '@/lib/cache';
 
 const FAVORITE_BOOKS: FavoriteBookSeed[] = [
   {
@@ -23,11 +24,6 @@ const FAVORITE_BOOKS: FavoriteBookSeed[] = [
 
 const CACHE_KEY = 'favorite-books';
 const CACHE_TTL = 1000 * 60 * 60 * 24;
-
-interface CachedBooks {
-  data: FavoriteBook[];
-  timestamp: number;
-}
 
 interface OpenLibraryDoc {
   title?: string;
@@ -106,12 +102,9 @@ async function fetchBook(book: FavoriteBookSeed): Promise<FavoriteBook> {
 }
 
 export async function fetchFavoriteBooks(): Promise<FavoriteBook[]> {
-  const cached = localStorage.getItem(CACHE_KEY);
-  if (cached) {
-    const { data, timestamp }: CachedBooks = JSON.parse(cached);
-    if (Date.now() - timestamp < CACHE_TTL) {
-      return data;
-    }
+  const cached = readCachedList<FavoriteBook>(CACHE_KEY);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
   }
 
   try {
@@ -124,8 +117,7 @@ export async function fetchFavoriteBooks(): Promise<FavoriteBook[]> {
   } catch (error) {
     console.error('Failed to fetch favorite books:', error);
     if (cached) {
-      const { data }: CachedBooks = JSON.parse(cached);
-      return data;
+      return cached.data;
     }
 
     return getFallbackFavoriteBooks();

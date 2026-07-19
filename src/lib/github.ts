@@ -1,24 +1,16 @@
 import type { GitHubRepo } from '@/types';
+import { readCachedList } from '@/lib/cache';
 
 const CACHE_KEY = 'github-repos';
 const CACHE_TTL = 1000 * 60 * 60; // 1 hour
-
-interface CachedData {
-  data: GitHubRepo[];
-  timestamp: number;
-}
 
 export async function fetchTopRepos(
   username: string,
   count = 4
 ): Promise<GitHubRepo[]> {
-  // Check cache first
-  const cached = localStorage.getItem(CACHE_KEY);
-  if (cached) {
-    const { data, timestamp }: CachedData = JSON.parse(cached);
-    if (Date.now() - timestamp < CACHE_TTL) {
-      return data;
-    }
+  const cached = readCachedList<GitHubRepo>(CACHE_KEY);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
   }
 
   try {
@@ -49,8 +41,7 @@ export async function fetchTopRepos(
     console.error('Failed to fetch GitHub repos:', error);
     // Return cached data if available, even if stale
     if (cached) {
-      const { data }: CachedData = JSON.parse(cached);
-      return data;
+      return cached.data;
     }
     return [];
   }
