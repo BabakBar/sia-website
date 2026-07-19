@@ -9,6 +9,5 @@ A modern, responsive personal website showcasing my experience. Built with Vite 
 - **Language**: TypeScript 5.9
 - **Styling**: Tailwind CSS 4.1
 - **SEO**: react-helmet-async
-- **PWA**: vite-plugin-pwa
 
 Visit [babakbarghi.com](https://www.babakbarghi.com/) to view the website.
