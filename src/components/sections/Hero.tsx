@@ -10,18 +10,24 @@ export default function Hero() {
             </span>
           </h1>
           <p className="mt-4 text-muted-light leading-relaxed">
-            <span className="text-foreground">Cloud Architect</span> who builds
-            platforms that data and AI teams actually want to use. Currently at
-            Continental, where I architect Azure/AWS solutions and
-            automate the boring stuff so engineers can focus on the interesting
-            problems.
+            I'm a <span className="text-foreground">Cloud Architect</span>{' '}
+            working on the infrastructure behind enterprise data and AI platforms.
+            At Continental, I connect Salesforce, Azure, and SAP with platforms
+            such as Databricks, helping teams across 57 countries build and
+            operate with confidence.
           </p>
           <p className="mt-3 text-muted-light leading-relaxed">
-            8+ years shipping infra, automation, and Data/ML systems, from
-            mining operations in Iran to tire R&D in Germany, with stops in Spain
-            and Mexico along the way. Outside of work, you'll usually find me
-            building a side project, experimenting with AI dev tools, or reading
-            books that make engineering feel a bit more human.
+            I lead a small global team across the USA, Germany, India, and
+            Malaysia. Together, we work on the less-visible but essential parts
+            of modern platforms: secure APIs, AKS, private networking, identity,
+            and the automation that keeps everything moving.
+          </p>
+          <p className="mt-3 text-muted-light leading-relaxed">
+            Over 9+ years, I've worked across infrastructure, automation, data,
+            and AI—from mining operations in Iran to automotive R&D in Germany.
+            Outside of work, you'll usually find me building a side project,
+            experimenting with AI dev tools, or reading books that make
+            engineering feel a bit more human.
           </p>
         </div>
         <div className="mt-2 md:mt-0 flex-shrink-0">
