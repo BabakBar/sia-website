@@ -193,6 +193,28 @@ user-visible 404 page for that case.
 - [x] **Step 3: Record verification** — recorded in the Verification log below
 (ships with the Task 1 commit; no separate commit needed).
 
+- [ ] **Step 4 (added after Task 4 deployed): drop the trailing-slash 301**
+
+The prerender step creates real directories (`dist/blog/`,
+`dist/blog/hello-world/`), so the current
+`try_files $uri $uri/ /index.html;` makes nginx's `$uri/` directory match
+301-redirect `/blog` → `/blog/` (and to `http://`, losing TLS on the hop).
+In Coolify's Custom Nginx Configuration, change that line to:
+
+```
+try_files $uri $uri/index.html /index.html;
+```
+
+`$uri/index.html` serves the prerendered file directly at the slashless URL —
+200, no redirect, matching the canonical URLs the pages declare. Save + Restart,
+then verify:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' "https://www.babakbarghi.com/blog?cb=$(date +%s)"
+```
+
+Expected: `200` (not 301). Also re-check `/blog/hello-world` and `/sw.js`.
+
 ---
 
 ### Task 3: MDX support in Vitest config
@@ -1067,3 +1089,9 @@ Append results below, commit, push.
 - **2026-07-19 (Tasks 3–7):** executed inline by Claude with TDD; 14 tests
   green, `bunx tsc --noEmit` clean, CSS bundle byte-identical after the
   Tailwind-config cleanup (proof the live `.js` config was kept).
+- **2026-07-19 (Task 8, partial):** commit `2fe84ed` deployed. Live:
+  `/blog/` → `<title>Blog | Babak Barghi</title>`, `/blog/hello-world/` →
+  `<title>Hello World | Babak Barghi</title>`, sitemap.xml has 3 `<loc>`
+  entries, `/sw.js` serves the kill switch. Open item: slashless `/blog`
+  301-redirects to `/blog/` (see Task 2 Step 4 for the one-line nginx fix);
+  Sia's browser checks (Task 1 Step 7 + Task 8 Step 4) still pending.
