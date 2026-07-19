@@ -501,7 +501,7 @@ description via Helmet — identical to the stamped values; leave it as is.)
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `bunx vitest run src/__tests__/prerender.test.ts`
-Expected: PASS (5 tests).
+Expected: PASS (4 tests).
 
 Also run: `bunx tsc --noEmit` — expected: no errors (the test file pulls
 `scripts/prerender.ts` into the typechecked program; that's intentional).
@@ -1059,3 +1059,11 @@ Append results below, commit, push.
   return `200 text/html`. `/sw.js` still served the old Workbox worker at that
   time (`content-type: application/javascript`, `cache-control: max-age=14400`)
   — Task 1 deploy pending.
+- **2026-07-19 (Task 1, PWA removal):** commit `23bcdc2` deployed; live `/sw.js`
+  now serves the kill switch (verified with cache-busted curl; Coolify took a
+  few minutes past the webhook 200 to actually serve the new build). Pending:
+  Sia's returning-browser DevTools check (Task 1 Step 7) — old workers may lag
+  up to ~4 h due to `max-age=14400` on `/sw.js`.
+- **2026-07-19 (Tasks 3–7):** executed inline by Claude with TDD; 14 tests
+  green, `bunx tsc --noEmit` clean, CSS bundle byte-identical after the
+  Tailwind-config cleanup (proof the live `.js` config was kept).
