@@ -120,22 +120,6 @@ async function main() {
     )
   }
 
-  // PWA icons (maskable needs padding)
-  await renderSquarePng({
-    inputPath: iconInput,
-    size: 192,
-    outputPath: path.join(publicDir, 'pwa-192x192.png'),
-    paddingRatio: 0.16,
-    background: bg,
-  })
-  await renderSquarePng({
-    inputPath: iconInput,
-    size: 512,
-    outputPath: path.join(publicDir, 'pwa-512x512.png'),
-    paddingRatio: 0.20,
-    background: bg,
-  })
-
   // Apple touch icon
   await renderSquarePng({
     inputPath: iconInput,
