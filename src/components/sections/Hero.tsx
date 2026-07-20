@@ -12,9 +12,9 @@ export default function Hero() {
           <p className="mt-4 text-muted-light leading-relaxed">
             I'm a <span className="text-foreground">Cloud Architect</span>{' '}
             working on the infrastructure behind enterprise data and AI platforms.
-            At Continental, I connect Salesforce, Azure, and SAP with platforms
-            such as Databricks, helping teams across 57 countries build and
-            operate with confidence.
+            At Continental, I own the global Salesforce–Azure–SAP integration
+            platform, which securely feeds AI and data platforms such as
+            Databricks for teams across 57 countries.
           </p>
           <p className="mt-3 text-muted-light leading-relaxed">
             I lead a small global team across the USA, Germany, India, and
