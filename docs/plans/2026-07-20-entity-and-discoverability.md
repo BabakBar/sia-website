@@ -150,24 +150,23 @@ Current evidence:
   `hgwkc8kog0k0gko044ws0cow` both failed.
 - Cache-busted checks confirmed that production still serves the previous
   client-only HTML and soft-404 fallback.
-- The application source build passes in Linux with Coolify's Bun 1.3.0
-  runtime, narrowing the remaining failure to the Coolify/Nixpacks pipeline.
+- The complete Coolify log and a local `NODE_ENV=production bun run build`
+  reproduction identified a development/production mismatch in the prerender
+  Vite server. MDX emitted `jsxDEV` while React loaded its production runtime.
+- The release correction explicitly uses Vite production mode for prerendering,
+  and the deployment workflow now builds with `NODE_ENV=production` as a
+  regression gate.
 
 ### Next-session recovery sequence
 
-1. Open the complete failure tail for deployment
-   `hgwkc8kog0k0gko044ws0cow` in the authenticated Coolify deployment view.
-2. Reproduce the exact failing Nixpacks command or packaging step locally.
-3. Apply the smallest build configuration correction without changing the UI,
-   URLs, or visible writing.
-4. Rerun tests, the production build, static-output validation, and the real
+1. Rerun tests, the production build, static-output validation, and the real
    nginx route contract.
-5. Preview any Coolify mutation, obtain approval, deploy once, and wait for the
+2. Preview any Coolify mutation, obtain approval, deploy once, and wait for the
    terminal deployment state.
-6. Run cache-busted public checks for all known routes, an unknown page, a
+3. Run cache-busted public checks for all known routes, an unknown page, a
    missing asset, the sitemap, robots policy, responsive image, local fonts, and
    the IndexNow key.
-7. Submit IndexNow only after the public key URL returns the exact token.
+4. Submit IndexNow only after the public key URL returns the exact token.
 
 Proposed commit:
 

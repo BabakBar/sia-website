@@ -13,6 +13,7 @@ const vite = await createServer({
   root,
   appType: 'custom',
   logLevel: 'error',
+  mode: 'production',
   server: { middlewareMode: true },
 });
 

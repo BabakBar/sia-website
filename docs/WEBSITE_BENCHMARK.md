@@ -152,24 +152,26 @@ Additional evidence:
 Production remained on the previous healthy container throughout both failed
 deployments. No outage occurred, but the visibility release is not live.
 
-| Evidence                 | Result                                                                  |
-| ------------------------ | ----------------------------------------------------------------------- |
-| Pushed commit            | `65fa092034900c2d4bbc0586515720d47b594bdf`                              |
-| Automated deployment     | `f048448o80oo4go4gcswk0oo`; failed at 2026-07-26 00:35:18 UTC           |
-| Manual deployment        | `hgwkc8kog0k0gko044ws0cow`; failed at 2026-07-26 00:38:53 UTC           |
-| Coolify application      | `running:unknown`; previous nginx container remained reachable          |
-| Public homepage          | 200 with 1,965 bytes and an empty `#root`                               |
-| Public known routes      | 200 with the previous client-only HTML                                  |
-| Public unknown routes    | 200 homepage fallback; the soft-404 defect remains live                 |
-| Public IndexNow key URL  | 200 homepage fallback; the ownership key is not live                    |
-| Cloudflare cache result  | `DYNAMIC`; stale output came from the origin, not a cached HTML object  |
-| Exact Linux source build | Passed with Bun 1.3.0, including prerender and static-output validation |
+| Evidence                 | Result                                                                 |
+| ------------------------ | ---------------------------------------------------------------------- |
+| Pushed commit            | `65fa092034900c2d4bbc0586515720d47b594bdf`                             |
+| Automated deployment     | `f048448o80oo4go4gcswk0oo`; failed at 2026-07-26 00:35:18 UTC          |
+| Manual deployment        | `hgwkc8kog0k0gko044ws0cow`; failed at 2026-07-26 00:38:53 UTC          |
+| Coolify application      | `running:unknown`; previous nginx container remained reachable         |
+| Public homepage          | 200 with 1,965 bytes and an empty `#root`                              |
+| Public known routes      | 200 with the previous client-only HTML                                 |
+| Public unknown routes    | 200 homepage fallback; the soft-404 defect remains live                |
+| Public IndexNow key URL  | 200 homepage fallback; the ownership key is not live                   |
+| Cloudflare cache result  | `DYNAMIC`; stale output came from the origin, not a cached HTML object |
+| Exact Linux source build | Failed under Nixpacks `NODE_ENV=production` while prerendering MDX     |
 
-The current evidence narrows the failure to the Coolify/Nixpacks deployment
-pipeline rather than the application build. The API truncates the deployment
-log before its final error, so the first action in the next session is to read
-the complete failure tail in the authenticated Coolify deployment view. Do not
-submit IndexNow until the ownership key URL returns the exact token.
+The complete deployment log showed that Nixpacks sets `NODE_ENV=production`,
+while the middleware-mode Vite server used for prerendering defaulted to
+development mode. MDX therefore emitted `jsxDEV`, but React loaded its
+production runtime, where that function is unavailable. The release correction
+sets the prerender Vite mode explicitly to `production` and makes the GitHub
+Actions build use the same environment as Coolify. Do not submit IndexNow until
+the ownership key URL returns the exact token.
 
 ## Verified strengths to preserve
 
