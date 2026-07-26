@@ -116,10 +116,11 @@ Fresh Lighthouse 13.4.1 mobile audit against the live homepage:
 | Estimated unused JavaScript       |    approximately 36 KiB |
 | Estimated render-blocking savings |    approximately 550 ms |
 
-### Local implementation checkpoint: 2026-07-26
+### Repository implementation checkpoint: 2026-07-26
 
 The visibility, route, accessibility, and page-weight changes are implemented
-locally but are not deployed yet.
+and pushed in commit `65fa092`, but they are not live because both Coolify
+deployment attempts failed.
 
 | Check                          |  Baseline | Local result |
 | ------------------------------ | --------: | -----------: |
@@ -145,6 +146,30 @@ Additional evidence:
 - Cloudflare DNS contains an existing Google Search Console verification record.
 - Search Console and Bing Webmaster credentials are not available locally, so
   portal submission and URL Inspection remain an external handoff.
+
+### Deployment checkpoint: 2026-07-26
+
+Production remained on the previous healthy container throughout both failed
+deployments. No outage occurred, but the visibility release is not live.
+
+| Evidence                 | Result                                                                  |
+| ------------------------ | ----------------------------------------------------------------------- |
+| Pushed commit            | `65fa092034900c2d4bbc0586515720d47b594bdf`                              |
+| Automated deployment     | `f048448o80oo4go4gcswk0oo`; failed at 2026-07-26 00:35:18 UTC           |
+| Manual deployment        | `hgwkc8kog0k0gko044ws0cow`; failed at 2026-07-26 00:38:53 UTC           |
+| Coolify application      | `running:unknown`; previous nginx container remained reachable          |
+| Public homepage          | 200 with 1,965 bytes and an empty `#root`                               |
+| Public known routes      | 200 with the previous client-only HTML                                  |
+| Public unknown routes    | 200 homepage fallback; the soft-404 defect remains live                 |
+| Public IndexNow key URL  | 200 homepage fallback; the ownership key is not live                    |
+| Cloudflare cache result  | `DYNAMIC`; stale output came from the origin, not a cached HTML object  |
+| Exact Linux source build | Passed with Bun 1.3.0, including prerender and static-output validation |
+
+The current evidence narrows the failure to the Coolify/Nixpacks deployment
+pipeline rather than the application build. The API truncates the deployment
+log before its final error, so the first action in the next session is to read
+the complete failure tail in the authenticated Coolify deployment view. Do not
+submit IndexNow until the ownership key URL returns the exact token.
 
 ## Verified strengths to preserve
 
@@ -221,7 +246,9 @@ Local implementation:
   server rendering during the build.
 - Client startup hydrates existing HTML instead of replacing it.
 - A build gate fails if a generated public page has an empty application root.
-- Deployment and cache-busted live verification remain outstanding.
+- Commit `65fa092` is pushed, but two Coolify deployments failed and
+  cache-busted public checks confirmed that the previous client-only container
+  is still live.
 
 Done criteria:
 
@@ -247,8 +274,8 @@ Local implementation:
 - `ops/nginx.conf` replaces the homepage fallback with `=404`.
 - A real local nginx container passed the known-route, unknown-route, missing
   asset, and configuration-syntax checks.
-- The Coolify configuration patch has been previewed but requires approval and
-  deployment before this finding can be verified live.
+- Coolify's saved custom nginx configuration matches `ops/nginx.conf`, but both
+  deployment attempts failed before the new release became live.
 
 Impact:
 
@@ -315,8 +342,9 @@ Current evidence:
   before the personal domain.
 - The live sitemap and robots sitemap directive are reachable.
 - Google domain verification exists in DNS.
-- An IndexNow submission is prepared for Bing and participating engines after
-  deployment.
+- An IndexNow submission is prepared for Bing and participating engines, but it
+  was intentionally not sent because the public ownership-key URL still
+  returned the previous homepage.
 - Google Search Console and Bing Webmaster submission/inspection require Sia's
   authenticated portal access.
 
@@ -436,7 +464,8 @@ Local implementation:
 
 - The muted token now passes AA against the page and card backgrounds.
 - Local Lighthouse reports zero contrast failures and Accessibility 100.
-- Live verification remains outstanding.
+- Live verification remains outstanding because the 2026-07-26 Coolify
+  deployment attempts failed.
 
 Done criteria:
 
@@ -776,11 +805,19 @@ Done criteria:
 #### OPS-01: deployment success does not prove live success
 
 Priority: P1<br />
-Status: open
+Status: in progress
 
 The GitHub workflow builds and tests, then verifies only that Coolify accepted
 the webhook with HTTP 200. It does not wait for the deployment or smoke-test the
 result.
+
+Current evidence:
+
+- The release commit was pushed and both resulting Coolify deployment records
+  eventually reported `failed`.
+- Cache-busted public checks independently proved that the origin kept serving
+  the previous container.
+- This prevented a false claim that the static HTML and 404 contract were live.
 
 Done criteria:
 
@@ -846,7 +883,7 @@ Done criteria:
 | PRIV-02          | Contact and image provenance policy           | P2       | open        | Documented decision                                       |
 | ENG-03           | Dependency update and audit pass              | P1       | open        | Green tests/build and reviewed audit                      |
 | ENG-04           | Browser/server contract tests                 | P1       | open        | Green static, browser, and deployed smoke checks          |
-| OPS-01           | Verified post-deploy smoke gate               | P1       | open        | Workflow evidence from a deployment                       |
+| OPS-01           | Verified post-deploy smoke gate               | P1       | in progress | Workflow evidence from a deployment                       |
 | SEC-01 to SEC-05 | Infrastructure/domain hardening               | P2       | open        | Read-back verification per finding                        |
 | ENG-01 to ENG-02 | Formatting and lint gates                     | P2       | open        | Green local and CI gates                                  |
 | OPS-02 to OPS-03 | Health and repository protections             | P2       | open        | Coolify/GitHub read-back verification                     |

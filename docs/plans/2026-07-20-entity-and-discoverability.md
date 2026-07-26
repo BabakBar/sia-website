@@ -104,7 +104,7 @@ Exit criteria:
 
 ## Stage 1: prove the static-first route architecture
 
-Status: in progress; local implementation complete, deployment pending<br />
+Status: in progress; implementation pushed, Coolify deployment failed<br />
 Priority: P0
 
 Goal: demonstrate that the preferred architecture produces visible HTML and
@@ -144,8 +144,30 @@ Current evidence:
 
 - The local build generates three public routes and `404.html`.
 - A real local nginx container returns the intended 200/404 status contract.
-- The exact Coolify configuration patch has been dry-run.
-- Deployment, the Coolify patch, and cache-busted live checks remain.
+- The saved Coolify nginx configuration matches the repository contract.
+- Commit `65fa092` is pushed to `master`.
+- Deployments `f048448o80oo4go4gcswk0oo` and
+  `hgwkc8kog0k0gko044ws0cow` both failed.
+- Cache-busted checks confirmed that production still serves the previous
+  client-only HTML and soft-404 fallback.
+- The application source build passes in Linux with Coolify's Bun 1.3.0
+  runtime, narrowing the remaining failure to the Coolify/Nixpacks pipeline.
+
+### Next-session recovery sequence
+
+1. Open the complete failure tail for deployment
+   `hgwkc8kog0k0gko044ws0cow` in the authenticated Coolify deployment view.
+2. Reproduce the exact failing Nixpacks command or packaging step locally.
+3. Apply the smallest build configuration correction without changing the UI,
+   URLs, or visible writing.
+4. Rerun tests, the production build, static-output validation, and the real
+   nginx route contract.
+5. Preview any Coolify mutation, obtain approval, deploy once, and wait for the
+   terminal deployment state.
+6. Run cache-busted public checks for all known routes, an unknown page, a
+   missing asset, the sitemap, robots policy, responsive image, local fonts, and
+   the IndexNow key.
+7. Submit IndexNow only after the public key URL returns the exact token.
 
 Proposed commit:
 
@@ -292,7 +314,7 @@ Proposed commit:
 
 ## Stage 4: complete the indexing handoff
 
-Status: in progress; technical preparation complete, portal actions pending<br />
+Status: in progress; technical preparation complete, deployment and portal actions pending<br />
 Priority: P0 after Stage 1 is deployed
 
 Goal: move from “crawlable in theory” to confirmed indexing.
@@ -317,6 +339,11 @@ Goal: move from “crawlable in theory” to confirmed indexing.
 5. Record sitemap and URL status.
 6. After deployment, run `bun run submit:indexnow` and record the accepted HTTP
    response.
+
+2026-07-26 checkpoint: IndexNow was not submitted because the failed
+deployments left the ownership-key URL serving the previous homepage. Google
+Search Console and Bing Webmaster portal verification also remain pending for
+an authenticated owner session.
 
 ### Search measurement
 
@@ -421,7 +448,7 @@ Proposed commit pattern:
 
 ## Stage 7: accessibility and performance pass
 
-Status: in progress; local targets met, deployment verification pending<br />
+Status: in progress; local targets met, Coolify deployment failed<br />
 Priority: P1, after the new static pages stabilize
 
 Actions:
