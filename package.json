@@ -10,8 +10,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "generate:assets": "node scripts/generate-assets.mjs",
-    "build": "tsc && vite build && bun scripts/run-prerender.ts",
+    "generate:assets": "bun scripts/generate-assets.mjs",
+    "generate:hero-images": "bun scripts/generate-hero-images.mjs",
+    "vendor:fonts": "bun scripts/vendor-fonts.mjs",
+    "submit:indexnow": "bun scripts/submit-indexnow.mjs",
+    "build": "tsc && vite build && bun scripts/run-prerender.ts && bun scripts/verify-static-output.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:ui": "vitest --ui"

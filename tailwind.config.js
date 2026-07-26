@@ -7,10 +7,10 @@ export default {
         // Brutalist palette
         background: '#0A0A0A',
         foreground: '#FAFAFA',
-        muted: '#525252',
+        muted: '#858585',
         'muted-light': '#A09888', // Warm muted cream for better readability
         accent: '#1B4332',
-        'accent-light': '#2D5A45',
+        'accent-light': '#508F70',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -50,4 +50,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

@@ -7,18 +7,27 @@ export interface PageMeta {
   description: string;
 }
 
+const HOME_PAGE: PageMeta = {
+  path: '/',
+  title: 'Babak Barghi',
+  description: 'Babak Barghi — Cloud & AI Engineer. Architecting intelligent systems.',
+};
+
+export const NOT_FOUND_PAGE: PageMeta = {
+  path: '/404.html',
+  title: 'Page not found | Babak Barghi',
+  description: HOME_PAGE.description,
+};
+
 function escapeHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
+  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 }
 
 export function buildPages(): PageMeta[] {
   return [
+    HOME_PAGE,
     { path: '/blog', ...BLOG_META },
-    ...posts.map((post) => ({
+    ...posts.map(post => ({
       path: `/blog/${post.slug}`,
       title: `${post.title} | Babak Barghi`,
       description: post.description,
@@ -26,7 +35,7 @@ export function buildPages(): PageMeta[] {
   ];
 }
 
-export function renderRouteHtml(template: string, page: PageMeta): string {
+export function renderRouteHtml(template: string, page: PageMeta, applicationHtml: string): string {
   const title = escapeHtml(page.title);
   const description = escapeHtml(page.description);
   const url = `${SITE_URL}${page.path}`;
@@ -56,14 +65,13 @@ export function renderRouteHtml(template: string, page: PageMeta): string {
     stampContent('property="og:url"', url),
     stampContent('property="twitter:title"', title),
     stampContent('property="twitter:description"', description),
+    (html: string) => html.replace('<div id="root"></div>', () => `<div id="root">${applicationHtml}</div>`),
   ];
 
   return transforms.reduce((html, transform) => transform(html), template);
 }
 
 export function renderSitemap(paths: string[]): string {
-  const urls = paths
-    .map((p) => `  <url>\n    <loc>${SITE_URL}${p}</loc>\n  </url>`)
-    .join('\n');
+  const urls = paths.map(p => `  <url>\n    <loc>${SITE_URL}${p}</loc>\n  </url>`).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }

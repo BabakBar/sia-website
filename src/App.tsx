@@ -5,17 +5,23 @@ import Blog from './pages/Blog';
 import Post from './pages/Post';
 import NotFound from './pages/NotFound';
 
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="blog" element={<Blog />} />
+        <Route path="blog/:slug" element={<Post />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="blog/:slug" element={<Post />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 }
