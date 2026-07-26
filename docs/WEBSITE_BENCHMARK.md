@@ -116,11 +116,12 @@ Fresh Lighthouse 13.4.1 mobile audit against the live homepage:
 | Estimated unused JavaScript       |    approximately 36 KiB |
 | Estimated render-blocking savings |    approximately 550 ms |
 
-### Repository implementation checkpoint: 2026-07-26
+### Release checkpoint: 2026-07-26
 
-The visibility, route, accessibility, and page-weight changes are implemented
-and pushed in commit `65fa092`, but they are not live because both Coolify
-deployment attempts failed.
+The visibility, route, accessibility, and page-weight changes from commit
+`65fa092` are live after the production-build correction in commit `7281f82`.
+The measured result below remains the repeatable local Lighthouse result; a
+fresh live Lighthouse and manual keyboard pass remain outstanding.
 
 | Check                          |  Baseline | Local result |
 | ------------------------------ | --------: | -----------: |
@@ -141,37 +142,40 @@ Additional evidence:
   `/blog/hello-world`, and 404 for an unknown page and missing asset.
 - The generated page hydrates and loads the existing dynamic sections without
   changing the layout or visible writing.
-- The repository includes an IndexNow ownership key and submission command, but
-  submission must wait until the key is deployed.
+- The public IndexNow ownership key returns the exact expected token.
+- IndexNow accepted the three canonical sitemap URLs with HTTP 202.
 - Cloudflare DNS contains an existing Google Search Console verification record.
-- Search Console and Bing Webmaster credentials are not available locally, so
-  portal submission and URL Inspection remain an external handoff.
+- Sia confirmed the Google Search Console and Bing Webmaster portal work is
+  complete. Engine processing, per-URL indexed state, and ranking remain
+  external observations rather than confirmed outcomes.
 
-### Deployment checkpoint: 2026-07-26
+### Deployment recovery checkpoint: 2026-07-26
 
 Production remained on the previous healthy container throughout both failed
-deployments. No outage occurred, but the visibility release is not live.
+deployments. No outage occurred. The corrected release then completed through a
+rolling update.
 
-| Evidence                 | Result                                                                 |
-| ------------------------ | ---------------------------------------------------------------------- |
-| Pushed commit            | `65fa092034900c2d4bbc0586515720d47b594bdf`                             |
-| Automated deployment     | `f048448o80oo4go4gcswk0oo`; failed at 2026-07-26 00:35:18 UTC          |
-| Manual deployment        | `hgwkc8kog0k0gko044ws0cow`; failed at 2026-07-26 00:38:53 UTC          |
-| Coolify application      | `running:unknown`; previous nginx container remained reachable         |
-| Public homepage          | 200 with 1,965 bytes and an empty `#root`                              |
-| Public known routes      | 200 with the previous client-only HTML                                 |
-| Public unknown routes    | 200 homepage fallback; the soft-404 defect remains live                |
-| Public IndexNow key URL  | 200 homepage fallback; the ownership key is not live                   |
-| Cloudflare cache result  | `DYNAMIC`; stale output came from the origin, not a cached HTML object |
-| Exact Linux source build | Failed under Nixpacks `NODE_ENV=production` while prerendering MDX     |
+| Evidence                    | Result                                                                  |
+| --------------------------- | ----------------------------------------------------------------------- |
+| Live release commit         | `7281f82d16877a48f7efe2ddb55c06400d74e992`                              |
+| GitHub Actions              | Run `30205890336`; production build and 19 tests passed                 |
+| Coolify deployment          | `xsoscwoowwsw8go448gk4888`; finished at 2026-07-26 14:24:59 UTC         |
+| Coolify application         | `running:unknown`; health disabled, restart count 0, public checks pass |
+| Public homepage             | 200 with meaningful static body HTML                                    |
+| Public known routes         | `/`, `/blog`, and `/blog/hello-world` return 200 with static HTML       |
+| Public unknown routes       | Unknown page and missing asset return 404                               |
+| Public IndexNow key URL     | 200 with the exact ownership token                                      |
+| IndexNow submission         | Three canonical URLs accepted with HTTP 202                             |
+| Google and Bing portal work | Owner-confirmed complete; engine indexing evidence still pending        |
 
 The complete deployment log showed that Nixpacks sets `NODE_ENV=production`,
 while the middleware-mode Vite server used for prerendering defaulted to
 development mode. MDX therefore emitted `jsxDEV`, but React loaded its
 production runtime, where that function is unavailable. The release correction
 sets the prerender Vite mode explicitly to `production` and makes the GitHub
-Actions build use the same environment as Coolify. Do not submit IndexNow until
-the ownership key URL returns the exact token.
+Actions build use the same environment as Coolify. Cache-busted public checks
+then confirmed the static HTML, route-status, sitemap, robots, font, and
+ownership-key contracts without changing the UI or visible writing.
 
 ## Verified strengths to preserve
 
@@ -224,14 +228,15 @@ the ownership key URL returns the exact token.
 
 ### Visibility and discoverability
 
-#### VIS-01: visible page content is absent from generated HTML
+#### VIS-01: visible page content was absent from generated HTML
 
 Priority: P0<br />
-Status: in progress
+Status: verified
 
-The build creates route-specific metadata, but every generated page body is
-only `<div id="root"></div>`. The current `scripts/prerender.ts` is a metadata
-stamper, not a full page renderer.
+At the audit baseline, the build created route-specific metadata but every
+generated page body was only `<div id="root"></div>`.
+`scripts/prerender.ts` described the routes and metadata but did not render
+their React body content.
 
 Impact:
 
@@ -248,24 +253,26 @@ Local implementation:
   server rendering during the build.
 - Client startup hydrates existing HTML instead of replacing it.
 - A build gate fails if a generated public page has an empty application root.
-- Commit `65fa092` is pushed, but two Coolify deployments failed and
-  cache-busted public checks confirmed that the previous client-only container
-  is still live.
+- Commit `65fa092` added the static renderer, and commit `7281f82` corrected its
+  production-mode build.
+- Deployment `xsoscwoowwsw8go448gk4888` finished successfully.
+- Cache-busted public responses for `/`, `/blog`, and `/blog/hello-world`
+  contain meaningful visible HTML before JavaScript.
 
 Done criteria:
 
-- `curl` of `/`, `/about`, `/blog`, and every post contains the meaningful
-  visible page text in the returned HTML.
+- `curl` of every current public route contains meaningful visible page text in
+  the returned HTML; apply the same contract to `/about` when Stage 2 adds it.
 - The page remains functional when JavaScript is disabled.
 - Hydration, if retained, does not duplicate content or metadata.
 
-#### VIS-02: unknown paths are soft 404s
+#### VIS-02: unknown paths were soft 404s
 
 Priority: P0<br />
-Status: in progress
+Status: verified
 
-Requests for arbitrary paths such as `/definitely-not-a-page`, `/.env`, fake
-PHP files, and nonexistent assets return the homepage with HTTP 200.
+At the audit baseline, arbitrary paths such as `/definitely-not-a-page`,
+`/.env`, fake PHP files, and nonexistent assets returned the homepage with HTTP 200.
 
 No sensitive file was exposed. The response is the public homepage. The problem
 is incorrect HTTP meaning, not a confirmed data leak.
@@ -276,8 +283,9 @@ Local implementation:
 - `ops/nginx.conf` replaces the homepage fallback with `=404`.
 - A real local nginx container passed the known-route, unknown-route, missing
   asset, and configuration-syntax checks.
-- Coolify's saved custom nginx configuration matches `ops/nginx.conf`, but both
-  deployment attempts failed before the new release became live.
+- Coolify's saved custom nginx configuration matches `ops/nginx.conf`.
+- Cache-busted production requests return 404 for an unknown page and a missing
+  asset while all known routes return 200.
 
 Impact:
 
@@ -344,11 +352,11 @@ Current evidence:
   before the personal domain.
 - The live sitemap and robots sitemap directive are reachable.
 - Google domain verification exists in DNS.
-- An IndexNow submission is prepared for Bing and participating engines, but it
-  was intentionally not sent because the public ownership-key URL still
-  returned the previous homepage.
-- Google Search Console and Bing Webmaster submission/inspection require Sia's
-  authenticated portal access.
+- Sia confirmed the Google Search Console and Bing Webmaster portal work is
+  complete.
+- IndexNow accepted the three canonical sitemap URLs with HTTP 202.
+- Per-URL indexed state, sitemap processing results, and ranking movement have
+  not yet been recorded; submission is not evidence of indexing.
 
 #### VIS-05: there is no authoritative profile page or entity markup
 
@@ -466,8 +474,8 @@ Local implementation:
 
 - The muted token now passes AA against the page and card backgrounds.
 - Local Lighthouse reports zero contrast failures and Accessibility 100.
-- Live verification remains outstanding because the 2026-07-26 Coolify
-  deployment attempts failed.
+- The corrected tokens are live; a fresh live Lighthouse run remains
+  outstanding.
 
 Done criteria:
 
@@ -815,11 +823,14 @@ result.
 
 Current evidence:
 
-- The release commit was pushed and both resulting Coolify deployment records
-  eventually reported `failed`.
-- Cache-busted public checks independently proved that the origin kept serving
-  the previous container.
-- This prevented a false claim that the static HTML and 404 contract were live.
+- GitHub Actions run `30205890336` passed the production build and all 19 tests,
+  then queued Coolify deployment `xsoscwoowwsw8go448gk4888`.
+- The deployment finished, the rolling update completed, and the restart count
+  remained zero.
+- Manual cache-busted public checks verified canonical route HTML plus genuine
+  404 responses.
+- The workflow still stops after Coolify accepts the webhook; it does not yet
+  wait for or smoke-test the deployed result.
 
 Done criteria:
 
@@ -863,8 +874,8 @@ Done criteria:
 
 | ID               | Deliverable                                   | Priority | Status      | Evidence required                                         |
 | ---------------- | --------------------------------------------- | -------- | ----------- | --------------------------------------------------------- |
-| VIS-01           | Meaningful static HTML for all public routes  | P0       | in progress | Cache-busted curl contains visible content                |
-| VIS-02           | Real 404 status and page                      | P0       | in progress | Known routes 200, unknown page and asset 404              |
+| VIS-01           | Meaningful static HTML for all public routes  | P0       | verified    | Cache-busted curl contains visible content                |
+| VIS-02           | Real 404 status and page                      | P0       | verified    | Known routes 200, unknown page and asset 404              |
 | VIS-03           | One current identity source                   | P0       | open        | Homepage, About, metadata, OG, schema agree               |
 | VIS-04           | Personal domain visible in branded search     | P0       | in progress | Search Console/Bing indexed plus repeatable search sample |
 | VIS-05           | About page and Person/ProfilePage schema      | P0       | open        | Visible HTML, valid JSON-LD, sitemap entry                |

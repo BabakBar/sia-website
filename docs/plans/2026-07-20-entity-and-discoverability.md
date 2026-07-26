@@ -104,7 +104,7 @@ Exit criteria:
 
 ## Stage 1: prove the static-first route architecture
 
-Status: in progress; implementation pushed, Coolify deployment failed<br />
+Status: complete<br />
 Priority: P0
 
 Goal: demonstrate that the preferred architecture produces visible HTML and
@@ -145,32 +145,21 @@ Current evidence:
 - The local build generates three public routes and `404.html`.
 - A real local nginx container returns the intended 200/404 status contract.
 - The saved Coolify nginx configuration matches the repository contract.
-- Commit `65fa092` is pushed to `master`.
+- Commit `65fa092` added the static renderer and route contract.
 - Deployments `f048448o80oo4go4gcswk0oo` and
-  `hgwkc8kog0k0gko044ws0cow` both failed.
-- Cache-busted checks confirmed that production still serves the previous
-  client-only HTML and soft-404 fallback.
+  `hgwkc8kog0k0gko044ws0cow` failed without replacing the previous container.
 - The complete Coolify log and a local `NODE_ENV=production bun run build`
   reproduction identified a development/production mismatch in the prerender
   Vite server. MDX emitted `jsxDEV` while React loaded its production runtime.
-- The release correction explicitly uses Vite production mode for prerendering,
-  and the deployment workflow now builds with `NODE_ENV=production` as a
-  regression gate.
-
-### Next-session recovery sequence
-
-1. Rerun tests, the production build, static-output validation, and the real
-   nginx route contract.
-2. Preview any Coolify mutation, obtain approval, deploy once, and wait for the
-   terminal deployment state.
-3. Run cache-busted public checks for all known routes, an unknown page, a
-   missing asset, the sitemap, robots policy, responsive image, local fonts, and
-   the IndexNow key.
-4. Submit IndexNow only after the public key URL returns the exact token.
-
-Proposed commit:
-
-`feat: render public routes as static html`
+- Commit `7281f82` explicitly uses Vite production mode for prerendering and
+  makes the deployment workflow build with `NODE_ENV=production`.
+- GitHub Actions run `30205890336` passed the production build and all 19 tests.
+- Coolify deployment `xsoscwoowwsw8go448gk4888` finished at
+  2026-07-26 14:24:59 UTC.
+- Cache-busted public checks confirmed 200 responses with static body HTML for
+  `/`, `/blog`, and `/blog/hello-world`; unknown pages and missing assets return 404.
+- The public sitemap, robots policy, local fonts, and IndexNow ownership key
+  passed their release checks.
 
 ## Stage 2: create the authoritative identity surface
 
@@ -313,8 +302,8 @@ Proposed commit:
 
 ## Stage 4: complete the indexing handoff
 
-Status: in progress; technical preparation complete, deployment and portal actions pending<br />
-Priority: P0 after Stage 1 is deployed
+Status: in progress; submissions complete, indexing evidence pending<br />
+Priority: P0
 
 Goal: move from “crawlable in theory” to confirmed indexing.
 
@@ -339,10 +328,15 @@ Goal: move from “crawlable in theory” to confirmed indexing.
 6. After deployment, run `bun run submit:indexnow` and record the accepted HTTP
    response.
 
-2026-07-26 checkpoint: IndexNow was not submitted because the failed
-deployments left the ownership-key URL serving the previous homepage. Google
-Search Console and Bing Webmaster portal verification also remain pending for
-an authenticated owner session.
+2026-07-26 checkpoint:
+
+- The ownership-key URL returns the exact expected token.
+- IndexNow accepted all three canonical sitemap URLs with HTTP 202.
+- Sia confirmed the Google Search Console and Bing Webmaster portal work is
+  complete.
+- Search-engine processing, per-URL indexed state, selected canonicals, and
+  ranking movement remain pending evidence. Submission alone does not complete
+  this stage.
 
 ### Search measurement
 
@@ -375,9 +369,11 @@ Done criteria:
 
 External/user actions:
 
-- Search Console and Bing portal access require Sia; no corresponding
-  credentials or connected capability are available locally.
-- Record the exact required portal action when access blocks progress.
+- Search Console and Bing portal access remain owner-controlled; no
+  corresponding credentials or connected capability are available locally.
+- On the next visibility review, record sitemap processing, per-URL indexed
+  state, selected canonicals, and any rendering issue reported by either
+  portal.
 
 ## Stage 5: corroborate the identity externally
 
@@ -447,7 +443,7 @@ Proposed commit pattern:
 
 ## Stage 7: accessibility and performance pass
 
-Status: in progress; local targets met, Coolify deployment failed<br />
+Status: in progress; implementation live, fresh live audit pending<br />
 Priority: P1, after the new static pages stabilize
 
 Actions:
@@ -480,10 +476,13 @@ Local result:
 - Transfer: approximately 1,315 KiB to 299 KiB.
 - Contrast failures: 22 to 0.
 - Layout and visible writing unchanged.
+- The optimized image, local fonts, and corrected color tokens are live.
+- A fresh live Lighthouse run and manual keyboard pass remain before this stage
+  can be marked complete.
 
-Proposed commit:
+Implementation commit:
 
-`fix: improve accessibility and page weight`
+`65fa092 feat: harden static site delivery`
 
 ## Stage 8: legal, privacy, engineering, and delivery hardening
 
@@ -654,6 +653,39 @@ Stop for Sia's decision before:
 - Deep VPS redesign: out of scope for visibility work.
 - Broad visual redesign: out of scope unless user evidence shows the current
   presentation is blocking the goal.
+
+## Session closeout: 2026-07-26
+
+Confirmed state:
+
+- The live release and `origin/master` point to commit `7281f82`; the local
+  branch will be one documentation-only closeout commit ahead.
+- GitHub Actions run `30205890336` passed the production build and all 19 tests.
+- Coolify deployment `xsoscwoowwsw8go448gk4888` finished successfully.
+- Public known routes return meaningful static HTML with HTTP 200.
+- Unknown pages and missing assets return genuine HTTP 404.
+- The sitemap, robots policy, local fonts, and IndexNow key are live.
+- IndexNow accepted three canonical URLs with HTTP 202.
+- Sia confirmed Google Search Console and Bing Webmaster portal work is
+  complete.
+- No UI or visible writing changed in the deployment correction.
+
+Exact next-session entry point:
+
+1. Read Google Search Console and Bing Webmaster processing/indexing results;
+   do not infer indexing from submission.
+2. Run a fresh live mobile Lighthouse audit, desktop/mobile screenshots,
+   JavaScript-disabled route check, and manual keyboard pass.
+3. Update the benchmark with those measured results.
+4. Implement OPS-01 so GitHub Actions waits for Coolify's terminal deployment
+   state and then runs the public 200/404/static-HTML smoke contract.
+5. Start Stage 2 only after Sia explicitly approves the identity facts and any
+   new visible writing.
+
+Git handoff:
+
+- This documentation closeout should remain a local commit until it can be
+  batched with the next approved deployment-affecting release.
 
 ## References
 
