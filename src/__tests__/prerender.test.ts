@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildPages, NOT_FOUND_PAGE, renderRouteHtml, renderSitemap } from '../../scripts/prerender';
+import { posts } from '../content/posts';
 
 const template = `<html><head><title>Babak Barghi</title>
 <meta name="description" content="OLD-DESC" />
@@ -70,17 +71,19 @@ describe('renderRouteHtml', () => {
 });
 
 describe('buildPages', () => {
-  it('includes the homepage, blog index, and one page per post', () => {
+  it('includes the homepage, blog index, and one page per published post', () => {
     const pages = buildPages();
     expect(pages[0].path).toBe('/');
     expect(pages.some(p => p.path === '/blog')).toBe(true);
-    expect(pages.some(p => p.path === '/blog/telegram-is-the-cheapest-frontend-i-know')).toBe(true);
-    expect(pages.some(p => p.path === '/blog/hello-world')).toBe(false);
-    const post = pages.find(p => p.path === '/blog/telegram-is-the-cheapest-frontend-i-know')!;
-    expect(post.title).toBe('Telegram Is the Cheapest Frontend I Know | Babak Barghi');
-    expect(post.type).toBe('article');
-    expect(post.publishedAt).toBe('2026-07-28');
-    expect(post.description.length).toBeGreaterThan(0);
+    expect(pages.filter(p => p.type === 'article')).toHaveLength(posts.length);
+
+    for (const post of posts) {
+      const page = pages.find(p => p.path === `/blog/${post.slug}`)!;
+      expect(page.title).toBe(`${post.title} | Babak Barghi`);
+      expect(page.type).toBe('article');
+      expect(page.publishedAt).toBe(post.publishedAt);
+      expect(page.description.length).toBeGreaterThan(0);
+    }
   });
 
   it('defines a dedicated static 404 page outside the sitemap', () => {

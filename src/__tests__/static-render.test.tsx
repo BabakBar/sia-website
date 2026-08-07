@@ -11,15 +11,10 @@ describe('static route rendering', () => {
     expect(html).toContain('Books I Keep Recommending');
   });
 
-  it('renders the complete MDX post into static HTML', async () => {
-    const html = await renderRoute('/blog/telegram-is-the-cheapest-frontend-i-know');
+  it('renders the blog index without browser JavaScript', async () => {
+    const html = await renderRoute('/blog');
 
-    expect(html).toContain('<h1');
-    expect(html).toContain('Telegram Is the Cheapest Frontend I Know');
-    expect(html).toContain('Most of my useful side projects');
-    expect(html).toContain('KinoWeek');
-    expect(html).toContain('FabrikTakt');
-    expect(html).toContain('OpenClaw');
+    expect(html).toContain('Posts');
   });
 
   it('renders the existing not-found page for the static error document', async () => {

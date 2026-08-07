@@ -29,20 +29,10 @@ describe('routes', () => {
     await waitFor(() => expect(document.title).toBe('Blog | Babak Barghi'));
   });
 
-  it('renders a substantive post with article metadata', async () => {
+  it('redirects an unpublished post back to the blog index', () => {
     renderAt('/blog/telegram-is-the-cheapest-frontend-i-know');
-    expect(
-      await screen.findByRole('heading', {
-        name: /telegram is the cheapest frontend i know/i,
-      })
-    ).toBeTruthy();
-    await waitFor(() => {
-      expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
-        'https://www.babakbarghi.com/blog/telegram-is-the-cheapest-frontend-i-know'
-      );
-      expect(document.querySelector('meta[property="og:type"]')?.getAttribute('content')).toBe('article');
-      expect(document.querySelector('script[type="application/ld+json"]')?.textContent).toContain('"@type":"Article"');
-    });
+    expect(screen.getByRole('heading', { name: /posts/i })).toBeTruthy();
+    expect(window.location.pathname).toBe('/blog');
   });
 
   it('renders a not-found page for unknown paths', () => {
