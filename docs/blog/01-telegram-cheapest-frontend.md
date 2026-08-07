@@ -1,9 +1,9 @@
 # Telegram Is the Cheapest Frontend I Know
 
-- **Status:** outlined
+- **Status:** draft in site; review pending
 - **Type:** interface opinion / field note
-- **Primary sources:** KinoWeek, FabrikTakt, AutoSpendTracker, Hermes
-- **Length:** ~900 words
+- **Primary sources:** KinoWeek/BoringHannover, FabrikTakt, Hermes, OpenClaw
+- **Length:** ~1,050 words
 - **Core claim:** for one-user tools, internal tools, and early product probes, a
   chat bot often beats a web app because it removes authentication, mobile UI,
   push notifications, media input, and deployment surface area.
@@ -22,11 +22,13 @@ gets value to the user.
 ## Evidence
 
 - **KinoWeek:** weekly Hannover cinema/concert digest, no dashboard needed.
+- **BoringHannover:** the workflow later earned a public interface for browsing,
+  filtering, sharing, and search.
 - **FabrikTakt:** shop-floor knowledge capture through voice/text, where a web
   form would kill adoption.
-- **AutoSpendTracker:** finance summaries and alerts can arrive where attention
-  already lives.
 - **Hermes:** stock checks are an alerting problem, not a website problem.
+- **OpenClaw:** occasional read-only Hetzner VPS health checks from Telegram,
+  behind narrow operational guardrails.
 
 ## Structure
 
@@ -43,7 +45,8 @@ gets value to the user.
 
 ## One concrete artifact
 
-Small diagram: `script/workflow -> Telegram bot -> user action -> stored result`.
+Two small text diagrams: the basic event-to-decision loop and the shared
+Telegram surface across digests, voice capture, alerts, and health checks.
 
 ## Takeaway
 
@@ -54,3 +57,5 @@ capture loop, a bot may be the frontend.
 
 - Do not overclaim that bots replace all UIs.
 - Keep Hermes details light unless the private repo is cleaned for sharing.
+- Keep OpenClaw operational details abstract; do not publish private host,
+  credential, or deployment information.

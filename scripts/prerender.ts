@@ -1,10 +1,14 @@
 import { posts } from '../src/content/posts';
-import { BLOG_META, SITE_URL } from '../src/lib/seo';
+import { BLOG_META, SITE_URL, buildArticleJsonLd, serializeJsonLd } from '../src/lib/seo';
 
 export interface PageMeta {
-  path: string; // route path, e.g. '/blog/hello-world'
+  path: string; // route path, e.g. '/blog/my-post'
   title: string;
   description: string;
+  headline?: string;
+  type?: 'website' | 'article';
+  publishedAt?: string;
+  updatedAt?: string;
 }
 
 const HOME_PAGE: PageMeta = {
@@ -30,15 +34,43 @@ export function buildPages(): PageMeta[] {
     ...posts.map(post => ({
       path: `/blog/${post.slug}`,
       title: `${post.title} | Babak Barghi`,
+      headline: post.title,
       description: post.description,
+      type: 'article' as const,
+      publishedAt: post.publishedAt,
+      updatedAt: post.updatedAt,
     })),
   ];
+}
+
+function renderArticleHead(page: PageMeta, url: string): string {
+  if (page.type !== 'article' || !page.headline || !page.publishedAt) {
+    return '';
+  }
+
+  const publishedAt = escapeHtml(page.publishedAt);
+  const updatedAt = escapeHtml(page.updatedAt ?? page.publishedAt);
+  const articleJsonLd = serializeJsonLd(
+    buildArticleJsonLd({
+      headline: page.headline,
+      description: page.description,
+      url,
+      publishedAt: page.publishedAt,
+      updatedAt: page.updatedAt,
+    })
+  );
+
+  return `
+    <meta property="article:published_time" content="${publishedAt}" />
+    <meta property="article:modified_time" content="${updatedAt}" />
+    <script type="application/ld+json">${articleJsonLd}</script>`;
 }
 
 export function renderRouteHtml(template: string, page: PageMeta, applicationHtml: string): string {
   const title = escapeHtml(page.title);
   const description = escapeHtml(page.description);
   const url = `${SITE_URL}${page.path}`;
+  const articleHead = renderArticleHead(page, url);
 
   const stampContent = (attr: string, value: string) => (html: string) =>
     html.replace(
@@ -63,8 +95,10 @@ export function renderRouteHtml(template: string, page: PageMeta, applicationHtm
     stampContent('property="og:title"', title),
     stampContent('property="og:description"', description),
     stampContent('property="og:url"', url),
+    stampContent('property="og:type"', page.type ?? 'website'),
     stampContent('property="twitter:title"', title),
     stampContent('property="twitter:description"', description),
+    (html: string) => (articleHead ? html.replace('</head>', `${articleHead}\n  </head>`) : html),
     (html: string) => html.replace('<div id="root"></div>', () => `<div id="root">${applicationHtml}</div>`),
   ];
 

@@ -12,11 +12,14 @@ describe('static route rendering', () => {
   });
 
   it('renders the complete MDX post into static HTML', async () => {
-    const html = await renderRoute('/blog/hello-world');
+    const html = await renderRoute('/blog/telegram-is-the-cheapest-frontend-i-know');
 
     expect(html).toContain('<h1');
-    expect(html).toContain('Hello World');
-    expect(html).toContain('Welcome to my blog');
+    expect(html).toContain('Telegram Is the Cheapest Frontend I Know');
+    expect(html).toContain('Most of my useful side projects');
+    expect(html).toContain('KinoWeek');
+    expect(html).toContain('FabrikTakt');
+    expect(html).toContain('OpenClaw');
   });
 
   it('renders the existing not-found page for the static error document', async () => {

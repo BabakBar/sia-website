@@ -4,6 +4,7 @@ import { buildPages, NOT_FOUND_PAGE, renderRouteHtml, renderSitemap } from '../.
 const template = `<html><head><title>Babak Barghi</title>
 <meta name="description" content="OLD-DESC" />
 <link rel="canonical" href="https://www.babakbarghi.com/" />
+<meta property="og:type" content="website" />
 <meta property="og:title" content="Babak Barghi" />
 <meta property="og:description" content="OLD-DESC" />
 <meta property="og:url" content="https://www.babakbarghi.com/" />
@@ -16,24 +17,40 @@ describe('renderRouteHtml', () => {
     const html = renderRouteHtml(
       template,
       {
-        path: '/blog/hello-world',
-        title: 'Hello World | Babak Barghi',
-        description: 'Welcome to my blog.',
+        path: '/blog/telegram-is-the-cheapest-frontend-i-know',
+        title: 'Telegram Is the Cheapest Frontend I Know | Babak Barghi',
+        headline: 'Telegram Is the Cheapest Frontend I Know',
+        description: 'Why I keep reaching for a Telegram bot before building a web interface.',
+        type: 'article',
+        publishedAt: '2026-07-28',
       },
-      '<main><h1>Hello World</h1></main>'
+      '<main><h1>Telegram Is the Cheapest Frontend I Know</h1></main>'
     );
 
-    expect(html).toContain('<title>Hello World | Babak Barghi</title>');
-    expect(html).toContain('<link rel="canonical" href="https://www.babakbarghi.com/blog/hello-world" />');
-    expect(html).toContain('<meta property="og:url" content="https://www.babakbarghi.com/blog/hello-world" />');
+    expect(html).toContain('<title>Telegram Is the Cheapest Frontend I Know | Babak Barghi</title>');
+    expect(html).toContain(
+      '<link rel="canonical" href="https://www.babakbarghi.com/blog/telegram-is-the-cheapest-frontend-i-know" />'
+    );
+    expect(html).toContain(
+      '<meta property="og:url" content="https://www.babakbarghi.com/blog/telegram-is-the-cheapest-frontend-i-know" />'
+    );
+    expect(html).toContain('<meta property="og:type" content="article" />');
+    expect(html).toContain('<meta property="article:published_time" content="2026-07-28" />');
+    expect(html).toContain('"@type":"Article"');
+    expect(html).toContain('"name":"Babak Barghi"');
+    expect(html).toContain('"datePublished":"2026-07-28"');
     expect(html).not.toContain('OLD-DESC');
-    expect(html).toContain('<meta property="twitter:title" content="Hello World | Babak Barghi" />');
+    expect(html).toContain(
+      '<meta property="twitter:title" content="Telegram Is the Cheapest Frontend I Know | Babak Barghi" />'
+    );
     // description is Helmet-managed: stamped with data-rh so hydration
     // reconciles it instead of duplicating it
-    expect(html).toContain('<meta name="description" content="Welcome to my blog." data-rh="true" />');
+    expect(html).toContain(
+      '<meta name="description" content="Why I keep reaching for a Telegram bot before building a web interface." data-rh="true" />'
+    );
     expect(html.match(/name="description"/g)).toHaveLength(1);
     expect(html.match(/<title>/g)).toHaveLength(1);
-    expect(html).toContain('<div id="root"><main><h1>Hello World</h1></main></div>');
+    expect(html).toContain('<div id="root"><main><h1>Telegram Is the Cheapest Frontend I Know</h1></main></div>');
   });
 
   it('escapes HTML in metadata values', () => {
@@ -57,9 +74,12 @@ describe('buildPages', () => {
     const pages = buildPages();
     expect(pages[0].path).toBe('/');
     expect(pages.some(p => p.path === '/blog')).toBe(true);
-    expect(pages.some(p => p.path === '/blog/hello-world')).toBe(true);
-    const post = pages.find(p => p.path === '/blog/hello-world')!;
-    expect(post.title).toBe('Hello World | Babak Barghi');
+    expect(pages.some(p => p.path === '/blog/telegram-is-the-cheapest-frontend-i-know')).toBe(true);
+    expect(pages.some(p => p.path === '/blog/hello-world')).toBe(false);
+    const post = pages.find(p => p.path === '/blog/telegram-is-the-cheapest-frontend-i-know')!;
+    expect(post.title).toBe('Telegram Is the Cheapest Frontend I Know | Babak Barghi');
+    expect(post.type).toBe('article');
+    expect(post.publishedAt).toBe('2026-07-28');
     expect(post.description.length).toBeGreaterThan(0);
   });
 

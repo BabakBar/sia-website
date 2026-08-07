@@ -69,20 +69,20 @@ Do not publish:
 
 ## Publishing Order
 
-| #  | Title | Source projects | Status |
-|----|-------|-----------------|--------|
-| 01 | Telegram Is the Cheapest Frontend I Know | KinoWeek, FabrikTakt, AutoSpendTracker, Hermes | outlined |
-| 02 | From KinoWeek to BoringHannover | KinoWeek, BoringHannover | outlined |
-| 03 | Industrial AI Is Mostly Trust, Not Models | Taliman-ML | outlined |
-| 04 | The Best Factory Interface Might Be a Voice Note | FabrikTakt | outlined |
-| 05 | Cities Should Be Data, Not Code | boring-network, BoringHannover | outlined |
-| 06 | Localization Is Not a Translation File | FabrikTakt, Taliman-Website, personal background | outlined |
-| 07 | Local-First Is Underrated for Personal Tools | subs-tracker, BookmarkAI | outlined |
-| 08 | I Stopped Organizing Bookmarks and Started Searching Them | Bookmark-intelligence | outlined |
-| 09 | Messy Emails, Clean Rows | AutoSpendTracker | outlined |
-| 10 | A Job Search Is an Operations Pipeline | career-ops | sensitive / hold |
-| 11 | One VPS, Many Small Systems | Coolify, Hetzner, monitoring, small apps | outlined |
-| 12 | Your Defaults Are Someone Else's Edge Case | multi-currency, Jalali, RTL/LTR, cross-border life | outlined |
+| #   | Title                                                     | Source projects                                       | Status                        |
+| --- | --------------------------------------------------------- | ----------------------------------------------------- | ----------------------------- |
+| 01  | Telegram Is the Cheapest Frontend I Know                  | KinoWeek/BoringHannover, FabrikTakt, Hermes, OpenClaw | draft in site; review pending |
+| 02  | From KinoWeek to BoringHannover                           | KinoWeek, BoringHannover                              | outlined                      |
+| 03  | Industrial AI Is Mostly Trust, Not Models                 | Taliman-ML                                            | outlined                      |
+| 04  | The Best Factory Interface Might Be a Voice Note          | FabrikTakt                                            | outlined                      |
+| 05  | Cities Should Be Data, Not Code                           | boring-network, BoringHannover                        | outlined                      |
+| 06  | Localization Is Not a Translation File                    | FabrikTakt, Taliman-Website, personal background      | outlined                      |
+| 07  | Local-First Is Underrated for Personal Tools              | subs-tracker, BookmarkAI                              | outlined                      |
+| 08  | I Stopped Organizing Bookmarks and Started Searching Them | Bookmark-intelligence                                 | outlined                      |
+| 09  | Messy Emails, Clean Rows                                  | AutoSpendTracker                                      | outlined                      |
+| 10  | A Job Search Is an Operations Pipeline                    | career-ops                                            | sensitive / hold              |
+| 11  | One VPS, Many Small Systems                               | Coolify, Hetzner, monitoring, small apps              | outlined                      |
+| 12  | Your Defaults Are Someone Else's Edge Case                | multi-currency, Jalali, RTL/LTR, cross-border life    | outlined                      |
 
 ## First Batch
 

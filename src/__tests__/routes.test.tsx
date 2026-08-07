@@ -29,17 +29,24 @@ describe('routes', () => {
     await waitFor(() => expect(document.title).toBe('Blog | Babak Barghi'));
   });
 
-  it('renders a post at /blog/hello-world', async () => {
-    renderAt('/blog/hello-world');
+  it('renders a substantive post with article metadata', async () => {
+    renderAt('/blog/telegram-is-the-cheapest-frontend-i-know');
     expect(
-      await screen.findByRole('heading', { name: /hello world/i })
+      await screen.findByRole('heading', {
+        name: /telegram is the cheapest frontend i know/i,
+      })
     ).toBeTruthy();
+    await waitFor(() => {
+      expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+        'https://www.babakbarghi.com/blog/telegram-is-the-cheapest-frontend-i-know'
+      );
+      expect(document.querySelector('meta[property="og:type"]')?.getAttribute('content')).toBe('article');
+      expect(document.querySelector('script[type="application/ld+json"]')?.textContent).toContain('"@type":"Article"');
+    });
   });
 
   it('renders a not-found page for unknown paths', () => {
     renderAt('/does-not-exist');
-    expect(
-      screen.getByRole('heading', { name: /page not found/i })
-    ).toBeTruthy();
+    expect(screen.getByRole('heading', { name: /page not found/i })).toBeTruthy();
   });
 });

@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { posts } from '../src/content/posts/index.ts';
 
 const root = process.cwd();
 const dist = path.join(root, 'dist');
+const siteUrl = 'https://www.babakbarghi.com';
 
 const expectedPages = [
   {
@@ -12,17 +14,18 @@ const expectedPages = [
   },
   {
     file: 'blog/index.html',
-    canonical: 'https://www.babakbarghi.com/blog',
+    canonical: `${siteUrl}/blog`,
     visibleText: 'Posts',
   },
-  {
-    file: 'blog/hello-world/index.html',
-    canonical: 'https://www.babakbarghi.com/blog/hello-world',
-    visibleText: 'Welcome to my blog',
-  },
+  ...posts.map(post => ({
+    file: `blog/${post.slug}/index.html`,
+    canonical: `${siteUrl}/blog/${post.slug}`,
+    visibleText: post.title,
+    article: post,
+  })),
   {
     file: '404.html',
-    canonical: 'https://www.babakbarghi.com/404.html',
+    canonical: `${siteUrl}/404.html`,
     visibleText: 'Nothing lives at this URL.',
   },
 ];
@@ -40,6 +43,24 @@ for (const page of expectedPages) {
 
   if (!html.includes(`<link rel="canonical" href="${page.canonical}"`)) {
     throw new Error(`${page.file} has the wrong canonical URL`);
+  }
+
+  if (page.article) {
+    if (!html.includes('<meta property="og:type" content="article"')) {
+      throw new Error(`${page.file} is missing article Open Graph metadata`);
+    }
+
+    if (!html.includes(`<meta property="article:published_time" content="${page.article.publishedAt}"`)) {
+      throw new Error(`${page.file} is missing its publication date`);
+    }
+
+    if (
+      !html.includes('<script type="application/ld+json">') ||
+      !html.includes('"@type":"Article"') ||
+      !html.includes('"name":"Babak Barghi"')
+    ) {
+      throw new Error(`${page.file} is missing Article structured data`);
+    }
   }
 }
 

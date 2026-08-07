@@ -401,18 +401,16 @@ Done criteria:
 
 ## Stage 6: publish first-hand evidence
 
-Status: pending<br />
+Status: in progress; first post drafted locally, review pending<br />
 Priority: P1
 
 Goal: give search and AI systems substantive material worth retrieving.
 
 Initial three-post sequence:
 
-1. What owning a global enterprise integration platform actually means.
-2. Secure data movement from Salesforce and SAP through Azure into AI and data
-   platforms.
-3. Building and operating BoringHannover/Boring Network as a real side-project
-   system.
+1. Telegram Is the Cheapest Frontend I Know.
+2. From KinoWeek to BoringHannover.
+3. Industrial AI Is Mostly Trust, Not Models.
 
 Optional follow-ups:
 

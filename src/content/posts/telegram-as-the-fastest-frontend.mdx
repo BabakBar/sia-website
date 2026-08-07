@@ -1,0 +1,150 @@
+i consider my self a backend person, so for me it's important to test the functionality of my ideas first. this situation made to consider using telegram for inputs/outputs.
+
+telegram is free! so it's cheap in decisions. spinning a bot is faster and easier to spin my hetzner VPS using coolify to connect my backend to frontend.
+notifications, voice notes, photos, buttons, and a phone-shaped UI come with
+it. i usually don't build any of that before I know whether the idea is worth keeping.
+
+## The blank project
+
+Open an empty web project and the side quests show up before the feature does.
+Auth? should i test on a phone? Where does state live? asking AI to edit the buttons or UI? What
+sends notifications, and which screen do they open? Suddenly it's 3am at night
+and I'm sleepy with a UI layout for a tool with one user (myself)!
+
+that work isn't wasted. it's just expensive while I still don't know if the
+core loop deserves to exist. For most of my tools, that first loop is tiny.
+
+<div style={{ margin: '2.5rem 0', display: 'flex', justifyContent: 'center' }}>
+  <svg role="img" viewBox="0 0 380 320" style={{ width: '100%', maxWidth: '340px', height: 'auto' }}>
+    <title>{'Something happens, a small workflow runs, Telegram delivers the message, and I decide what to do.'}</title>
+    <defs>
+      <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#4A4A4A" />
+      </marker>
+    </defs>
+    <g fill="#141414" stroke="#2E2E2E">
+      <rect x="50" y="8" width="280" height="52" rx="12" />
+      <rect x="50" y="92" width="280" height="52" rx="12" />
+      <rect x="50" y="260" width="280" height="52" rx="12" />
+    </g>
+    <rect x="50" y="176" width="280" height="52" rx="12" fill="#12241B" stroke="#508F70" strokeWidth="1.5" />
+    <g stroke="#3A3A3A" strokeWidth="1.5" markerEnd="url(#loop-arrow)">
+      <line x1="190" y1="60" x2="190" y2="90" />
+      <line x1="190" y1="144" x2="190" y2="174" />
+      <line x1="190" y1="228" x2="190" y2="258" />
+    </g>
+    <g textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="15" fill="#EDEDED">
+      <text x="190" y="40">something happens</text>
+      <text x="190" y="124">small workflow</text>
+      <text x="190" y="208" fill="#7FC3A0">Telegram message</text>
+      <text x="190" y="292">I decide</text>
+    </g>
+  </svg>
+</div>
+
+## KinoWeek
+
+it was christmas time, i was on holidays and i wanted to check the English language movies or live musics in Hannover without checking too many websites, with their cookies and shitty sitemaps and filterings. i was like I don't need an account, a dashboard, or a settings page. I just wan one message a week with the good stuff already
+filtered.
+
+so that's what i built. it collected the events, formatted them, and sent the digest to Telegram. I opened the app I was already in, scanned the week, moved on.
+
+Then it outgrew the chat. Once the question shifted from "what's my week" to
+"what's goin on in this city," a real site made sense, and KinoWeek became BoringHannover. Browsing, filtering, sharing links, showing up in search. The web is good at that.
+
+The workflow told me when it needed a frontend. I didn't have to guess on day one. (link of github & website here)
+
+## FabrikTakt
+
+i have been working in industry and manufacturing almost all of my life 
+Different day & idea: capture practical manufacturing knowledge as text and voice,
+including Persian voice notes, and make it searchable.
+
+The hard part was getting anyone to capture anything at all. Telegram was the
+obvious call. Everyone already had it and knew how to hold a button and talk.
+Nothing to install, nothing to explain. Someone could describe a machine issue
+the way they'd describe it to a colleague.
+
+We look at a chat box and see limits. The person using it sees something they
+already know how to work. That counts for a lot when the alternative feels like
+paperwork.
+
+## Hermes and OpenClaw
+
+Hermes was a throwaway experiment. Watch a small stock-monitoring workflow, ping
+me when something interesting showed up. Telegram was faster to set up than
+WhatsApp, so I wired the alert, ran it, and found out quickly whether I cared.
+If the answer had been no, I'd have deleted a bot and a script instead of
+maintaining a frontend for an idea I'd lost interest in.
+
+I still run this pattern. OpenClaw gives me one chat for a few narrow jobs.
+Every now and then I ask how my Hetzner box is doing and it reports back disk,
+memory, uptime, service health. Read-only, on purpose. I get to ask from my
+phone, with boring guardrails behind it.
+
+<div style={{ margin: '2.5rem 0', display: 'flex', justifyContent: 'center' }}>
+  <svg role="img" viewBox="0 0 420 264" style={{ width: '100%', maxWidth: '400px', height: 'auto' }}>
+    <title>{'Events, voice notes, and VPS health checks feed different workflows that all arrive in the same Telegram chat, where I make a decision.'}</title>
+    <defs>
+      <marker id="fan-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#4A4A4A" />
+      </marker>
+    </defs>
+    <g fill="#141414" stroke="#2E2E2E">
+      <rect x="6" y="8" width="124" height="44" rx="10" />
+      <rect x="148" y="8" width="124" height="44" rx="10" />
+      <rect x="290" y="8" width="124" height="44" rx="10" />
+      <rect x="140" y="200" width="140" height="48" rx="12" />
+    </g>
+    <g fill="none" stroke="#3A3A3A" strokeWidth="1.5" markerEnd="url(#fan-arrow)">
+      <path d="M68 52 C68 86 175 84 175 110" />
+      <path d="M210 52 L210 110" />
+      <path d="M352 52 C352 86 245 84 245 110" />
+      <path d="M210 166 L210 196" />
+    </g>
+    <rect x="140" y="118" width="140" height="48" rx="12" fill="#12241B" stroke="#508F70" strokeWidth="1.5" />
+    <g textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fontSize="13" fill="#EDEDED">
+      <text x="68" y="35">events</text>
+      <text x="210" y="35">voice notes</text>
+      <text x="352" y="35">vps health</text>
+      <text x="210" y="147" fontSize="14" fill="#7FC3A0">one chat</text>
+      <text x="210" y="229" fontSize="14">a decision</text>
+    </g>
+  </svg>
+</div>
+
+In all of these, Telegram is the shortest path from something happening to me
+making a call.
+
+## When a bot is the wrong call
+
+I wouldn't ship everything this way. Chat gets clumsy when the job is comparing
+a lot of things, digging through history, managing permissions, or laying
+information out visually. It's also a bad home for pages that should be public
+and searchable.
+
+BoringHannover is the clean example. A weekly digest was great in chat. A city
+guide needed the web. So my rule of thumb comes down to the verbs.
+
+<div style={{ margin: '2.5rem 0', display: 'flex', justifyContent: 'center' }}>
+  <svg role="img" viewBox="0 0 400 216" style={{ width: '100%', maxWidth: '400px', height: 'auto' }}>
+    <title>{'Notify, capture, approve, and check point to a bot. Browse, compare, discover, and publish point to the web.'}</title>
+    <rect x="6" y="6" width="388" height="92" rx="14" fill="#12241B" stroke="#508F70" strokeWidth="1.5" />
+    <rect x="6" y="114" width="388" height="92" rx="14" fill="#141414" stroke="#2E2E2E" strokeWidth="1.5" />
+    <g textAnchor="middle" fontFamily="'JetBrains Mono', monospace" fill="#EDEDED">
+      <text x="200" y="40" fontSize="15" fill="#7FC3A0">start with a bot</text>
+      <text x="200" y="74" fontSize="14">notify · capture · approve · check</text>
+      <text x="200" y="148" fontSize="15" fill="#A09888">you need the web</text>
+      <text x="200" y="182" fontSize="14">browse · compare · discover · publish</text>
+    </g>
+  </svg>
+</div>
+
+There's no prize for starting with the fancier stack.
+
+So if you're staring at an empty React project for a weekend tool, give it ten
+minutes first. Write down the one message it should send you, or the one thing
+you want to send it. Build that. Live with it for a week.
+
+If you end up wishing for filters, history, and a real screen, good. That's the
+workflow telling you what to build next.

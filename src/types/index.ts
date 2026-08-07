@@ -1,7 +1,8 @@
 export interface Post {
   slug: string;
   title: string;
-  date: string;
+  publishedAt: string;
+  updatedAt?: string;
   description: string;
   readTime: string;
   component: () => Promise<{ default: React.ComponentType }>;

@@ -4,9 +4,7 @@ import PostItem from '@/components/ui/PostItem';
 import { BLOG_META } from '@/lib/seo';
 
 export default function Blog() {
-  const sortedPosts = [...posts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const sortedPosts = [...posts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
     <div>
@@ -19,7 +17,7 @@ export default function Blog() {
         <p className="text-muted">No posts yet.</p>
       ) : (
         <div className="divide-y divide-muted/20">
-          {sortedPosts.map((post) => (
+          {sortedPosts.map(post => (
             <PostItem key={post.slug} post={post} />
           ))}
         </div>
