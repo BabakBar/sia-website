@@ -62,6 +62,10 @@ for (const page of expectedPages) {
       throw new Error(`${page.file} is missing Article structured data`);
     }
   }
+
+  if (!html.includes('data-website-id="51f09c81-8626-488b-b73b-20c452d3fff7"')) {
+    throw new Error(`${page.file} is missing the Umami analytics tracking script`);
+  }
 }
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -81,6 +85,10 @@ const nginx = await readFile(path.join(root, 'ops/nginx.conf'), 'utf8');
 
 if (!nginx.includes('try_files $uri $uri/index.html =404;')) {
   throw new Error('nginx must return 404 instead of falling back to the homepage');
+}
+
+if (!nginx.includes('location = /s/t.js') || !nginx.includes('location = /s/api/send')) {
+  throw new Error('nginx must configure first-party Umami analytics proxy locations');
 }
 
 console.log(`verified ${expectedPages.length} static pages + sitemap + nginx route contract`);
