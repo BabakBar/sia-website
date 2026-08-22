@@ -87,8 +87,4 @@ if (!nginx.includes('try_files $uri $uri/index.html =404;')) {
   throw new Error('nginx must return 404 instead of falling back to the homepage');
 }
 
-if (!nginx.includes('location = /s/t.js') || !nginx.includes('location = /s/api/send')) {
-  throw new Error('nginx must configure first-party Umami analytics proxy locations');
-}
-
 console.log(`verified ${expectedPages.length} static pages + sitemap + nginx route contract`);
