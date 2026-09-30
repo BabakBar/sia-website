@@ -25,7 +25,7 @@ jobs:
 
       - name: Trigger Coolify Deploy
         run: |
-          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET \
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             "${{ secrets.COOLIFY_WEBHOOK_URL }}")
           echo "$response"
