@@ -7,21 +7,21 @@ export default function Blog() {
   const sortedPosts = [...posts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
-    <div>
+    <section className="post-archive" aria-labelledby="posts-heading">
       <Helmet>
         <title>{BLOG_META.title}</title>
         <meta name="description" content={BLOG_META.description} />
       </Helmet>
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">Posts</h1>
+      <h1 id="posts-heading" className="post-title">Posts</h1>
       {sortedPosts.length === 0 ? (
         <p className="text-muted">No posts yet.</p>
       ) : (
-        <div className="divide-y divide-muted/20">
+        <ul className="post-list" role="list">
           {sortedPosts.map(post => (
             <PostItem key={post.slug} post={post} />
           ))}
-        </div>
+        </ul>
       )}
-    </div>
+    </section>
   );
 }

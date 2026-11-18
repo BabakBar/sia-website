@@ -16,7 +16,7 @@ export default function Footer() {
           </a>
           {posts.length > 0 && (
             <Link to="/blog" className="hover:text-accent-light">
-              Writing
+              Posts
             </Link>
           )}
         </div>

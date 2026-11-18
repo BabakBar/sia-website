@@ -5,6 +5,7 @@ export interface Post {
   updatedAt?: string;
   description: string;
   readTime: string;
+  preview?: true;
   component: () => Promise<{ default: React.ComponentType }>;
 }
 

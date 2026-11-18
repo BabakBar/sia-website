@@ -7,6 +7,7 @@ import { ABOUT_META, BLOG_META, HOME_META, SITE_URL, buildProfileJsonLd, seriali
 export default function Layout() {
   const { pathname } = useLocation();
   const path = pathname.replace(/\/$/, '') || '/';
+  const isBlog = path === '/blog' || path.startsWith('/blog/');
   const meta = path === '/about' ? ABOUT_META : path === '/blog' ? BLOG_META : HOME_META;
   return (
     <>
@@ -32,12 +33,14 @@ export default function Layout() {
         Skip to content
       </a>
 
-      <div className="min-h-screen px-6 md:px-12 lg:px-24 max-w-3xl mx-auto">
-        <Header />
-        <main id="content" className="py-8">
-          <Outlet />
-        </main>
-        <Footer />
+      <div className={isBlog ? 'blog-shell' : undefined}>
+        <div className={`min-h-screen px-6 md:px-12 ${isBlog ? 'lg:px-16' : 'lg:px-24'} max-w-3xl mx-auto`}>
+          <Header />
+          <main id="content" className="py-8">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
     </>
   );

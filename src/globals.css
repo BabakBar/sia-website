@@ -154,3 +154,177 @@ button:focus-visible {
 .prose blockquote {
   @apply border-l-2 border-muted pl-4 my-4 italic text-muted;
 }
+
+.blog-shell {
+  --post-ink: #f1ede2;
+  --post-text: #dfd8cb;
+  --post-muted: #b0a99a;
+  --post-accent: #a0bf9d;
+  --post-rule: #3c3931;
+  --post-serif: Georgia, 'Times New Roman', serif;
+
+  background: #191815;
+  color: var(--post-text);
+}
+
+.post-title {
+  color: var(--post-ink);
+  font-family: var(--post-serif);
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.post-archive > h1 {
+  margin-block: clamp(1rem, 5vw, 3rem) 2rem;
+}
+
+.post-list {
+  border-block-end: 1px solid var(--post-rule);
+}
+
+.post-list > li {
+  border-block-start: 1px solid var(--post-rule);
+}
+
+.post-list-link {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  padding-block: 1.25rem;
+}
+
+.post-list-link > div {
+  flex: 1 1 24rem;
+}
+
+.post-list-link h2 {
+  color: var(--post-ink);
+  font: 700 1.5rem / 1.2 var(--post-serif);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.post-list-link:hover h2,
+.post-list-link:focus-visible h2 {
+  color: var(--post-accent);
+}
+
+.post-list-link p {
+  max-width: 48ch;
+  margin-block-start: 0.4rem;
+  color: var(--post-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.post-label,
+.post-back {
+  color: var(--post-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.post-back {
+  display: inline-block;
+  padding-block: 0.375rem;
+  color: var(--post-accent);
+}
+
+.post-back:hover,
+.post-meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.post-header {
+  margin-block: clamp(1.25rem, 4vw, 2.75rem) 1.75rem;
+  padding-block-end: 1.5rem;
+  border-block-end: 1px solid var(--post-rule);
+}
+
+.post-header .post-title {
+  font-size: clamp(2.25rem, 7vw, 3.375rem);
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1rem;
+  margin-block-start: 1.125rem;
+}
+
+.post-meta a {
+  color: var(--post-ink);
+}
+
+.post-body {
+  max-width: 66ch;
+  color: var(--post-text);
+  font-family: var(--post-serif);
+  font-size: clamp(1.125rem, 2.3vw, 1.25rem);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+.post-body p {
+  margin-block: 1em;
+  line-height: inherit;
+}
+
+.post-body a {
+  color: var(--post-accent);
+  text-underline-offset: 0.18em;
+}
+
+.post-body a:hover {
+  color: var(--post-ink);
+}
+
+.post-cover {
+  margin-block-end: 1.5rem;
+}
+
+.post-cover img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+.post-digest {
+  margin: 1.5rem 0;
+}
+
+.post-digest-message {
+  width: fit-content;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid #465045;
+  border-radius: 0.1875rem 0.625rem 0.625rem 0.625rem;
+  background: #232b23;
+  color: var(--post-ink);
+  font: 0.9375rem / 1.55 Inter, system-ui, sans-serif;
+}
+
+.post-digest-message p {
+  margin: 0;
+}
+
+.post-digest-message p + p {
+  margin-block-start: 0.3rem;
+}
+
+.post-digest-message strong {
+  color: var(--post-accent);
+}
+
+.post-cover figcaption,
+.post-digest figcaption {
+  margin-block-start: 0.5rem;
+  color: var(--post-muted);
+  font: 0.8125rem / 1.5 Inter, system-ui, sans-serif;
+}

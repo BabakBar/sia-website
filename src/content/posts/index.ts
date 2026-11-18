@@ -1,5 +1,12 @@
 import type { Post } from '@/types';
 
-// telegram-as-the-fastest-frontend.mdx is drafted but not published yet:
-// add its entry here (and rename the file to match the slug) to ship it.
-export const posts: Post[] = [];
+const publishedPosts: Post[] = [];
+
+// A fresh checkout can build without the Git-ignored preview registry.
+const previewPosts = import.meta.env?.DEV && import.meta.env.MODE === 'blog-preview'
+  ? import.meta.glob<Post[]>('./preview.local/posts.ts', { eager: true, import: 'default' })[
+      './preview.local/posts.ts'
+    ] ?? []
+  : [];
+
+export const posts: Post[] = [...publishedPosts, ...previewPosts];

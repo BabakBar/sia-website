@@ -8,18 +8,20 @@ interface PostItemProps {
 
 export default function PostItem({ post }: PostItemProps) {
   return (
-    <Link
-      to={`/blog/${post.slug}`}
-      className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 py-4 -mx-4 px-4 rounded-lg hover:bg-foreground/5 transition-colors"
-    >
-      <time dateTime={post.publishedAt} className="text-sm text-muted tabular-nums shrink-0 w-28">
-        {formatPostDate(post.publishedAt)}
-      </time>
-      <div className="flex-1 min-w-0">
-        <h3 className="font-medium text-foreground group-hover:text-accent-light transition-colors">{post.title}</h3>
-        <p className="text-sm text-muted mt-1 line-clamp-2">{post.description}</p>
-        <span className="text-xs text-muted mt-2 block">{post.readTime}</span>
-      </div>
-    </Link>
+    <li>
+      <Link to={`/blog/${post.slug}`} className="post-list-link">
+        <div>
+          <h2>{post.title}</h2>
+          <p>{post.description}</p>
+        </div>
+        {post.preview ? (
+          <span className="post-label">Local preview</span>
+        ) : (
+          <time className="post-label" dateTime={post.publishedAt}>
+            {formatPostDate(post.publishedAt)}
+          </time>
+        )}
+      </Link>
+    </li>
   );
 }
