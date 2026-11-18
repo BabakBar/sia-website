@@ -16,14 +16,14 @@ export default function Header() {
           home
         </NavLink>
         <NavLink
-          to="/blog"
+          to="/about"
           className={({ isActive }) =>
             isActive
               ? 'text-foreground underline underline-offset-4'
               : 'text-muted hover:text-accent-light transition-colors'
           }
         >
-          blog
+          about
         </NavLink>
       </nav>
       <SocialIcons />

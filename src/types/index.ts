@@ -15,23 +15,6 @@ export interface Project {
   image?: string;
 }
 
-export interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  stargazers_count: number;
-  language: string | null;
-  fork: boolean;
-}
-
-export interface FavoriteBookSeed {
-  title: string;
-  searchTitle: string;
-  authorHint?: string;
-  note: string;
-}
-
 export interface FavoriteBook {
   title: string;
   subtitle?: string;

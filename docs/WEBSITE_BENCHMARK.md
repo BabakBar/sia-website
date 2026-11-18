@@ -1,6 +1,44 @@
 # Website benchmark and progress tracker
 
-Last updated: 2026-07-26
+Last updated: 2026-11-18
+
+## Release preparation: 2026-11-18
+
+- Branch `fix/site-recovery-20261118`, based on `fea8aa4`. Sia reviewed localhost,
+  requested removal of enterprise work from Selected work, and approved commit
+  and push. The local-review shipping hold is lifted.
+- Content: two selected projects (BoringHannover and FabrikTakt); enterprise
+  background stays on About. Shorter hero and work CTA, shared profile metadata
+  and entity schema, static reading list, empty blog out of primary navigation,
+  regenerated Cloud Architect share image. Article drafts remain unpublished.
+- Retired GitHub fetching, cache, cards, and their mock-based tests removed.
+  Regression coverage now checks stable project proof and About content.
+- Bun 1.4.4 pinned in package metadata, CI, and Docker. React 19.3 production
+  rendering failed under Bun 1.2.23; the same production build passes on 1.4.4.
+  Local global Bun was not changed; validation used `bunx --package bun@1.4.4 bun`.
+- Dependency updates and same-major transitive security overrides: `bun audit`
+  reports no vulnerabilities across 424 checked packages.
+- Verification: 15 unit tests; four real HTTP checks against the healthy local
+  Docker image at `http://127.0.0.1:3080`; production build, static output and
+  metadata checks pass. HTTP checks cover public content, 404 statuses, tracker
+  JavaScript, social image, profile entity, and sitemap. A custom Docker network
+  matches production's embedded DNS resolver.
+- CI now uses the same image and Bun version, tests local serving, observes the
+  deployment to completion and checks its commit, then tests public serving.
+  Deployment observer entry point passed local HTTP stand-in checks for success,
+  failed deployment, and mismatched commit. No new test framework was added.
+- Coolify switched to Dockerfile; static/SPA serving and direct push auto-deploy
+  disabled; health check enabled on port 80 at `/`. Read back verified; old
+  production image remains serving 200 while the release is prepared.
+- Rollback: original settings and labels in
+  `/tmp/sia-website-rollback-20261118.json`; prior successful image/tag
+  `fea8aa43c79fd2d8743c26821c037f6715a69def` is retained in Coolify.
+- Proxy labels were regenerated with the unchanged domain list; verify that the
+  running proxy preserves nginx status codes after deployment.
+- Next check: commit/push the verified release, observe CI and Coolify completion,
+  and run public HTTP and analytics verification.
+- Local preview remains `http://localhost:3000/`. README/share-image proposal
+  edits predate this implementation and are kept outside the release commit.
 
 ## Purpose
 
@@ -65,7 +103,9 @@ No production or infrastructure changes were made during the audit.
 
 - Vite 7, React 19, TypeScript, React Router, Tailwind CSS, and MDX.
 - Browser routes: `/`, `/blog`, `/blog/:slug`, and a client-side catch-all.
-- Coolify Nixpacks static deployment from `master`.
+- Coolify still uses Nixpacks static deployment from `master`, with SPA fallback
+  enabled. The repository Dockerfile and `ops/nginx.conf` are not active in
+  production; their presence does not prove their serving rules are deployed.
 - Build command: `bun run build`.
 - Publish directory: `/dist`.
 - nginx and Cloudflare serve both the apex and `www`; the apex redirects to the
@@ -73,6 +113,80 @@ No production or infrastructure changes were made during the audit.
 - Cloudflare proxies the apex A record and the `www` CNAME.
 - The old PWA was removed. `public/sw.js` remains as a temporary kill switch for
   visitors with the retired service worker.
+
+## Re-audit checkpoint: 2026-11-18
+
+Read-only production audit, retrieved approximately 21:54–21:56 UTC. No
+application, infrastructure, commit, push, or deployment changes were made.
+The pre-existing README and share-image proposal edits were preserved.
+
+- Local checkout `746306e`; remote `master` is `fea8aa43c79fd2d8743c26821c037f6715a69def`
+  (2026-09-30, changes the deployment webhook from GET to POST). Live asset
+  hashes match the current local build. Latest GitHub run `36770313963` passed;
+  it only verifies webhook acceptance, not deployment completion or live behavior.
+- Homepage and blog return 200 with prerendered content; apex redirects to
+  `www`. Sitemap contains only `/` and `/blog`. Blog displays `No posts yet.`;
+  `src/content/posts/index.ts` is empty. Twelve article drafts exist under
+  `docs/blog`, plus the unpublished Telegram MDX draft.
+- Unknown page `/audit-nonexistent-20261118` and missing JavaScript asset
+  `/assets/audit-missing-20261118.js` return homepage HTML with HTTP 200.
+  VIS-02 has regressed in production.
+- `/s/t.js` returns HTTP 200 `text/html` containing the homepage. Lighthouse
+  confirms `SyntaxError: Unexpected token '<'` at that URL. Analytics cannot
+  execute. Umami website `51f09c81-8626-488b-b73b-20c452d3fff7` has only one
+  recorded timestamp, `2026-08-22T23:37:01.725Z`; its zero recent visits do not
+  establish that the site received no traffic.
+- Coolify application `zsossos8so8occ4c4gg8w0sk` reports `build_pack=nixpacks`,
+  `is_static=true`, `is_spa=true`, empty custom nginx configuration,
+  `running:unknown`, health checks disabled, restart count 21. No cause for the
+  historical restarts was established. Auto-deployment is enabled.
+- Google Search Console property `sc-domain:babakbarghi.com`: homepage is
+  submitted and indexed, last crawled 2026-11-17 14:48:45 UTC; Google's and the
+  user's canonical both equal `https://www.babakbarghi.com/`.
+- Finalized GSC web totals, no filters, Pacific dates: 2026-10-18 through
+  2026-11-14 had 19 impressions, 0 clicks, average position 3.11; previous equal
+  28 days, 2026-09-20 through 2026-10-17, had 11 impressions, 0 clicks, average
+  position 3.45. The query breakdown returned no rows; anonymized queries are
+  omitted, so these totals do not prove branded-search rank.
+- Umami comparison used `2026-10-18T07:00:00Z` through
+  `2026-11-15T07:59:59Z`, matching those Pacific dates across the DST change.
+  Current and previous totals were zero; the broken tracker invalidates traffic
+  interpretation.
+- Lighthouse 13.6.0 live mobile lab audit: performance 100, accessibility 100,
+  best practices 96, SEO 100; FCP/LCP 0.9 s, TBT 0 ms, CLS 0.048, transfer
+  301 KiB. Best-practices failure is the analytics script error. This is a
+  single lab run, not field Core Web Vitals or proof of manual accessibility.
+- Desktop Lighthouse returned the same four scores; LCP 0.2 s, CLS 0.005.
+  Viewport screenshots on both form factors preserve the restrained dark
+  layout. The long biography dominates the mobile opening before project proof.
+- `bun run build` passes TypeScript, Vite, prerendering, and static-output checks.
+  Plain `bun run test` fails 5/19 cache tests under this Mac's Node 26.12.0
+  because global localStorage is undefined. With
+  `NODE_OPTIONS=--no-experimental-webstorage bun run test`, all 19 pass.
+- `bun audit --json`: 51 advisories across 16 packages (1 critical, 26 high,
+  22 moderate, 2 low). The critical advisory is Vitest UI-server exposure
+  ([maintainer advisory](https://github.com/vitest-dev/vitest/security/advisories/GHSA-5xrq-8626-4rwp)),
+  not evidence of an exploitable static production server. Remaining findings
+  still need feature/exposure review before an update batch.
+- Homepage still says Cloud Architect while metadata says Cloud & AI Engineer;
+  share-image URLs remain relative. No About route, Person/ProfilePage JSON-LD,
+  curated selected work, privacy notice, or Impressum was found in source.
+  No new legal determination was made.
+- Browser-control host was unavailable. Lighthouse supplied a mobile viewport
+  screenshot and automated audits; no manual keyboard/interaction pass was done.
+- Scratch evidence: `/tmp/sia-lighthouse-20261118.json`,
+  `/tmp/sia-lighthouse-desktop-20261118.json`,
+  `/tmp/sia-bun-audit.json`, `/tmp/sia-live-home.html`,
+  `/tmp/sia-live-blog.html`, `/tmp/sia-unknown.html`, `/tmp/sia-tracker.txt`.
+
+Next change: validate the repository Docker image locally, then request approval
+to switch this Coolify application to Dockerfile and deploy. Preserve the
+current application settings/image for rollback. Acceptance: known routes 200,
+unknown page and missing asset 404, `/s/t.js` returns JavaScript, browser has no
+tracker syntax error, and an authorized tracking verification reaches Umami.
+Add a post-deploy smoke gate so webhook acceptance cannot conceal this drift.
+Then prioritize curated project proof, a clear visitor action, consistent role
+metadata, and an editorial decision on the empty blog.
 
 ## Baseline scorecard
 
@@ -269,7 +383,11 @@ Done criteria:
 #### VIS-02: unknown paths were soft 404s
 
 Priority: P0<br />
-Status: verified
+Status: open
+
+Reopened 2026-11-18: unknown paths return 200 homepage HTML in production.
+The repository nginx rule remains correct but is bypassed by Nixpacks/SPA
+serving; see the re-audit checkpoint above.
 
 At the audit baseline, arbitrary paths such as `/definitely-not-a-page`,
 `/.env`, fake PHP files, and nonexistent assets returned the homepage with HTTP 200.
@@ -307,9 +425,9 @@ Priority: P0<br />
 Status: open
 
 The visible hero says Cloud Architect, while the homepage metadata and OG image
-say Cloud & AI Engineer. The homepage title contains only the name. The only
-published post promises generic AWS patterns, which does not reinforce the
-current Azure and enterprise integration positioning.
+say Cloud & AI Engineer. The homepage title contains only the name. There are
+currently no published posts to reinforce the Azure and enterprise integration
+positioning.
 
 Done criteria:
 
@@ -355,8 +473,9 @@ Current evidence:
 - Sia confirmed the Google Search Console and Bing Webmaster portal work is
   complete.
 - IndexNow accepted the three canonical sitemap URLs with HTTP 202.
-- Per-URL indexed state, sitemap processing results, and ranking movement have
-  not yet been recorded; submission is not evidence of indexing.
+- On 2026-11-18, GSC confirmed the homepage is indexed with the correct
+  canonical. Current traffic and inspection evidence is in the re-audit
+  checkpoint. Bing, About indexing, and branded ranking remain unverified.
 
 #### VIS-05: there is no authoritative profile page or entity markup
 
@@ -379,9 +498,9 @@ Done criteria:
 Priority: P1<br />
 Status: open
 
-The prominent Blog navigation leads to one generic Hello World post dated
-December 2025. Its content is a syntax-highlighting demonstration rather than
-first-hand evidence of Cloud Architecture work.
+The prominent Blog navigation leads to an empty listing saying `No posts yet.`
+There are no published entries in `src/content/posts/index.ts`; drafts have not
+become public first-hand evidence of Cloud Architecture work.
 
 Done criteria:
 
@@ -452,8 +571,8 @@ Confirmed examples:
 - `These are some favorites that impacted heavy!` is not natural English.
 - GitHub descriptions include casual or outdated language that does not support
   the intended positioning.
-- The Hello World article makes generic future promises instead of providing
-  current evidence.
+- The primary blog navigation currently promises writing but leads to an empty
+  listing.
 
 ### Accessibility
 
@@ -768,11 +887,12 @@ Done criteria:
 Priority: P1<br />
 Status: open
 
-`bun audit` reported 32 advisories. Many relate to development servers,
+On 2026-11-18, `bun audit` reported 51 advisories across 16 packages (1 critical,
+26 high, 22 moderate, 2 low). Many relate to development servers,
 build-time tools, or React Router server features not exposed by this static
 site. They are still supply-chain debt and must be resolved deliberately.
 
-Notable compatible updates available during the audit included:
+Historical update candidates recorded in July (recheck versions before use):
 
 - React and React DOM 19.2.8;
 - React Router 7.18.1;
@@ -793,11 +913,13 @@ Done criteria:
 Priority: P1<br />
 Status: open
 
-The 14 tests cover mounting, client routes, cache parsing, metadata stamping,
-and sitemap generation. They do not prove:
+The 19 tests cover mounting, client routes, cache parsing, static rendering,
+metadata stamping, and sitemap generation. The build also inspects generated
+visible HTML and checks that the source nginx config contains a 404 rule.
+They do not prove:
 
-- meaningful HTML without JavaScript;
-- server 404 status behavior;
+- deployed HTML without JavaScript;
+- the running server uses the checked config or returns actual 404 statuses;
 - browser accessibility;
 - external API failure without mocks;
 - direct route behavior in the deployed nginx setup;
@@ -823,6 +945,9 @@ result.
 
 Current evidence:
 
+- On 2026-11-18, latest GitHub Actions run `36770313963` was green, but live
+  unknown routes and `/s/t.js` returned 200 homepage HTML. Repository config
+  checks do not cover the selected Coolify build pack; see the re-audit above.
 - GitHub Actions run `30205890336` passed the production build and all 19 tests,
   then queued Coolify deployment `xsoscwoowwsw8go448gk4888`.
 - The deployment finished, the rolling update completed, and the restart count

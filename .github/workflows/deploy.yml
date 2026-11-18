@@ -3,16 +3,31 @@ name: Deploy
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.4.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
       - run: bun install --frozen-lockfile
 
@@ -23,14 +38,22 @@ jobs:
 
       - run: bun run test
 
-      - name: Trigger Coolify Deploy
+      - name: Check the real production image locally
         run: |
-          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
-            "${{ secrets.COOLIFY_WEBHOOK_URL }}")
-          echo "$response"
-          http_code=$(echo "$response" | grep "HTTP_CODE:" | cut -d: -f2)
-          if [ "$http_code" != "200" ]; then
-            echo "Coolify webhook failed with HTTP $http_code"
-            exit 1
-          fi
+          docker build -t sia-website:ci .
+          docker network create sia-website-check-net
+          docker run -d --name sia-website-check --network sia-website-check-net -p 127.0.0.1:8080:80 sia-website:ci
+          trap 'docker rm -f sia-website-check; docker network rm sia-website-check-net' EXIT
+          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8080/ -o /dev/null
+          SMOKE_BASE_URL=http://127.0.0.1:8080 bun run test:http
+
+      - name: Deploy and wait for the checked commit
+        run: bun scripts/deploy.ts
+        env:
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+          COOLIFY_WEBHOOK_URL: ${{ secrets.COOLIFY_WEBHOOK_URL }}
+
+      - name: Verify the public website
+        run: bun run test:http
+        env:
+          SMOKE_BASE_URL: https://www.babakbarghi.com

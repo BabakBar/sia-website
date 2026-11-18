@@ -1,3 +1,6 @@
+import { posts } from '@/content/posts';
+import { Link } from 'react-router';
+
 export default function Footer() {
   return (
     <footer className="py-8 mt-16 border-t border-muted/20">
@@ -11,6 +14,11 @@ export default function Footer() {
           >
             ↗ github
           </a>
+          {posts.length > 0 && (
+            <Link to="/blog" className="hover:text-accent-light">
+              Writing
+            </Link>
+          )}
         </div>
         <span>© {new Date().getFullYear()} Babak Barghi</span>
       </div>

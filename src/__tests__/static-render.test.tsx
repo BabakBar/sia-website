@@ -9,6 +9,21 @@ describe('static route rendering', () => {
     expect(html).toContain('Cloud Architect');
     expect(html).toContain('Salesforce–Azure–SAP integration');
     expect(html).toContain('Books I Keep Recommending');
+    expect(html).toContain('BoringHannover');
+    expect(html).toContain('FabrikTakt');
+    expect(html).toContain('Explore my work');
+    expect(html).not.toContain('Enterprise data foundations');
+    expect(html).not.toContain('Popular repositories');
+    expect(html).not.toContain('openlibrary.org');
+    expect(html).not.toContain('api.github.com');
+  });
+
+  it('keeps the full enterprise background on About', async () => {
+    const html = await renderRoute('/about');
+    expect(html).toContain('About me');
+    expect(html).toContain('Salesforce–Azure–SAP');
+    expect(html).toContain('57 countries');
+    expect(html).toContain('India, and Malaysia');
   });
 
   it('renders the blog index without browser JavaScript', async () => {

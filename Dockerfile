@@ -2,7 +2,7 @@
 
 # Build stage — the app is a Vite SPA with an SSR prerender pass, so the build
 # needs devDependencies (typescript, vite, sharp) present.
-FROM oven/bun:1.2.23 AS build
+FROM oven/bun:1.4.4 AS build
 
 WORKDIR /app
 
@@ -12,6 +12,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # tsc && vite build && prerender && verify-static-output
+ENV NODE_ENV=production
 RUN bun run build
 
 # Runtime stage

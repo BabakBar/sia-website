@@ -1,17 +1,28 @@
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import Header from './Header';
 import Footer from './Footer';
+import { ABOUT_META, BLOG_META, HOME_META, SITE_URL, buildProfileJsonLd, serializeJsonLd } from '@/lib/seo';
 
 export default function Layout() {
+  const { pathname } = useLocation();
+  const path = pathname.replace(/\/$/, '') || '/';
+  const meta = path === '/about' ? ABOUT_META : path === '/blog' ? BLOG_META : HOME_META;
   return (
     <>
       <Helmet>
-        <title>Babak Barghi</title>
-        <meta
-          name="description"
-          content="Babak Barghi — Cloud & AI Engineer. Architecting intelligent systems."
-        />
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+        <link rel="canonical" href={`${SITE_URL}${path}`} />
+        <meta property="og:type" content="website" />
+        <meta property="twitter:title" content={meta.title} />
+        <meta property="twitter:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:url" content={`${SITE_URL}${path}`} />
+        {(path === '/' || path === '/about') && (
+          <script type="application/ld+json">{serializeJsonLd(buildProfileJsonLd(path))}</script>
+        )}
       </Helmet>
 
       <a

@@ -7,6 +7,11 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    {
+      name: 'omit-local-analytics',
+      apply: 'serve',
+      transformIndexHtml: html => html.replace(/<!-- analytics:start -->[\s\S]*?<!-- analytics:end -->/, ''),
+    },
     // MDX must run BEFORE React plugin
     {
       enforce: 'pre',

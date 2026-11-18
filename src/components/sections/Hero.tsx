@@ -1,3 +1,6 @@
+import { Link } from 'react-router';
+import { profile } from '@/content/profile';
+
 export default function Hero() {
   return (
     <section className="py-8">
@@ -7,20 +10,22 @@ export default function Hero() {
             Hi, I'm Babak <span className="text-muted-light font-normal text-lg md:text-xl">(Sia)</span>
           </h1>
           <p className="mt-4 text-muted-light leading-relaxed">
-            I'm a <span className="text-foreground">Cloud Architect</span> working on the infrastructure behind
-            enterprise data and AI platforms. At Continental, I own the global Salesforce–Azure–SAP integration
-            platform, which securely feeds AI and data platforms such as Databricks for teams across 57 countries.
+            I’m a <span className="text-foreground">{profile.role}</span> in Hannover, building the infrastructure
+            behind enterprise data and AI platforms.
           </p>
           <p className="mt-3 text-muted-light leading-relaxed">
-            I lead a small global team across the USA, Germany, India, and Malaysia. Together, we work on the
-            less-visible but essential parts of modern platforms: secure APIs, AKS, private networking, identity, and
-            the automation that keeps everything moving.
+            At {profile.employer}, I own the global Salesforce–Azure–SAP integration platform, securely feeding
+            platforms such as Databricks across 57 countries. Outside work, I build practical tools for cities and
+            manufacturing.
           </p>
-          <p className="mt-3 text-muted-light leading-relaxed">
-            Over 9+ years, I've worked across infrastructure, automation, data, and AI—from mining operations in Iran to
-            automotive R&D in Germany. Outside of work, you'll usually find me building a side project, experimenting
-            with AI dev tools, or reading books that make engineering feel a bit more human.
-          </p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href="#work" className="text-accent-light underline underline-offset-4">
+              Explore my work ↓
+            </a>
+            <Link to="/about" className="text-muted-light underline underline-offset-4">
+              More about me
+            </Link>
+          </div>
         </div>
         <div className="mt-2 md:mt-0 flex-shrink-0">
           <img

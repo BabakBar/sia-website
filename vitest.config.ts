@@ -15,6 +15,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/vitest.setup.ts'],
+    execArgv: ['--no-experimental-webstorage'],
   },
   resolve: {
     alias: {

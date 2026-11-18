@@ -13,6 +13,11 @@ const expectedPages = [
     visibleText: 'Salesforce–Azure–SAP integration',
   },
   {
+    file: 'about/index.html',
+    canonical: `${siteUrl}/about`,
+    visibleText: 'About me',
+  },
+  {
     file: 'blog/index.html',
     canonical: `${siteUrl}/blog`,
     visibleText: 'Posts',
@@ -65,6 +70,17 @@ for (const page of expectedPages) {
 
   if (!html.includes('data-website-id="51f09c81-8626-488b-b73b-20c452d3fff7"')) {
     throw new Error(`${page.file} is missing the Umami analytics tracking script`);
+  }
+  if (!html.includes(`content="${siteUrl}/og-image.png"`)) {
+    throw new Error(`${page.file} needs an absolute social image URL`);
+  }
+  if (page.file === 'index.html') {
+    for (const text of ['Selected work', 'BoringHannover', 'FabrikTakt', 'Explore my work']) {
+      if (!html.includes(text)) throw new Error(`Homepage is missing ${text}`);
+    }
+    if (html.includes('Popular repositories') || html.includes('impacted heavy')) {
+      throw new Error('Homepage still uses the retired dynamic content');
+    }
   }
 }
 

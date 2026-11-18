@@ -1,3 +1,5 @@
+import { profile } from '@/content/profile';
+
 const icons = {
   github: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="size-5" aria-hidden="true">
@@ -18,9 +20,9 @@ const icons = {
 };
 
 const links = [
-  { href: 'https://github.com/BabakBar', icon: icons.github, label: 'GitHub' },
-  { href: 'https://linkedin.com/in/babakbarghi', icon: icons.linkedin, label: 'LinkedIn' },
-  { href: 'mailto:babak.barghi@gmail.com', icon: icons.email, label: 'Email' },
+  { href: profile.github, icon: icons.github, label: 'GitHub' },
+  { href: profile.linkedin, icon: icons.linkedin, label: 'LinkedIn' },
+  { href: profile.email, icon: icons.email, label: 'Email' },
 ];
 
 export default function SocialIcons() {

@@ -1,12 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import App from '../App';
-
-vi.mock('@/lib/books', () => ({
-  fetchFavoriteBooks: vi.fn().mockResolvedValue([]),
-  getFallbackFavoriteBooks: vi.fn(() => []),
-}));
 
 beforeEach(() => {
   globalThis.localStorage?.clear?.();

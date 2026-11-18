@@ -1,5 +1,13 @@
 import { posts } from '../src/content/posts';
-import { BLOG_META, SITE_URL, buildArticleJsonLd, serializeJsonLd } from '../src/lib/seo';
+import {
+  ABOUT_META,
+  HOME_META,
+  BLOG_META,
+  SITE_URL,
+  buildArticleJsonLd,
+  buildProfileJsonLd,
+  serializeJsonLd,
+} from '../src/lib/seo';
 
 export interface PageMeta {
   path: string; // route path, e.g. '/blog/my-post'
@@ -13,8 +21,7 @@ export interface PageMeta {
 
 const HOME_PAGE: PageMeta = {
   path: '/',
-  title: 'Babak Barghi',
-  description: 'Babak Barghi — Cloud & AI Engineer. Architecting intelligent systems.',
+  ...HOME_META,
 };
 
 export const NOT_FOUND_PAGE: PageMeta = {
@@ -30,6 +37,7 @@ function escapeHtml(value: string): string {
 export function buildPages(): PageMeta[] {
   return [
     HOME_PAGE,
+    { path: '/about', ...ABOUT_META },
     { path: '/blog', ...BLOG_META },
     ...posts.map(post => ({
       path: `/blog/${post.slug}`,
@@ -71,6 +79,10 @@ export function renderRouteHtml(template: string, page: PageMeta, applicationHtm
   const description = escapeHtml(page.description);
   const url = `${SITE_URL}${page.path}`;
   const articleHead = renderArticleHead(page, url);
+  const profileHead =
+    page.path === '/' || page.path === '/about'
+      ? `<script type="application/ld+json" data-rh="true">${serializeJsonLd(buildProfileJsonLd(page.path))}</script>`
+      : '';
 
   const stampContent = (attr: string, value: string) => (html: string) =>
     html.replace(
@@ -99,6 +111,7 @@ export function renderRouteHtml(template: string, page: PageMeta, applicationHtm
     stampContent('property="twitter:title"', title),
     stampContent('property="twitter:description"', description),
     (html: string) => (articleHead ? html.replace('</head>', `${articleHead}\n  </head>`) : html),
+    (html: string) => (profileHead ? html.replace('</head>', `${profileHead}\n  </head>`) : html),
     (html: string) => html.replace('<div id="root"></div>', () => `<div id="root">${applicationHtml}</div>`),
   ];
 
