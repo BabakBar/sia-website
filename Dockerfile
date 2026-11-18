@@ -13,7 +13,8 @@ COPY . .
 
 # tsc && vite build && prerender && verify-static-output
 ENV NODE_ENV=production
-RUN bun run build
+ARG SOURCE_COMMIT=local
+RUN bun run build && printf '%s\n' "$SOURCE_COMMIT" > dist/revision.txt
 
 # Runtime stage
 FROM nginx:1.29-alpine AS runtime

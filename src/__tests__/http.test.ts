@@ -59,5 +59,11 @@ describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
     const sitemap = await request('/sitemap.xml');
     expect(sitemap.status).toBe(200);
     expect(await sitemap.text()).toContain(`<loc>${SITE_URL}/about</loc>`);
+    if (process.env.SMOKE_EXPECTED_REVISION) {
+      const revision = await request('/revision.txt');
+      expect(revision.status).toBe(200);
+      expect(revision.headers.get('cache-control')).toContain('no-store');
+      expect((await revision.text()).trim()).toBe(process.env.SMOKE_EXPECTED_REVISION);
+    }
   }, 20_000);
 });

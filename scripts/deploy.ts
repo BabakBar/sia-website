@@ -12,20 +12,25 @@ const deployment = result.deployments?.find(
 );
 if (!deployment?.deployment_uuid) throw new Error('Coolify did not return this website’s deployment ID');
 
-const endpoint = new URL(`/api/v1/deployments/${deployment.deployment_uuid}`, webhook);
-console.log(`Observing deployment ${deployment.deployment_uuid}`);
-for (let attempt = 0; attempt < 120; attempt++) {
-  const statusResponse = await fetch(endpoint, { headers, signal: AbortSignal.timeout(30_000) });
-  if (!statusResponse.ok) throw new Error(`Cannot observe deployment: HTTP ${statusResponse.status}`);
-  const current = await statusResponse.json();
-  if (current.status === 'finished') {
-    if (current.commit !== expectedCommit) throw new Error('Deployed commit differs from the checked commit');
-    console.log(`Deployment finished at ${expectedCommit}`);
-    process.exit(0);
-  }
-  if (['failed', 'cancelled', 'canceled'].includes(current.status)) {
-    throw new Error(`Deployment ${current.status}`);
+// The existing CI token intentionally has deploy permission without API read
+// permission. Observe the released revision without broadening that credential.
+const endpoint = new URL('/revision.txt', process.env.SMOKE_BASE_URL ?? 'https://www.babakbarghi.com');
+console.log(`Waiting for public revision ${expectedCommit} (deployment ${deployment.deployment_uuid})`);
+const deadline = Date.now() + 10 * 60_000;
+for (let attempt = 0; Date.now() < deadline; attempt++) {
+  endpoint.searchParams.set('release', `${expectedCommit}-${attempt}`);
+  try {
+    const published = await fetch(endpoint, {
+      headers: { 'Cache-Control': 'no-cache' },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (published.ok && (await published.text()).trim() === expectedCommit) {
+      console.log(`Public website is serving ${expectedCommit}`);
+      process.exit(0);
+    }
+  } catch {
+    // A rolling update may briefly interrupt the request; the deadline is fixed.
   }
   await Bun.sleep(5000);
 }
-throw new Error('Timed out waiting for deployment completion');
+throw new Error('Timed out waiting for the checked revision to become public');

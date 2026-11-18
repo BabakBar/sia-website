@@ -40,14 +40,14 @@ jobs:
 
       - name: Check the real production image locally
         run: |
-          docker build -t sia-website:ci .
+          docker build --build-arg SOURCE_COMMIT="$GITHUB_SHA" -t sia-website:ci .
           docker network create sia-website-check-net
           docker run -d --name sia-website-check --network sia-website-check-net -p 127.0.0.1:8080:80 sia-website:ci
           trap 'docker rm -f sia-website-check; docker network rm sia-website-check-net' EXIT
           curl --fail --retry 10 --retry-all-errors --retry-delay 1 --max-time 5 --silent --show-error http://127.0.0.1:8080/ -o /dev/null
-          SMOKE_BASE_URL=http://127.0.0.1:8080 bun run test:http
+          SMOKE_BASE_URL=http://127.0.0.1:8080 SMOKE_EXPECTED_REVISION="$GITHUB_SHA" bun run test:http
 
-      - name: Deploy and wait for the checked commit
+      - name: Deploy and wait for the public revision
         run: bun scripts/deploy.ts
         env:
           COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
@@ -57,3 +57,4 @@ jobs:
         run: bun run test:http
         env:
           SMOKE_BASE_URL: https://www.babakbarghi.com
+          SMOKE_EXPECTED_REVISION: ${{ github.sha }}
