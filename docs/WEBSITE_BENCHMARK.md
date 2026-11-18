@@ -2,43 +2,63 @@
 
 Last updated: 2026-11-18
 
-## Release preparation: 2026-11-18
+## Verified release: 2026-11-18
 
-- Branch `fix/site-recovery-20261118`, based on `fea8aa4`. Sia reviewed localhost,
-  requested removal of enterprise work from Selected work, and approved commit
-  and push. The local-review shipping hold is lifted.
-- Content: two selected projects (BoringHannover and FabrikTakt); enterprise
-  background stays on About. Shorter hero and work CTA, shared profile metadata
-  and entity schema, static reading list, empty blog out of primary navigation,
-  regenerated Cloud Architect share image. Article drafts remain unpublished.
-- Retired GitHub fetching, cache, cards, and their mock-based tests removed.
-  Regression coverage now checks stable project proof and About content.
+- Released code: `8f8cc18badf93800c5015ec91ae7b3b3b07829a0` on remote `master`.
+  Main content/recovery commit `732cd2e`; readiness correction `b43584f`;
+  permission-preserving publication verification `8f8cc18`.
+- Sia reviewed localhost, removed enterprise work from Selected work, and
+  approved commit/push. BoringHannover and FabrikTakt are the two selected
+  projects; enterprise background remains on About. Article drafts remain unpublished on the website.
+- Content: shorter hero and work CTA, About and shared profile metadata/entity,
+  static book recommendations, empty blog out of primary navigation, regenerated
+  Cloud Architect share image. Retired GitHub fetching/cache/cards and their
+  mock-based tests removed; content regression tests replace them.
 - Bun 1.4.4 pinned in package metadata, CI, and Docker. React 19.3 production
-  rendering failed under Bun 1.2.23; the same production build passes on 1.4.4.
-  Local global Bun was not changed; validation used `bunx --package bun@1.4.4 bun`.
-- Dependency updates and same-major transitive security overrides: `bun audit`
-  reports no vulnerabilities across 424 checked packages.
-- Verification: 15 unit tests; four real HTTP checks against the healthy local
-  Docker image at `http://127.0.0.1:3080`; production build, static output and
-  metadata checks pass. HTTP checks cover public content, 404 statuses, tracker
-  JavaScript, social image, profile entity, and sitemap. A custom Docker network
-  matches production's embedded DNS resolver.
-- CI now uses the same image and Bun version, tests local serving, observes the
-  deployment to completion and checks its commit, then tests public serving.
-  Deployment observer entry point passed local HTTP stand-in checks for success,
-  failed deployment, and mismatched commit. No new test framework was added.
-- Coolify switched to Dockerfile; static/SPA serving and direct push auto-deploy
-  disabled; health check enabled on port 80 at `/`. Read back verified; old
-  production image remains serving 200 while the release is prepared.
-- Rollback: original settings and labels in
-  `/tmp/sia-website-rollback-20261118.json`; prior successful image/tag
-  `fea8aa43c79fd2d8743c26821c037f6715a69def` is retained in Coolify.
-- Proxy labels were regenerated with the unchanged domain list; verify that the
-  running proxy preserves nginx status codes after deployment.
-- Next check: commit/push the verified release, observe CI and Coolify completion,
-  and run public HTTP and analytics verification.
-- Local preview remains `http://localhost:3000/`. README/share-image proposal
-  edits predate this implementation and are kept outside the release commit.
+  rendering failed under Bun 1.2.23; production builds pass on 1.4.4. Local global
+  Bun was not changed; use `bunx --package bun@1.4.4 bun` when needed.
+- Local validation: 19 checks passed (15 unit + four real Docker HTTP tests),
+  production build/static-output checks passed, `bun audit` found no
+  vulnerabilities across 424 checked packages. Same-major transitive overrides
+  resolve advisories without unrelated framework migrations.
+- GitHub Actions run `44416051994` passed build, tests, Docker serving checks,
+  deployment trigger, public exact-revision observation, and public HTTP checks:
+  https://github.com/BabakBar/sia-website/actions/runs/44416051994
+- CI uses a custom Docker network for nginx's embedded DNS resolver. Readiness
+  retries include connection resets during nginx startup. The existing CI token
+  can deploy but returns 403 on deployment-status reads; its permissions were
+  preserved. CI now waits for the exact public `/revision.txt` SHA, then verifies
+  status/content contracts. Public polling never forwards the API token.
+- Coolify application `zsossos8so8occ4c4gg8w0sk`: Dockerfile, static/SPA disabled,
+  direct push auto-deploy disabled in favor of CI, source commit injected into
+  build, health check enabled on port 80 `/`. Final state `running:healthy`,
+  restart count 0, no running deployments. Deployment
+  `xseedbrxmx2odfjqtgee6wgk` published `8f8cc18`; public revision matches.
+- Public homepage, About, and blog return 200 with static content/canonicals;
+  unknown page and missing JavaScript return 404; social image and sitemap pass.
+  `/s/t.js` returns valid JavaScript. All four public HTTP tests passed against
+  the exact released revision.
+- Cloudflare had cached the old HTML tracker response (HIT, age 3525 s) after
+  origin recovery. A scoped purge cleared tracker/share-image/favicon/audit URLs.
+  The page versions its tracker URL to bypass returning visitors' cached HTML.
+- Umami website `51f09c81-8626-488b-b73b-20c452d3fff7` recorded a new visit at
+  `2026-11-18T22:56:46.980Z` during the release browser audit; tracking now records
+  activity. This verifies collection, not organic traffic growth or IP/location
+  accuracy. Earlier zero traffic remains uninterpretable.
+- Live mobile Lighthouse 13.6.0 at 22:56:45 UTC: performance 99, accessibility
+  100, best practices 100, SEO 100; FCP 0.9 s, LCP 2.0 s, TBT 0 ms, CLS 0.004,
+  transfer 231 KiB, no console errors. Single lab run; no manual keyboard audit.
+- Evidence: `/tmp/sia-lighthouse-released-20261118.json`,
+  `/tmp/sia-docker-build.log`, `/tmp/sia-deploy-public-contract.ts` (real local
+  HTTP stand-in verifies current, stale-then-current, and rejected publication).
+- Rollback: original settings/labels in `/tmp/sia-website-rollback-20261118.json`;
+  prior successful image/tag `fea8aa43c79fd2d8743c26821c037f6715a69def` was
+  confirmed retained before release. Restore settings then use Coolify rollback
+  to that image if needed; include_source_commit_in_build was previously false.
+- Local preview remains `http://localhost:3000/`. Pre-existing README/share-image
+  proposal edits remain outside these commits. No schedules or new monitors.
+- Next work: substantive reviewed writing and fuller case-study evidence;
+  indexing of the new About page and traffic growth require later measurement.
 
 ## Purpose
 
@@ -102,10 +122,11 @@ No production or infrastructure changes were made during the audit.
 ## Current architecture and deployment
 
 - Vite 7, React 19, TypeScript, React Router, Tailwind CSS, and MDX.
-- Browser routes: `/`, `/blog`, `/blog/:slug`, and a client-side catch-all.
-- Coolify still uses Nixpacks static deployment from `master`, with SPA fallback
-  enabled. The repository Dockerfile and `ops/nginx.conf` are not active in
-  production; their presence does not prove their serving rules are deployed.
+- Browser routes: `/`, `/about`, `/blog`, `/blog/:slug`, and a client-side catch-all.
+- Coolify builds the repository Dockerfile from `master`. nginx serves the
+  prerendered files using `ops/nginx.conf`, with real 404s and an analytics proxy.
+- GitHub Actions gates releases; direct push auto-deploy is disabled. CI observes
+  the published revision before checking public status/content contracts.
 - Build command: `bun run build`.
 - Publish directory: `/dist`.
 - nginx and Cloudflare serve both the apex and `www`; the apex redirects to the
@@ -383,34 +404,9 @@ Done criteria:
 #### VIS-02: unknown paths were soft 404s
 
 Priority: P0<br />
-Status: open
+Status: verified
 
-Reopened 2026-11-18: unknown paths return 200 homepage HTML in production.
-The repository nginx rule remains correct but is bypassed by Nixpacks/SPA
-serving; see the re-audit checkpoint above.
-
-At the audit baseline, arbitrary paths such as `/definitely-not-a-page`,
-`/.env`, fake PHP files, and nonexistent assets returned the homepage with HTTP 200.
-
-No sensitive file was exposed. The response is the public homepage. The problem
-is incorrect HTTP meaning, not a confirmed data leak.
-
-Local implementation:
-
-- The build now generates `404.html`.
-- `ops/nginx.conf` replaces the homepage fallback with `=404`.
-- A real local nginx container passed the known-route, unknown-route, missing
-  asset, and configuration-syntax checks.
-- Coolify's saved custom nginx configuration matches `ops/nginx.conf`.
-- Cache-busted production requests return 404 for an unknown page and a missing
-  asset while all known routes return 200.
-
-Impact:
-
-- Search engines can index worthless duplicate URLs.
-- Crawl budget and canonical signals are weakened.
-- Logs and security scanners contain false-positive successes.
-- Availability monitoring cannot distinguish a real page from the fallback.
+The 2026-11-18 Docker release serves the repository nginx config. Public unknown pages and missing assets return 404. The preceding Nixpacks drift is recorded in the re-audit checkpoint.
 
 Done criteria:
 
@@ -422,12 +418,9 @@ Done criteria:
 #### VIS-03: public identity is inconsistent
 
 Priority: P0<br />
-Status: open
+Status: verified
 
-The visible hero says Cloud Architect, while the homepage metadata and OG image
-say Cloud & AI Engineer. The homepage title contains only the name. There are
-currently no published posts to reinforce the Azure and enterprise integration
-positioning.
+The visible hero, About, title, description, schema, and share image now consistently use Cloud Architect. Public writing remains a separate content gap.
 
 Done criteria:
 
@@ -480,10 +473,9 @@ Current evidence:
 #### VIS-05: there is no authoritative profile page or entity markup
 
 Priority: P0<br />
-Status: open
+Status: in progress
 
-The site has no `/about` page, typed public profile, `ProfilePage` JSON-LD,
-`Person` JSON-LD, or stable entity `@id`.
+About, the shared typed profile, ProfilePage/Person schema, and confirmed social links are live. The stable identity is https://www.babakbarghi.com/#person. Public research detail remains future content.
 
 Done criteria:
 
@@ -496,11 +488,9 @@ Done criteria:
 #### VIS-06: the blog weakens rather than strengthens authority
 
 Priority: P1<br />
-Status: open
+Status: in progress
 
-The prominent Blog navigation leads to an empty listing saying `No posts yet.`
-There are no published entries in `src/content/posts/index.ts`; drafts have not
-become public first-hand evidence of Cloud Architecture work.
+The unpromoted /blog route still shows No posts yet. It is removed from primary navigation; drafts remain unpublished. Substantive writing is still outstanding.
 
 Done criteria:
 
@@ -514,11 +504,9 @@ Done criteria:
 #### VIS-07: project proof is selected by GitHub stars
 
 Priority: P1<br />
-Status: open
+Status: in progress
 
-The client fetches up to 100 repositories and shows the four non-forks with the
-most stars. This can promote old or weakly described work instead of the
-projects that best support the Cloud Architect narrative.
+Two locally curated projects replace GitHub-star selection. Each explains its problem and approach. Fuller architecture, constraint, decision, and outcome evidence remains future work.
 
 Done criteria:
 
@@ -532,10 +520,9 @@ Done criteria:
 #### UX-01: there is no clear next action
 
 Priority: P1<br />
-Status: open
+Status: verified
 
-The header offers social icons, but the page does not deliberately lead a
-visitor toward selected work, the full profile, writing, or contact.
+The hero leads to Selected work and About. About links to contact and the professional profile; header social/contact links remain available.
 
 Done criteria:
 
@@ -547,11 +534,9 @@ Done criteria:
 #### UX-02: live third-party data controls visible copy
 
 Priority: P1<br />
-Status: open
+Status: verified
 
-GitHub controls repository descriptions. Open Library controls normalized book
-titles, subtitles, authors, dates, links, and covers. A third-party response can
-therefore change visible content without a website deployment.
+Selected work, book titles/authors, and reading notes are repository-owned. Runtime GitHub/Open Library fetching and the unused cache are removed. Book cards use local text artwork and fetch no external covers.
 
 Done criteria:
 
@@ -563,38 +548,9 @@ Done criteria:
 #### UX-03: copy cleanup is needed
 
 Priority: P1<br />
-Status: open
+Status: verified
 
-Confirmed examples:
-
-- `Over 9+ years` is redundant.
-- `These are some favorites that impacted heavy!` is not natural English.
-- GitHub descriptions include casual or outdated language that does not support
-  the intended positioning.
-- The primary blog navigation currently promises writing but leads to an empty
-  listing.
-
-### Accessibility
-
-#### A11Y-01: muted text fails contrast
-
-Priority: P1<br />
-Status: in progress
-
-Lighthouse found 22 contrast failures.
-
-- `#525252` on `#0A0A0A`: approximately 2.53:1.
-- `#525252` on card backgrounds near `#161616`: approximately 2.31:1.
-
-Affected content includes inactive navigation, repository descriptions,
-languages, book labels and dates, and footer text.
-
-Local implementation:
-
-- The muted token now passes AA against the page and card backgrounds.
-- Local Lighthouse reports zero contrast failures and Accessibility 100.
-- The corrected tokens are live; a fresh live Lighthouse run remains
-  outstanding.
+The redundant career phrasing, awkward reading copy, runtime repository descriptions, and empty primary blog navigation are corrected in the verified 2026-11-18 release.
 
 Done criteria:
 
@@ -696,12 +652,9 @@ Done criteria:
 #### SEO-01: social metadata is incomplete and stale
 
 Priority: P1<br />
-Status: open
+Status: verified
 
-- Homepage description and social image use the old role.
-- `og:image` and Twitter image values are relative paths.
-- Blog posts use `og:type=website` instead of article-specific metadata.
-- Author and publication information are absent from structured data.
+Cloud Architect is consistent across homepage metadata, About, schema, and the regenerated share image. Social-image URLs are absolute. ProfilePage/Person schema and article author identity are shared; article output is covered without publishing drafts.
 
 Done criteria:
 
@@ -885,21 +838,9 @@ Done criteria:
 #### ENG-03: dependency advisories and updates are outstanding
 
 Priority: P1<br />
-Status: open
+Status: verified
 
-On 2026-11-18, `bun audit` reported 51 advisories across 16 packages (1 critical,
-26 high, 22 moderate, 2 low). Many relate to development servers,
-build-time tools, or React Router server features not exposed by this static
-site. They are still supply-chain debt and must be resolved deliberately.
-
-Historical update candidates recorded in July (recheck versions before use):
-
-- React and React DOM 19.2.8;
-- React Router 7.18.1;
-- Vite 7.3.6;
-- Vitest 4.1.10;
-- PostCSS 8.5.23;
-- Tailwind CSS 4.3.3.
+The audit baseline had 51 advisories. Compatible dependency updates plus same-major overrides for fflate, picomatch, rollup, source-map-js, and ws now produce a clean audit across 424 checked packages. React 19.3.1, React Router 7.18.6, Vite 7.3.8, Vitest 4.1.12, and Sharp 0.35.5 pass the release checks. Bun 1.4.4 resolves the production-renderer failure on the older runtime.
 
 Done criteria:
 
@@ -911,19 +852,9 @@ Done criteria:
 #### ENG-04: test coverage does not exercise the real browser or server contract
 
 Priority: P1<br />
-Status: open
+Status: in progress
 
-The 19 tests cover mounting, client routes, cache parsing, static rendering,
-metadata stamping, and sitemap generation. The build also inspects generated
-visible HTML and checks that the source nginx config contains a 404 rule.
-They do not prove:
-
-- deployed HTML without JavaScript;
-- the running server uses the checked config or returns actual 404 statuses;
-- browser accessibility;
-- external API failure without mocks;
-- direct route behavior in the deployed nginx setup;
-- post-deploy availability.
+The suite has 15 unit tests and four real HTTP tests run against local Docker and public production. Static content, metadata, routes, 404 statuses, tracker JavaScript, share image, sitemap, profile entity, and exact public revision are covered. Manual keyboard/focus behavior and full browser navigation contracts remain unverified.
 
 Done criteria:
 
@@ -937,25 +868,9 @@ Done criteria:
 #### OPS-01: deployment success does not prove live success
 
 Priority: P1<br />
-Status: in progress
+Status: verified
 
-The GitHub workflow builds and tests, then verifies only that Coolify accepted
-the webhook with HTTP 200. It does not wait for the deployment or smoke-test the
-result.
-
-Current evidence:
-
-- On 2026-11-18, latest GitHub Actions run `36770313963` was green, but live
-  unknown routes and `/s/t.js` returned 200 homepage HTML. Repository config
-  checks do not cover the selected Coolify build pack; see the re-audit above.
-- GitHub Actions run `30205890336` passed the production build and all 19 tests,
-  then queued Coolify deployment `xsoscwoowwsw8go448gk4888`.
-- The deployment finished, the rolling update completed, and the restart count
-  remained zero.
-- Manual cache-busted public checks verified canonical route HTML plus genuine
-  404 responses.
-- The workflow still stops after Coolify accepts the webhook; it does not yet
-  wait for or smoke-test the deployed result.
+The workflow builds and tests the real image, triggers deployment, waits for the exact public revision, then verifies HTTP serving. It preserves the existing deploy-only credential without API read permission. Run 44416051994 passed the complete gate.
 
 Done criteria:
 
@@ -966,10 +881,9 @@ Done criteria:
 #### OPS-02: Coolify health is unknown
 
 Priority: P2<br />
-Status: open
+Status: verified
 
-The app reports `running:unknown`; health checking is disabled even though the
-public site is currently reachable.
+Health checks use port 80 at /. Coolify reports running:healthy and zero restarts. Unknown routes are independently verified as 404s.
 
 Done criteria:
 
@@ -1001,30 +915,30 @@ Done criteria:
 | ---------------- | --------------------------------------------- | -------- | ----------- | --------------------------------------------------------- |
 | VIS-01           | Meaningful static HTML for all public routes  | P0       | verified    | Cache-busted curl contains visible content                |
 | VIS-02           | Real 404 status and page                      | P0       | verified    | Known routes 200, unknown page and asset 404              |
-| VIS-03           | One current identity source                   | P0       | open        | Homepage, About, metadata, OG, schema agree               |
+| VIS-03           | One current identity source                   | P0       | verified    | Homepage, About, metadata, OG, schema agree               |
 | VIS-04           | Personal domain visible in branded search     | P0       | in progress | Search Console/Bing indexed plus repeatable search sample |
-| VIS-05           | About page and Person/ProfilePage schema      | P0       | open        | Visible HTML, valid JSON-LD, sitemap entry                |
-| VIS-06           | Three substantive posts or de-emphasized blog | P1       | open        | Published article URLs and schema                         |
-| VIS-07           | Curated selected work                         | P1       | open        | Reviewed case studies independent of GitHub stars         |
-| UX-01            | Clear visitor next action                     | P1       | open        | Homepage usability review                                 |
-| UX-02            | Repository-owned visible copy                 | P1       | open        | Site complete with third-party APIs blocked               |
-| UX-03            | Copy cleanup                                  | P1       | open        | Editorial pass                                            |
+| VIS-05           | About page and Person/ProfilePage schema      | P0       | in progress | Visible HTML, valid JSON-LD, sitemap entry                |
+| VIS-06           | Three substantive posts or de-emphasized blog | P1       | in progress | Published article URLs and schema                         |
+| VIS-07           | Curated selected work                         | P1       | in progress | Reviewed case studies independent of GitHub stars         |
+| UX-01            | Clear visitor next action                     | P1       | verified    | Homepage usability review                                 |
+| UX-02            | Repository-owned visible copy                 | P1       | verified    | Site complete with third-party APIs blocked               |
+| UX-03            | Copy cleanup                                  | P1       | verified    | Editorial pass                                            |
 | A11Y-01          | AA text contrast                              | P1       | in progress | Lighthouse/axe and manual review                          |
 | A11Y-02          | Visible focus and hover states                | P1       | in progress | Keyboard review and contrast checks                       |
 | PERF-01          | Responsive optimized hero image               | P1       | in progress | Homepage transfer at most 400 KiB                         |
 | PERF-02          | Self-hosted/system fonts                      | P1       | in progress | No Google font requests, lower CLS                        |
 | PERF-03          | Static-first JavaScript budget                | P2       | in progress | Static pages work with JS disabled                        |
-| SEO-01           | Current social/article metadata               | P1       | open        | Raw HTML and social preview checks                        |
+| SEO-01           | Current social/article metadata               | P1       | verified    | Raw HTML and social preview checks                        |
 | SEO-02           | Expanded trustworthy sitemap                  | P2       | open        | Search-console processed sitemap                          |
 | LEGAL-01         | Reviewed Impressum                            | P1       | open        | Direct link from all pages                                |
 | PRIV-01          | Accurate privacy notice                       | P1       | open        | Notice matches measured requests                          |
 | PRIV-02          | Contact and image provenance policy           | P2       | open        | Documented decision                                       |
-| ENG-03           | Dependency update and audit pass              | P1       | open        | Green tests/build and reviewed audit                      |
-| ENG-04           | Browser/server contract tests                 | P1       | open        | Green static, browser, and deployed smoke checks          |
-| OPS-01           | Verified post-deploy smoke gate               | P1       | in progress | Workflow evidence from a deployment                       |
+| ENG-03           | Dependency update and audit pass              | P1       | verified    | Green tests/build and reviewed audit                      |
+| ENG-04           | Browser/server contract tests                 | P1       | in progress | Green static, browser, and deployed smoke checks          |
+| OPS-01           | Verified post-deploy smoke gate               | P1       | verified    | Workflow evidence from a deployment                       |
 | SEC-01 to SEC-05 | Infrastructure/domain hardening               | P2       | open        | Read-back verification per finding                        |
 | ENG-01 to ENG-02 | Formatting and lint gates                     | P2       | open        | Green local and CI gates                                  |
-| OPS-02 to OPS-03 | Health and repository protections             | P2       | open        | Coolify/GitHub read-back verification                     |
+| OPS-02 to OPS-03 | Health and repository protections             | P2       | in progress | Coolify/GitHub read-back verification                     |
 
 ## Re-audit checklist
 
