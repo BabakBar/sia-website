@@ -1,9 +1,11 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
+import { randomUUID } from 'node:crypto';
 import process from 'node:process';
 import { SITE_URL } from '../lib/seo';
 
 const baseUrl = process.env.SMOKE_BASE_URL;
+const expectedRevision = process.env.SMOKE_EXPECTED_REVISION;
 const request = (path: string) => fetch(new URL(path, baseUrl), { signal: AbortSignal.timeout(15_000) });
 
 describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
@@ -59,11 +61,23 @@ describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
     const sitemap = await request('/sitemap.xml');
     expect(sitemap.status).toBe(200);
     expect(await sitemap.text()).toContain(`<loc>${SITE_URL}/about</loc>`);
-    if (process.env.SMOKE_EXPECTED_REVISION) {
-      const revision = await request('/revision.txt');
-      expect(revision.status).toBe(200);
-      expect(revision.headers.get('cache-control')).toContain('no-store');
-      expect((await revision.text()).trim()).toBe(process.env.SMOKE_EXPECTED_REVISION);
-    }
   }, 20_000);
+
+  it.runIf(Boolean(expectedRevision))('serves the expected public revision', async () => {
+    const revisionUrl = new URL('/revision.txt', baseUrl);
+
+    // A public request can briefly return the previous revision after the deploy probe first sees the new one.
+    await expect
+      .poll(async () => {
+        revisionUrl.searchParams.set('release', randomUUID());
+        const revision = await fetch(revisionUrl, {
+          headers: { 'Cache-Control': 'no-cache' },
+          signal: AbortSignal.timeout(5_000),
+        });
+        expect(revision.status).toBe(200);
+        expect(revision.headers.get('cache-control')).toContain('no-store');
+        return (await revision.text()).trim();
+      }, { interval: 1_000, timeout: 20_000 })
+      .toBe(expectedRevision);
+  }, 30_000);
 });
