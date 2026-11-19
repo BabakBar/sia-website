@@ -6,7 +6,12 @@ import { SITE_URL } from '../lib/seo';
 
 const baseUrl = process.env.SMOKE_BASE_URL;
 const expectedRevision = process.env.SMOKE_EXPECTED_REVISION;
-const request = (path: string) => fetch(new URL(path, baseUrl), { signal: AbortSignal.timeout(15_000) });
+const smokeRun = randomUUID();
+const request = (path: string) => {
+  const url = new URL(path, baseUrl);
+  url.searchParams.set('release-check', smokeRun);
+  return fetch(url, { signal: AbortSignal.timeout(15_000) });
+};
 
 describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
   it('serves current content and canonical metadata on every public route', async () => {
@@ -44,6 +49,7 @@ describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
     ]) {
       const response = await request(path);
       expect(response.status, path).toBe(404);
+      expect(response.headers.get('cache-control'), path).toContain('no-store');
       const html = await response.text();
       expect(html, path).toContain('Nothing lives at this URL.');
       expect(html, path).toContain('<meta name="robots" content="noindex"');

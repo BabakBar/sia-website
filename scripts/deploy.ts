@@ -17,6 +17,7 @@ if (!deployment?.deployment_uuid) throw new Error('Coolify did not return this w
 const endpoint = new URL('/revision.txt', process.env.SMOKE_BASE_URL ?? 'https://www.babakbarghi.com');
 console.log(`Waiting for public revision ${expectedCommit} (deployment ${deployment.deployment_uuid})`);
 const deadline = Date.now() + 10 * 60_000;
+let consecutiveMatches = 0;
 for (let attempt = 0; Date.now() < deadline; attempt++) {
   endpoint.searchParams.set('release', `${expectedCommit}-${attempt}`);
   try {
@@ -25,11 +26,18 @@ for (let attempt = 0; Date.now() < deadline; attempt++) {
       signal: AbortSignal.timeout(10_000),
     });
     if (published.ok && (await published.text()).trim() === expectedCommit) {
-      console.log(`Public website is serving ${expectedCommit}`);
-      process.exit(0);
+      // The proxy may briefly serve both containers during a rolling update.
+      consecutiveMatches++;
+      if (consecutiveMatches === 3) {
+        console.log(`Public website is serving ${expectedCommit}`);
+        process.exit(0);
+      }
+    } else {
+      consecutiveMatches = 0;
     }
   } catch {
     // A rolling update may briefly interrupt the request; the deadline is fixed.
+    consecutiveMatches = 0;
   }
   await Bun.sleep(5000);
 }
