@@ -959,6 +959,31 @@ Run at each visibility milestone:
 11. Repeat the tracked branded-search sample without personalization.
 12. Update the baseline, progress table, audit date, and evidence links here.
 
+## Share-image proposal — recorded 2026-10-11
+
+Future-work candidate from the SaaS-replacement review; no new live audit,
+implementation or deployment. The July baseline and execution sequence above
+were not re-verified by this documentation update.
+
+Existing code already owns the blog and image processing:
+`scripts/generate-assets.mjs` creates the site OG image with Sharp;
+`scripts/generate-hero-images.mjs` creates responsive hero assets. Preserve that
+build-time approach rather than adding a blog platform or image-resizing API.
+
+When article-specific previews are useful, extend the existing asset generation
+with a branded card from each published article's canonical title and URL.
+Prefer SVG + Sharp; use a local HTML template with
+[Playwright screenshots](https://playwright.dev/docs/screenshots) only if the
+design benefits from browser rendering. Generate static assets in the build;
+no screenshot API, Redis or separately operated image service is needed.
+
+Acceptance: built article HTML references the correct unique image by absolute
+canonical URL; the image returns 200 with correct dimensions/content type and
+matches the published title; the default site image remains a valid fallback.
+Review actual share previews after an approved release. Measure referral/click
+benefit rather than importing the social post's unverified savings. This is a
+candidate alongside SEO-01, not evidence that SEO-01 or indexing is complete.
+
 ## Documentation rules
 
 - Update this document when a measured baseline, status, priority, architecture,

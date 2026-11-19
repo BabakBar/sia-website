@@ -1,13 +1,5 @@
-# Personal Website
+# Babak Barghi’s website
 
-A modern, responsive personal website showcasing my experience. Built with Vite + React for fast development and optimal performance.
+[babakbarghi.com](https://www.babakbarghi.com/) is my personal site for selected projects, professional experience, and writing.
 
-## Tech Stack
-
-- **Build Tool**: Vite 7.3
-- **Framework**: React 19.2
-- **Language**: TypeScript 5.9
-- **Styling**: Tailwind CSS 4.1
-- **SEO**: react-helmet-async
-
-Visit [babakbarghi.com](https://www.babakbarghi.com/) to view the website.
+Built with React, TypeScript, Vite, and Tailwind CSS. Blog posts are written in MDX.
