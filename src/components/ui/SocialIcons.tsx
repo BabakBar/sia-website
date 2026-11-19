@@ -27,14 +27,14 @@ const links = [
 
 export default function SocialIcons() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center">
       {links.map(({ href, icon, label }) => (
         <a
           key={label}
           href={href}
           target={href.startsWith('mailto') ? undefined : '_blank'}
           rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-          className="text-muted hover:text-accent-light transition-colors"
+          className="inline-grid size-11 place-items-center text-muted hover:text-accent-light transition-colors"
           aria-label={label}
         >
           {icon}

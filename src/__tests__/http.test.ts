@@ -37,10 +37,16 @@ describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
   }, 20_000);
 
   it('returns real 404s for an unknown page and a missing asset', async () => {
-    for (const path of ['/release-check-missing-page', '/assets/release-check-missing.js']) {
+    for (const path of [
+      '/release-check-missing-page',
+      '/blog/release-check-missing-post',
+      '/assets/release-check-missing.js',
+    ]) {
       const response = await request(path);
       expect(response.status, path).toBe(404);
-      expect(await response.text(), path).toContain('Nothing lives at this URL.');
+      const html = await response.text();
+      expect(html, path).toContain('Nothing lives at this URL.');
+      expect(html, path).toContain('<meta name="robots" content="noindex"');
     }
   }, 20_000);
 
@@ -52,15 +58,35 @@ describe.runIf(Boolean(baseUrl))('real HTTP serving contract', () => {
     expect(script).not.toContain('<!doctype');
     expect(script.length).toBeGreaterThan(1000);
     expect(() => new Function(script)).not.toThrow();
+    expect((await request('/s/api/send')).status).toBe(403);
   }, 20_000);
 
-  it('serves the social image and includes About in the sitemap', async () => {
+  it('serves security headers on documents, errors and the release endpoint', async () => {
+    for (const route of ['/', '/release-check-missing-page', '/revision.txt']) {
+      const { headers } = await request(route);
+      expect(headers.get('content-security-policy'), route).toContain("script-src 'self'");
+      expect(headers.get('content-security-policy'), route).toContain("frame-ancestors 'none'");
+      expect(headers.get('strict-transport-security'), route).toBe('max-age=31536000');
+      expect(headers.get('x-content-type-options'), route).toBe('nosniff');
+      expect(headers.get('x-frame-options'), route).toBe('DENY');
+      expect(headers.get('referrer-policy'), route).toBe('strict-origin-when-cross-origin');
+      expect(headers.get('permissions-policy'), route).toContain('camera=()');
+    }
+  }, 20_000);
+
+  it('serves the social image, sitemap and cacheable fingerprinted assets', async () => {
     const image = await request('/og-image.png');
     expect(image.status).toBe(200);
     expect(image.headers.get('content-type')).toContain('image/png');
     const sitemap = await request('/sitemap.xml');
     expect(sitemap.status).toBe(200);
     expect(await sitemap.text()).toContain(`<loc>${SITE_URL}/about</loc>`);
+    const homepage = await (await request('/')).text();
+    const assetPath = homepage.match(/<script type="module"[^>]*src="(\/assets\/[^"]+\.js)"/)?.[1];
+    expect(assetPath).toBeDefined();
+    const asset = await request(assetPath!);
+    expect(asset.status).toBe(200);
+    expect(asset.headers.get('cache-control')).toContain('immutable');
   }, 20_000);
 
   it.runIf(Boolean(expectedRevision))('serves the expected public revision', async () => {

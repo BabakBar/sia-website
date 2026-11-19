@@ -1,14 +1,10 @@
-import { Helmet } from 'react-helmet-async';
+import PageMetadata from '@/components/layout/PageMetadata';
 import { profile } from '@/content/profile';
-import { ABOUT_META } from '@/lib/seo';
 
 export default function About() {
   return (
     <article className="space-y-6">
-      <Helmet>
-        <title>{ABOUT_META.title}</title>
-        <meta name="description" content={profile.description} />
-      </Helmet>
+      <PageMetadata page="about" />
       <h1 className="text-3xl font-bold">About me</h1>
       <p className="text-muted-light">
         I’m {profile.name}, also known as {profile.alternateName}, a {profile.role} based in {profile.location}. I work

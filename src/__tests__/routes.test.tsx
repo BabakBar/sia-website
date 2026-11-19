@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import { HelmetProvider } from 'react-helmet-async';
 import App from '../App';
 
 beforeEach(() => {
@@ -9,25 +8,26 @@ beforeEach(() => {
 
 function renderAt(path: string) {
   window.history.pushState({}, '', path);
-  return render(
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
-  );
+  return render(<App />);
 }
 
 describe('routes', () => {
   it('renders the blog index at /blog', async () => {
     renderAt('/blog');
     expect(screen.getByRole('heading', { name: /posts/i })).toBeTruthy();
-    // client Helmet must land on the same title the prerenderer stamps
     await waitFor(() => expect(document.title).toBe('Blog | Babak Barghi'));
+    expect(document.head.querySelectorAll('title')).toHaveLength(1);
+    expect(document.head.querySelectorAll('meta[name="description"]')).toHaveLength(1);
+    expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+      'https://www.babakbarghi.com/blog'
+    );
   });
 
-  it('redirects an unpublished post back to the blog index', () => {
+  it('keeps unpublished posts on the same not-found page served by nginx', () => {
     renderAt('/blog/telegram-is-the-cheapest-frontend-i-know');
-    expect(screen.getByRole('heading', { name: /posts/i })).toBeTruthy();
-    expect(window.location.pathname).toBe('/blog');
+    expect(screen.getByRole('heading', { name: /page not found/i })).toBeTruthy();
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex');
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
   });
 
   it('renders a not-found page for unknown paths', () => {

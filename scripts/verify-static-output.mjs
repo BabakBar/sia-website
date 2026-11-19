@@ -30,7 +30,6 @@ const expectedPages = [
   })),
   {
     file: '404.html',
-    canonical: `${siteUrl}/404.html`,
     visibleText: 'Nothing lives at this URL.',
   },
 ];
@@ -46,8 +45,16 @@ for (const page of expectedPages) {
     throw new Error(`${page.file} is missing expected visible content`);
   }
 
-  if (!html.includes(`<link rel="canonical" href="${page.canonical}"`)) {
-    throw new Error(`${page.file} has the wrong canonical URL`);
+  if (page.canonical) {
+    const head = html.slice(0, html.indexOf('</head>'));
+    if (!head.includes(`<link rel="canonical" href="${page.canonical}"`)) {
+      throw new Error(`${page.file} has the wrong canonical URL`);
+    }
+    for (const tag of [/<title>/g, /name="description"/g, /rel="canonical"/g, /property="og:description"/g]) {
+      if ([...head.matchAll(tag)].length !== 1) throw new Error(`${page.file} must have exactly one ${tag.source}`);
+    }
+  } else if (!html.includes('<meta name="robots" content="noindex"') || html.includes('rel="canonical"')) {
+    throw new Error(`${page.file} must be noindex without a canonical`);
   }
 
   if (page.article) {
@@ -71,7 +78,7 @@ for (const page of expectedPages) {
   if (!html.includes('data-website-id="51f09c81-8626-488b-b73b-20c452d3fff7"')) {
     throw new Error(`${page.file} is missing the Umami analytics tracking script`);
   }
-  if (!html.includes(`content="${siteUrl}/og-image.png"`)) {
+  if (page.canonical && !html.includes(`content="${siteUrl}/og-image.png"`)) {
     throw new Error(`${page.file} needs an absolute social image URL`);
   }
   if (page.file === 'index.html') {

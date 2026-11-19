@@ -17,7 +17,7 @@ ARG SOURCE_COMMIT=local
 RUN bun run build && printf '%s\n' "$SOURCE_COMMIT" > dist/revision.txt
 
 # Runtime stage
-FROM nginx:1.29-alpine AS runtime
+FROM nginx:1.30.7-alpine@sha256:bef154735288bc38d99fac41ae63730684bcc661503673a04a0f9bc526ba8598 AS runtime
 
 COPY ops/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html

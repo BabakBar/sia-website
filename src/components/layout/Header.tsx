@@ -4,8 +4,8 @@ import SocialIcons from '../ui/SocialIcons';
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   isActive
-    ? 'text-foreground underline underline-offset-4'
-    : 'text-muted hover:text-accent-light transition-colors';
+    ? 'inline-flex min-h-11 items-center text-foreground underline underline-offset-4'
+    : 'inline-flex min-h-11 items-center text-muted hover:text-accent-light transition-colors';
 
 export default function Header() {
   return (

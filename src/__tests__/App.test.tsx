@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { HelmetProvider } from 'react-helmet-async';
 import App from '../App';
 
 beforeEach(() => {
@@ -9,21 +8,13 @@ beforeEach(() => {
 
 describe('App', () => {
   it('renders without crashing', () => {
-    render(
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    );
+    render(<App />);
 
     expect(screen.getByRole('main')).toBeDefined();
   });
 
   it('renders the favorite books section', async () => {
-    render(
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    );
+    render(<App />);
 
     expect(screen.getByRole('heading', { name: /books i keep recommending/i })).toBeTruthy();
 
@@ -31,11 +22,7 @@ describe('App', () => {
   });
 
   it('serves the presentation photo responsively with stable dimensions', () => {
-    render(
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    );
+    render(<App />);
 
     const image = screen.getByAltText('Babak presenting at DevCord');
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import './globals.css';
 
@@ -12,9 +11,7 @@ if (!root) {
 
 const application = (
   <React.StrictMode>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
+    <App />
   </React.StrictMode>
 );
 

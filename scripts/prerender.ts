@@ -1,121 +1,22 @@
 import { posts } from '../src/content/posts';
-import {
-  ABOUT_META,
-  HOME_META,
-  BLOG_META,
-  SITE_URL,
-  buildArticleJsonLd,
-  buildProfileJsonLd,
-  serializeJsonLd,
-} from '../src/lib/seo';
+import { SITE_URL } from '../src/lib/seo';
 
-export interface PageMeta {
-  path: string; // route path, e.g. '/blog/my-post'
-  title: string;
-  description: string;
-  headline?: string;
-  type?: 'website' | 'article';
-  publishedAt?: string;
-  updatedAt?: string;
+const outlet = '<div id="root">';
+
+export function buildPaths(): string[] {
+  return ['/', '/about', '/blog', ...posts.filter(post => !post.preview).map(post => `/blog/${post.slug}`)];
 }
 
-const HOME_PAGE: PageMeta = {
-  path: '/',
-  ...HOME_META,
-};
-
-export const NOT_FOUND_PAGE: PageMeta = {
-  path: '/404.html',
-  title: 'Page not found | Babak Barghi',
-  description: HOME_PAGE.description,
-};
-
-function escapeHtml(value: string): string {
-  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-}
-
-export function buildPages(): PageMeta[] {
-  return [
-    HOME_PAGE,
-    { path: '/about', ...ABOUT_META },
-    { path: '/blog', ...BLOG_META },
-    ...posts.map(post => ({
-      path: `/blog/${post.slug}`,
-      title: `${post.title} | Babak Barghi`,
-      headline: post.title,
-      description: post.description,
-      type: 'article' as const,
-      publishedAt: post.publishedAt,
-      updatedAt: post.updatedAt,
-    })),
-  ];
-}
-
-function renderArticleHead(page: PageMeta, url: string): string {
-  if (page.type !== 'article' || !page.headline || !page.publishedAt) {
-    return '';
+export function renderRouteHtml(template: string, rendered: string): string {
+  // React serializes hoisted metadata and resource hints before the application root.
+  const rootStart = rendered.indexOf(outlet);
+  if (rootStart < 0 || !template.includes('</head>') || !template.includes(`${outlet}</div>`)) {
+    throw new Error('Cannot join the prerendered route to the Vite document');
   }
 
-  const publishedAt = escapeHtml(page.publishedAt);
-  const updatedAt = escapeHtml(page.updatedAt ?? page.publishedAt);
-  const articleJsonLd = serializeJsonLd(
-    buildArticleJsonLd({
-      headline: page.headline,
-      description: page.description,
-      url,
-      publishedAt: page.publishedAt,
-      updatedAt: page.updatedAt,
-    })
-  );
-
-  return `
-    <meta property="article:published_time" content="${publishedAt}" />
-    <meta property="article:modified_time" content="${updatedAt}" />
-    <script type="application/ld+json">${articleJsonLd}</script>`;
-}
-
-export function renderRouteHtml(template: string, page: PageMeta, applicationHtml: string): string {
-  const title = escapeHtml(page.title);
-  const description = escapeHtml(page.description);
-  const url = `${SITE_URL}${page.path}`;
-  const articleHead = renderArticleHead(page, url);
-  const profileHead =
-    page.path === '/' || page.path === '/about'
-      ? `<script type="application/ld+json" data-rh="true">${serializeJsonLd(buildProfileJsonLd(page.path))}</script>`
-      : '';
-
-  const stampContent = (attr: string, value: string) => (html: string) =>
-    html.replace(
-      new RegExp(`(<meta ${attr} content=")[^"]*(")`),
-      (_match, before: string, after: string) => `${before}${value}${after}`
-    );
-
-  const transforms = [
-    (html: string) => html.replace(/<title>[^<]*<\/title>/, () => `<title>${title}</title>`),
-    (html: string) =>
-      html.replace(
-        /(<link rel="canonical" href=")[^"]*(")/,
-        (_match, before: string, after: string) => `${before}${url}${after}`
-      ),
-    // description gets data-rh so client-side Helmet reconciles this tag
-    // instead of appending a duplicate
-    (html: string) =>
-      html.replace(
-        /<meta name="description" content="[^"]*" ?\/>/,
-        () => `<meta name="description" content="${description}" data-rh="true" />`
-      ),
-    stampContent('property="og:title"', title),
-    stampContent('property="og:description"', description),
-    stampContent('property="og:url"', url),
-    stampContent('property="og:type"', page.type ?? 'website'),
-    stampContent('property="twitter:title"', title),
-    stampContent('property="twitter:description"', description),
-    (html: string) => (articleHead ? html.replace('</head>', `${articleHead}\n  </head>`) : html),
-    (html: string) => (profileHead ? html.replace('</head>', `${profileHead}\n  </head>`) : html),
-    (html: string) => html.replace('<div id="root"></div>', () => `<div id="root">${applicationHtml}</div>`),
-  ];
-
-  return transforms.reduce((html, transform) => transform(html), template);
+  const head = rendered.slice(0, rootStart);
+  const root = rendered.slice(rootStart);
+  return template.replace('</head>', () => `${head}\n  </head>`).replace(`${outlet}</div>`, () => root);
 }
 
 export function renderSitemap(paths: string[]): string {

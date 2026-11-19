@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderToReadableStream } from 'react-dom/server';
-import { HelmetProvider } from 'react-helmet-async';
 import { StaticRouter } from 'react-router';
 import { AppRoutes } from './App';
 
@@ -14,11 +13,11 @@ export async function renderRoute(location: string): Promise<string> {
   try {
     const stream = await renderToReadableStream(
       <React.StrictMode>
-        <HelmetProvider>
+        <div id="root">
           <StaticRouter location={location}>
             <AppRoutes />
           </StaticRouter>
-        </HelmetProvider>
+        </div>
       </React.StrictMode>,
       {
         signal: controller.signal,

@@ -76,8 +76,16 @@ button:focus-visible {
   @apply outline-none ring-2 ring-accent-light ring-offset-2 ring-offset-background rounded-sm;
 }
 
+main:focus {
+  outline: none;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   * {
     animation: none !important;
     transition: none !important;
