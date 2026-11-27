@@ -1,5 +1,5 @@
 // Education
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-entry
+#import "../template/src/lib.typ": cv-section, cv-entry
 
 #cv-section("Education")
 

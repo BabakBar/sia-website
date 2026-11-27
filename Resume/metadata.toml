@@ -44,7 +44,7 @@ language = "en"
 [inject]
     # ATS keyword injection (invisible to humans)
     inject_ai_prompt = false
-    inject_keywords = true
+    inject_keywords = false
     injected_keywords_list = [
         "Cloud Engineer",
         "Platform Engineer",
@@ -158,6 +158,6 @@ language = "en"
             text = "Hannover, Germany"
 
 [lang.en]
-    header_quote = "Cloud Engineer | Solution Architect | Platform & Data"
+    header_quote = "Cloud Architecture  |  Data Platforms  |  Applied AI"
     cv_footer = "Curriculum vitae"
     letter_footer = "Cover letter"

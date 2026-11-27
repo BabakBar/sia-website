@@ -36,7 +36,7 @@ make job NAME=x # Create job-specific variant
 
 - Font warnings (Source Sans, Roboto) are avoided by default by using a Typst-available font in `metadata.toml`
 - Font Awesome 7 installed via homebrew (`brew install --cask font-fontawesome`)
-- English-only (German support removed)
+- Persian AI advisory profile: edit `cv-fa.typ` and run `make cv-fa`
 - Current role: Cloud Engineer at Continental (Azure/AWS, IaC, Data platforms)
 - AWS Certified Solutions Architect (Oct 2024), studying for AZ-104
 

@@ -9,8 +9,8 @@ Typst-powered resume system using the [brilliant-cv](https://typst.app/universe/
 brew install typst  # macOS
 # or: cargo install typst-cli
 
-# Build resume
-make cv
+# Build the English résumé and the Persian AI advisory profile
+make cv cv-fa
 # or: typst compile cv.typ output/Babak_Barghi_Resume.pdf
 
 # Watch mode (auto-rebuild on save)
@@ -22,7 +22,8 @@ make watch
 ```text
 resume/
 ├── cv.typ              # Main resume file
-├── metadata.toml       # Personal info, colors, ATS keywords
+├── cv-fa.typ           # Persian executive profile (right-to-left)
+├── metadata.toml       # Personal info and template settings
 ├── template/           # Standalone template (modified brilliant-cv)
 │   └── src/
 │       ├── lib.typ     # Template entry point
@@ -71,7 +72,8 @@ make clean        # Remove all generated PDFs
 **File structure:**
 ```
 output/
-├── Babak_Barghi_Resume.pdf  # Main CV
+├── Babak_Barghi_Resume.pdf     # English
+├── Babak_Barghi_Resume_FA.pdf  # Persian
 └── jobs/
     ├── aws-cloud-architect.pdf
     ├── azure-devops-engineer.pdf
@@ -103,19 +105,20 @@ This resume is optimized for Applicant Tracking Systems:
 - ✅ Single-column layout
 - ✅ Standard section headers
 - ✅ Clean PDF output (text selectable)
-- ✅ Invisible keyword injection
+- Keywords appear in the visible English résumé text
 - ✅ No photos/graphics
 - ✅ Standard fonts
 
 ## Fonts
 
-By default, this repo uses a Typst-available font (configured in `metadata.toml`) so the PDF builds **without** "unknown font family" warnings.
+The Persian profile uses **Noto Sans Arabic** and **DejaVu Sans**. Install both before compiling it. Its contact links come from `metadata.toml`. Install **Font Awesome 7 Free** (solid and regular) and **Brands** to render the English contact icons.
+
+For English body text, this repo uses a Typst-available font (configured in `metadata.toml`) so the PDF builds **without** "unknown font family" warnings.
 
 If you want the upstream `brilliant-cv` look, install these fonts and then switch the settings in `metadata.toml` under `[layout.fonts]`:
 
 - Source Sans 3 (or Source Sans Pro)
 - Roboto
-- Font Awesome 7 (optional, only needed if your content uses it)
 
 ## Template
 

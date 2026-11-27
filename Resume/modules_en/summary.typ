@@ -1,9 +1,5 @@
-// Professional Summary (compact for one-page CV)
-#import "@preview/brilliant-cv:3.1.1": cv-section
+#import "../template/src/lib.typ": cv-section
 
-#cv-section("Summary")
+#cv-section("Profile")
 
-#block[
-  #set text(size: 9pt)
-  Cloud Engineer and researcher who builds scalable cloud solutions that data/AI teams actually want to use. 8+ years shipping applications, infrastructure, automation, and ML systems at enterprise grade.
-]
+I build data platforms and apply machine learning to manufacturing problems. At Continental, I lead the team that connects sales and production systems to analytics. Alongside that role, I advise an automotive fastener manufacturer on digitalisation and production planning.

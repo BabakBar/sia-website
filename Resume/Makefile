@@ -4,15 +4,21 @@
 TYPST := typst
 OUTPUT := output
 
-.PHONY: cv watch clean help job compile-job list-jobs all-jobs
+.PHONY: cv cv-fa watch clean help job compile-job list-jobs all-jobs
 
 # Default target
 cv: $(OUTPUT)/Babak_Barghi_Resume.pdf
 
-$(OUTPUT)/Babak_Barghi_Resume.pdf: cv.typ metadata.toml modules_en/*.typ
+$(OUTPUT)/Babak_Barghi_Resume.pdf: cv.typ metadata.toml modules_en/*.typ template/src/*.typ template/src/utils/*.typ
 	@mkdir -p $(OUTPUT)
 	$(TYPST) compile cv.typ $@
 	@echo "✓ Built: $@"
+
+cv-fa: $(OUTPUT)/Babak_Barghi_Resume_FA.pdf
+
+$(OUTPUT)/Babak_Barghi_Resume_FA.pdf: cv-fa.typ metadata.toml
+	@mkdir -p $(OUTPUT)
+	$(TYPST) compile cv-fa.typ $@
 
 # Watch mode - auto-rebuild on save
 watch:
@@ -78,6 +84,7 @@ clean:
 help:
 	@echo "Resume Build Commands:"
 	@echo "  make cv                - Build main resume PDF"
+	@echo "  make cv-fa             - Build Persian advisory resume PDF"
 	@echo "  make watch             - Auto-rebuild on changes"
 	@echo ""
 	@echo "Job Variants:"

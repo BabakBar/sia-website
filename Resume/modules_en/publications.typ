@@ -1,5 +1,5 @@
 // Publications
-#import "@preview/brilliant-cv:3.1.1": cv-section
+#import "../template/src/lib.typ": cv-section
 
 #cv-section("Publications")
 

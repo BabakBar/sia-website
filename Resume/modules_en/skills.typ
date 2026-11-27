@@ -1,24 +1,7 @@
-// Technical Skills
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-skill
+#import "../template/src/lib.typ": cv-section
 
-#cv-section("Technical Skills")
+#cv-section("Skills and Credentials")
 
-#cv-skill(
-  type: [Cloud & IaC],
-  info: [Azure · #link("https://www.credly.com/badges/496dbf4c-06e1-4879-b156-3e8ea1866637/public_url")[AWS (Certified Cloud Practitioner)] · Terraform · ARM],
-)
-
-#cv-skill(
-  type: [Platform & Ops],
-  info: [Docker · Kubernetes · GitHub Actions · Azure DevOps · Prometheus · Grafana],
-)
-
-#cv-skill(
-  type: [Code],
-  info: [Python · GO · Bash · PowerShell · SQL · C\#/.NET · Angular],
-)
-
-#cv-skill(
-  type: [Languages],
-  info: [English (C1) · German (A2) · Spanish (B1) · Persian (Native)],
-)
+*Engineering* · Azure, AWS, Databricks, Terraform, SAP integration, Python, SQL, PyTorch, GitHub Actions \
+*Certification* · AWS Certified Solutions Architect – Associate (2024) \
+*Languages* · Persian (native), English (C1), Spanish (B1), German (A2)

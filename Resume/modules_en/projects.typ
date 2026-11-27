@@ -1,16 +1,7 @@
-// Selected Projects
-#import "@preview/brilliant-cv:3.1.1": cv-section
+#import "../template/src/lib.typ": cv-section
 
-#cv-section("Selected Projects")
+#cv-section("Selected AI Work")
 
-#block[
-  *BoringHannover* #h(4pt) #link("https://boringhannover.de")[boringhannover.de] #h(2pt)•#h(2pt) #link("https://github.com/BabakBar/BoringHannover")[GitHub Repo]\
-  #text(size: 9pt)[Events aggregator for Hannover with pluggable scraper architecture — pulls from 8+ local sources; +300 views/week (Python, BeautifulSoup, Astro; GitHub Actions → Docker → Coolify → Hetzner VPS)]
-]
+*#link("https://fabriktakt.com/")[FabrikTakt] · Manufacturing knowledge.* Built a tool that turns operators’ Persian voice and text notes into structured, searchable records for later shifts.
 
-#v(2pt)
-
-#block[
-  *AutoSpendTracker* #h(4pt) #link("https://github.com/BabakBar/AutoSpendTracker")[GitHub Repo]\
-  #text(size: 9pt)[AI powered expense tracker that processes real time transaction notifications, automatically extracts and categorizes spending, and supports multiple currencies and languages (Tech: Python, Pydantic v2, Gemini API, Gmail API, Sheets API, GCP)]
-]
+*Steel quality inspection · Proof of concept.* Built a computer-vision pilot to grade spheroidization in steel micrographs. Model disagreement flags uncertain images for a metallurgist to review.
