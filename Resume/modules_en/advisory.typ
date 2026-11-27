@@ -1,24 +1,8 @@
-// Advisory & Leadership
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-entry
+#import "../layout.typ": section, position
 
-#cv-section("Advisory")
+#section[Advisory and board experience]
+#position([Digital Transformation Advisor · Taliman], [Dec 2017 – present])
+Advise the CEO part-time on digitalising operations and improving production planning at a processor of cold-heading steel wire for fastener and automotive manufacturers.
 
-#cv-entry(
-  title: [Digital Transformation Advisor (Part-time)],
-  society: [Taliman],
-  date: [12/2017 – Present],
-  location: [],
-  description: list(
-    [Advise the CEO on digital transformation and production planning optimization for an automotive fastener manufacturer],
-  ),
-)
-
-#cv-entry(
-  title: [Board Member / Shareholder (Family Business)],
-  society: [Sirjan Voltage (S.V.Co)],
-  date: [03/2010 – Present],
-  location: [],
-  description: list(
-    [Board member and shareholder in an electrical manufacturing business including electronics and power infrastructure],
-  ),
-)
+#position([Board Member · Sirjan Voltage], [Mar 2010 – present])
+Board member and shareholder in a family-owned manufacturer of electrical and electronic equipment.

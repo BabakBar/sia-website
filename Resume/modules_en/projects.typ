@@ -1,7 +1,8 @@
-#import "../template/src/lib.typ": cv-section
+#import "../layout.typ": section, position
 
-#cv-section("Selected AI Work")
+#section[Selected work in industrial AI]
+#position([Steel micrograph inspection], [Computer-vision pilot])
+Built a PyTorch prototype to grade carbide spheroidization in steel wire rod. A ten-model ensemble flags images where predictions disagree, so a metallurgist can review borderline samples. The pilot separates cases suitable for spot checks from those that need manual inspection.
 
-*#link("https://fabriktakt.com/")[FabrikTakt] · Manufacturing knowledge.* Built a tool that turns operators’ Persian voice and text notes into structured, searchable records for later shifts.
-
-*Steel quality inspection · Proof of concept.* Built a computer-vision pilot to grade spheroidization in steel micrographs. Model disagreement flags uncertain images for a metallurgist to review.
+#position([#link("https://fabriktakt.com/")[FabrikTakt]], [Independent project])
+Built a manufacturing knowledge tool around an operator’s existing workflow. Operators send a Persian voice or text note through Telegram. Gemini structures the note, the operator confirms it, and a later shift can search the resulting record in PostgreSQL.

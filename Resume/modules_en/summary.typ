@@ -1,5 +1,2 @@
-#import "../template/src/lib.typ": cv-section
-
-#cv-section("Profile")
-
-I build data platforms and apply machine learning to manufacturing problems. At Continental, I lead the team that connects sales and production systems to analytics. Alongside that role, I advise an automotive fastener manufacturer on digitalisation and production planning.
+#v(7pt)
+As Cloud Architect at Continental, I manage a six-person team and own the platform that connects Salesforce, Azure and SAP across 57 countries. My background in metallurgy led me from mine supply chains to automotive R&D, where I built models to predict tire-compound properties. Today I also advise a steel processor on digitalisation and production planning.

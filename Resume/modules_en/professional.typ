@@ -1,43 +1,28 @@
-#import "../template/src/lib.typ": cv-section, cv-entry
+#import "../layout.typ": section, position
 
-#cv-section("Professional Experience")
+#section[Professional experience]
 
-#cv-entry(
-  title: [Cloud Engineer],
-  society: [Continental AG],
-  date: [07/2025 – Present],
-  location: [Hannover, Germany],
-  description: list(
-    [Own the Salesforce–Azure–SAP integration platform serving teams in 57 countries. Lead engineers in Germany, India, Malaysia and the US who keep data flowing to analytics platforms including Databricks.],
-    [Designed the development and production Azure Databricks environments for a 13-person analytics team. Codified private networking and data access controls with Terraform and Unity Catalog.],
-    [Designed a credential rotation workflow for secure file transfers at three manufacturing plants.],
-  ),
-)
+#position([Continental AG], [Sep 2022 – present], detail: [Hannover, Germany · Previous assignment in Mexico])
 
-#cv-entry(
-  title: [IT Systems Engineer],
-  society: [Continental AG],
-  date: [09/2022 – 06/2025],
-  location: [Germany and Mexico],
-  description: list(
-    [Built predictive models for tire-compound properties in a virtual lab spanning 150+ models and 10,000+ laboratory tests. Developed retrieval-augmented generation (RAG) tools for manufacturing planning.],
-    [Automated daily updates to an internal talent-matching platform, processing 70,000+ employee records across 56 countries with Python and AWS Lambda.],
-    [Led data validation and prepared user acceptance testing for SAP production-planning rollouts in Belgium and Romania.],
-  ),
-)
+*Cloud Architect · Current role*
+- Lead engineers in Germany, the United States, India and Malaysia. We operate the integrations that supply sales and manufacturing data to enterprise analytics platforms, including Databricks.
+- Own the architecture of the global Salesforce–Azure–SAP platform, including secure APIs, Kubernetes (AKS), private connectivity and service identities.
 
-#cv-entry(
-  title: [AI Researcher (part-time)],
-  society: [TechTalent-Lab, Polytechnic University of Catalonia],
-  date: [12/2020 – 02/2022],
-  location: [Barcelona, Spain],
-  description: list([Deployed a conversational assistant for PhD programme enquiries across four Spanish universities.]),
-)
 
-#cv-entry(
-  title: [Software Implementation Expert],
-  society: [FANAP ICT],
-  date: [07/2018 – 09/2020],
-  location: [Tehran, Iran],
-  description: list([Implemented the supply-chain module of an ERP system for MIDHCO mining operations, including integration and data migration.]),
-)
+#v(4pt)
+*Cloud Engineer · Manufacturing data platforms*
+- Designed development and production Azure Databricks environments for a 13-person analytics team. Used Terraform to make private networking repeatable and Unity Catalog to govern access to data.
+- Designed automated credential rotation for secure file transfers at three manufacturing plants.
+
+
+#v(4pt)
+*IT Systems Engineer · Sep 2022 – Jun 2025*
+- Built models for tire-compound prediction in a virtual lab spanning 150+ models and 10,000+ laboratory tests. Also developed retrieval-augmented generation tools for production planning.
+- Automated daily talent-matching data updates for 70,000+ employee records across 56 countries using Python and AWS Lambda.
+- Led data validation and prepared user acceptance testing for SAP production-planning rollouts in Belgium and Romania.
+
+#position([AI Researcher · TechTalent-Lab, UPC], [Dec 2020 – Feb 2022], detail: [Part-time · Barcelona, Spain])
+Deployed a conversational assistant that answered PhD applicants’ questions across four Spanish universities, using Dialogflow and Google Cloud Functions.
+
+#position([Software Implementation Expert · FANAP ICT], [Jul 2018 – Sep 2020], detail: [Tehran, Iran])
+Implemented the supply-chain module of MIDHCO’s mining ERP system, including systems integration and migration of operational data.

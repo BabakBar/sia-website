@@ -1,7 +1,6 @@
-#import "../template/src/lib.typ": cv-section
+#import "../layout.typ": section
 
-#cv-section("Skills and Credentials")
-
-*Engineering* · Azure, AWS, Databricks, Terraform, SAP integration, Python, SQL, PyTorch, GitHub Actions \
-*Certification* · AWS Certified Solutions Architect – Associate (2024) \
-*Languages* · Persian (native), English (C1), Spanish (B1), German (A2)
+#section[Skills and credentials]
+*Engineering* · Azure, AWS, Databricks, Terraform, AKS, SAP integration, Python, SQL, PyTorch, GitHub Actions. \
+*Certification* · AWS Certified Solutions Architect – Associate (2024). \
+*Languages* · Persian (native), English (C1), Spanish (B1), German (A2).
