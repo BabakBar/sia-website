@@ -1,52 +1,28 @@
-// Professional Experience
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-entry
+#import "../layout.typ": section, position
 
-#cv-section("Professional Experience")
+#section[Professional experience]
 
-// Continental AG - Cloud Engineer (Current Role)
-#cv-entry(
-  title: [Cloud Engineer],
-  society: [Continental AG - OESL],
-  date: [07/2025 – Present],
-  location: [Hannover, Germany],
-  description: list(
-    [Architected Azure Databricks platform (dev+prod) for 13 person Data/Analytics team; established secure baseline via Terraform (VNet injection, private endpoints, NSGs, Unity Catalog) enabling enterprise AI/ML workloads with repeatable, auditable deployments],
-    [Designed automated SFTP credential rotation across 3 manufacturing plants using Azure Automation and Key Vault; yearly rotation with email notifications to replaced manual process],
-    [Deployed internal CMDB microservice solution (5 Azure Functions, Web App) for asset governance and compliance tracking]
-  ),
-)
+#position([Continental AG], [Sep 2022 – present], detail: [Hannover, Germany · Previous assignment in Mexico])
 
-// Continental AG - IT Solutions Engineer
-#cv-entry(
-  title: [IT Systems Engineer],
-  society: [Continental AG],
-  date: [09/2022 – 06/2025],
-  location: [Germany & Mexico],
-  description: list(
-    [Automated daily data pipeline for global Talent Matching platform (56 countries, 70k+ employee records): Python on AWS Lambda extracting and transforming SuccessFactors data],
-    [Built ML models across Tires R&D and production: Virtual Lab for tire compound prediction (150+ models, 10k+ lab tests) and RAG systems for manufacturing planning],
-    [Owned key delivery tasks across enterprise programs: Drove data validation/UAT readiness for SAP PP/IBP/APO rollouts (Belgium, Romania) and shipped internal Automotive Windows/Web applications],
-  ),
-)
+*Cloud Architect · Current role*
+- Lead engineers in Germany, the United States, India and Malaysia. We operate the integrations that supply sales and manufacturing data to enterprise analytics platforms, including Databricks.
+- Own the architecture of the global Salesforce–Azure–SAP platform, including secure APIs, Kubernetes (AKS), private connectivity and service identities.
 
-// TechTalent-Lab - AI Researcher
-#cv-entry(
-  title: [AI Researcher (Part-time)],
-  society: [TechTalent-Lab – UPC],
-  date: [12/2020 – 02/2022],
-  location: [Barcelona, Spain],
-  description: list(
-    [Deployed conversational AI for PhD program inquiries across 4 Spanish universities (DialogFlow on GCP: Cloud Functions)],
-  ),
-)
 
-// FANAP - Software Implementation Expert
-#cv-entry(
-  title: [Software Implementation Expert],
-  society: [FANAP ICT],
-  date: [07/2018 – 09/2020],
-  location: [Tehran, Iran],
-  description: list(
-    [Implemented end-to-end ERP Supply Chain module for MIDHCO mining operations (7,000+ employees), managing system integration and large-scale data migration],
-  ),
-)
+#v(4pt)
+*Cloud Engineer · Manufacturing data platforms*
+- Designed development and production Azure Databricks environments for a 13-person analytics team. Used Terraform to make private networking repeatable and Unity Catalog to govern access to data.
+- Designed automated credential rotation for secure file transfers at three manufacturing plants.
+
+
+#v(4pt)
+*IT Systems Engineer · Sep 2022 – Jun 2025*
+- Built models for tire-compound prediction in a virtual lab spanning 150+ models and 10,000+ laboratory tests. Also developed retrieval-augmented generation tools for production planning.
+- Automated daily talent-matching data updates for 70,000+ employee records across 56 countries using Python and AWS Lambda.
+- Led data validation and prepared user acceptance testing for SAP production-planning rollouts in Belgium and Romania.
+
+#position([AI Researcher · TechTalent-Lab, UPC], [Dec 2020 – Feb 2022], detail: [Part-time · Barcelona, Spain])
+Deployed a conversational assistant that answered PhD applicants’ questions across four Spanish universities, using Dialogflow and Google Cloud Functions.
+
+#position([Software Implementation Expert · FANAP ICT], [Jul 2018 – Sep 2020], detail: [Tehran, Iran])
+Implemented the supply-chain module of MIDHCO’s mining ERP system, including systems integration and migration of operational data.

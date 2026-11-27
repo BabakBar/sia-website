@@ -4,15 +4,21 @@
 TYPST := typst
 OUTPUT := output
 
-.PHONY: cv watch clean help job compile-job list-jobs all-jobs
+.PHONY: cv cv-fa watch clean help job compile-job list-jobs all-jobs
 
 # Default target
 cv: $(OUTPUT)/Babak_Barghi_Resume.pdf
 
-$(OUTPUT)/Babak_Barghi_Resume.pdf: cv.typ metadata.toml modules_en/*.typ
+$(OUTPUT)/Babak_Barghi_Resume.pdf: cv.typ layout.typ metadata.toml modules_en/*.typ
 	@mkdir -p $(OUTPUT)
 	$(TYPST) compile cv.typ $@
 	@echo "✓ Built: $@"
+
+cv-fa: $(OUTPUT)/Babak_Barghi_Resume_FA.pdf
+
+$(OUTPUT)/Babak_Barghi_Resume_FA.pdf: cv-fa.typ layout.typ metadata.toml
+	@mkdir -p $(OUTPUT)
+	$(TYPST) compile cv-fa.typ $@
 
 # Watch mode - auto-rebuild on save
 watch:
@@ -27,7 +33,7 @@ ifndef NAME
 endif
 	@mkdir -p jobs $(OUTPUT)/jobs
 	@if [ ! -f jobs/$(NAME).typ ]; then \
-		cp cv.typ jobs/$(NAME).typ; \
+		sed -e 's|"layout.typ"|"../layout.typ"|' -e 's|"modules_en/|"../modules_en/|' cv.typ > jobs/$(NAME).typ; \
 		echo "✓ Created jobs/$(NAME).typ"; \
 	else \
 		echo "⚠ jobs/$(NAME).typ already exists"; \
@@ -78,6 +84,7 @@ clean:
 help:
 	@echo "Resume Build Commands:"
 	@echo "  make cv                - Build main resume PDF"
+	@echo "  make cv-fa             - Build Persian advisory resume PDF"
 	@echo "  make watch             - Auto-rebuild on changes"
 	@echo ""
 	@echo "Job Variants:"

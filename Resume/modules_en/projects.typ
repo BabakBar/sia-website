@@ -1,16 +1,8 @@
-// Selected Projects
-#import "@preview/brilliant-cv:3.1.1": cv-section
+#import "../layout.typ": section, position
 
-#cv-section("Selected Projects")
+#section[Selected work in industrial AI]
+#position([Steel micrograph inspection], [Computer-vision pilot])
+Built a PyTorch prototype to grade carbide spheroidization in steel wire rod. A ten-model ensemble flags images where predictions disagree, so a metallurgist can review borderline samples. The pilot separates cases suitable for spot checks from those that need manual inspection.
 
-#block[
-  *BoringHannover* #h(4pt) #link("https://boringhannover.de")[boringhannover.de] #h(2pt)•#h(2pt) #link("https://github.com/BabakBar/BoringHannover")[GitHub Repo]\
-  #text(size: 9pt)[Events aggregator for Hannover with pluggable scraper architecture — pulls from 8+ local sources; +300 views/week (Python, BeautifulSoup, Astro; GitHub Actions → Docker → Coolify → Hetzner VPS)]
-]
-
-#v(2pt)
-
-#block[
-  *AutoSpendTracker* #h(4pt) #link("https://github.com/BabakBar/AutoSpendTracker")[GitHub Repo]\
-  #text(size: 9pt)[AI powered expense tracker that processes real time transaction notifications, automatically extracts and categorizes spending, and supports multiple currencies and languages (Tech: Python, Pydantic v2, Gemini API, Gmail API, Sheets API, GCP)]
-]
+#position([#link("https://fabriktakt.com/")[FabrikTakt]], [Independent project])
+Built a manufacturing knowledge tool around an operator’s existing workflow. Operators send a Persian voice or text note through Telegram. Gemini structures the note, the operator confirms it, and a later shift can search the resulting record in PostgreSQL.

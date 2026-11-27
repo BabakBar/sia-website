@@ -1,22 +1,6 @@
-// Education
-#import "@preview/brilliant-cv:3.1.1": cv-section, cv-entry
+#import "../layout.typ": section, position
 
-#cv-section("Education")
-
-#cv-entry(
-  title: [M.Sc. Technology & Engineering Management],
-  society: [Polytechnic University of Catalonia (UPC)],
-  date: [2022],
-  location: [Barcelona, Spain],
-  description: list(
-    [Thesis: "Chatbots in Recruitment and Selection Practices" (Grade: 9.5/10)],
-  ),
-)
-
-#cv-entry(
-  title: [B.Sc. Metallurgy & Materials Engineering],
-  society: [Ferdowsi University of Mashhad],
-  date: [2017],
-  location: [Iran],
-  description: [],
-)
+#section[Education and research]
+#position([M.Sc. Technology and Engineering Management], [2022], detail: [Polytechnic University of Catalonia · Barcelona, Spain])
+Researched chatbots in recruitment and selection for a master’s thesis graded 9.5/10.
+#position([B.Sc. Metallurgy and Materials Engineering], [2017], detail: [Ferdowsi University of Mashhad · Iran])
